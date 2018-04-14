@@ -1,0 +1,78 @@
+ ____   ___  ____  _____ ____  
+|  _ \ / _ \|  _ \| ____|  _ \ 
+| |_) | | | | |_) |  _| | |_) |
+|  _ <| |_| |  __/| |___|  _ < 
+|_| \_\\___/|_|   |_____|_| \_\
+                               
+A GENETIC ROP-CHAIN DEVELOPMENT TOOL
+
+                                                                      
+  /////////////////////////////////////////////////////////////////// 
+  \\                                      `-. ``-`..`              // 
+  \\                                     .+`...-o- .`.`            // 
+  \\         ```              ``.-`      h:-`    ./h-`...`         // 
+  \\   `..---:--+:-         .-:. `h-     +m`+.     `.+..`.-        // 
+  \\  --.:://:-.-``:`      +-.,`: .--     :-.s+`.      ```         // 
+  \\  .```      `/ `:     .Ns. ~_~ .o.      `---/..::`             // 
+  \\            `s .-     //o` :o:  +y.        `.+o/.o.`           // 
+  \\            h:`/     .://`_____+:.:+`         `.-` o`          // 
+  \\          `y- -`    :.`-:./:+:`+```sm/`         `:`//          // 
+  \\         `:.-+.    -h``../oyy:::`` `/.s.         +s-/          // 
+  \\        ```:y-     om.`-``-+//. `.: .h++`       :++s           // 
+  \\      `.  -o`     .;o:+-  ...-:/..o`/s.`/-..``---:y.     ``````// 
+  \\    `-. `..     -.` -.y`'y\/\/\/y`o.:`s`.:....y//-``..``..``.-.// 
+  \\   .+``..     `h+:`oy`:{          }-`-dysds+---..-..://-:--..--// 
+  \\  .h-:-`     .yh:/dMh.` :/\/\/\/\-   `sdy-.--.-`.--:/:-``      // 
+  \\  y/:s     `-+/-hy/hs..`:`/;;;/:.` .``/s+`.``/s//-`          `/// 
+  \\  m:.:-` `:---s+.``/.:.`...::-+``` o..+:+o:/o-`            `-/.// 
+  \\  /...``.-+++o/.`..`/: .``.`` `-```s+`/mN:...``.```.``...`.:oo-// 
+  \\   ``....-//:...`.-+h+//``. . -s-./+/  :+-.--..----:-:/:--/o.  // 
+  \\     ``..``+y..--s:ydyd:``    oy+::.- ``:/oo/o/:/:-.`.-..:---` // 
+  \\   ``-` .s:o//+/.o+ss+s-   `` .`````/ .o+ds`::.--..``` ``-/.-:`// 
+  \\  -.``/:ys/:--./hm/.`.`   `-::+:`  `ho..+s`               - -`:// 
+  \\ .s .o+--/+./yo/hy..-` `-+--.://. ` -mydh`                ..``-// 
+  \\ /: -.`/s/.sy-` oNy/+o/-..--.```````.+hhy.```             `- .`//
+  \\ /y``-hs:-/-    sd:--.`.--`````` `-`.``..`````.``        `. .` // 
+  \\ .N` .so/-``...`` `.--/::`--.  `...-. +md`  `..`.``.`.  .````  // 
+  \\  +/-`  ``.-  `./oyy/ys-```-:  /..` . +dd       `.. ``````.`   // 
+  \\   .+s++/++:```/mmmy+m-`    .  --`` .`o+o-          `  ``      // 
+  \\    :o--.     .ddmdymo:     `  -- `  `:-.o:                    // 
+  \\    .dh.:`   .dydNMNd`.    ``   . :`  `   +o                   // 
+  \\     :d/--...ymdhhmd:`````  ``  ` ` `   o+mN+                  // 
+  \\      `/+.``````````````....`     `    /dohmN-                 // 
+  \\         `.odyo/oy+:--.-`....-  ` `       `:ss.                // 
+  \\          -NMMy+Nhy...:`:-/moo` .h-      `` `:s:`              // 
+  \\          hMMMNNhs+  `o:yodmd`- -Nh-``   yd+.  `s.             // 
+  \\          yhmmNm/.   :hysmMMNs: `dNdd:   dNmd/..:`             // 
+  \\             `/h``  .mmNmyoooyy:..`--/...-`  ``                // 
+  \\             -N:    -Nho:                                      // 
+  \\              -/-.:/s+.                                        // 
+  \\                  `                                            // 
+  '\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+  
+
+Genetic programming platform for evolving ROP-chain payloads,
+implemented in Rust. Under construction.
+
+                          BRIEF EXPLANATION
+
+ROPER is a genetic ROP-chain compiler that I have designed and developed. It
+compiles ROP-chains, by creating a miniature ecosystem in which ROP-chains
+evolve.  ROPER can be used to develop payloads -- including payloads that
+exhibit learned or evolved behaviour -- unlikely to be developed by humans.
+
+Definitions:
+
+1. Return-Oriented Programming is an exploit technique that, instead of writing
+malicious code ("shellcode") into a process' executable memory, collages
+together a series of "gadgets" that already subside in executable memory. This
+is useful when the process has no memory segments that are flagged as both
+executable and writeable (W^X/DEP). 
+
+2. Genetic programming is the implementation of natural selection in code.  A
+population of random programmes (in this case, ROP-chains) is generated. A
+fitness function is then defined, and used to rank the results of their
+execution. Fitter programmes are made more likely to breed. Mutation operators
+are applied to the offspring, and the next generation of the process begins.
+This carries on until the desired outcome is obtained. 
+
