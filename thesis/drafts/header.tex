@@ -1,0 +1,36 @@
+\usepackage[a-1b]{pdfx}
+%\usepackage[acronym]{glossaries}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{color}
+\usepackage{needspace}
+\usepackage{gnuplot-lua-tikz}
+\usepackage{multicol,calc,listings}
+\lstset{
+  basicstyle=\ttfamily,
+  keepspaces=true,
+  columns=fullflexible,
+  escapeinside={(*}{*)}
+}
+\usepackage{booktabs,url}
+%  For formal tables
+{\ttfamily \hyphenchar\the\font=`\-} 
+\usepackage{makeidx}
+\makeindex
+
+\setcounter{secnumdepth}{5}
+% Render all text in math sections monospaced
+%\everymath{\mathtt{\xdef\tmp{\fam\the\fam\relax}\aftergroup\tmp}}
+%\everydisplay{\mathtt{\xdef\tmp{\fam\the\fam\relax}\aftergroup\tmp}}
+%\setbox0\hbox{$ $} 
+
+\newcommand\addr[1] {\widehat{#1}}
+\newcommand\deref[1] {\breve{#1}}
+\newcommand\corn[1] {\ulcorner {#1} \urcorner}
+\newcommand\word[1] {$\mathbb{N}^{\,#1}$}
+
+\usepackage[scaled=0.85]{beramono}
+\usepackage{quotchap}
+\lstset{basicstyle=\footnotesize\ttfamily}
+%\makenoidxglossaries
+\loadglsentries{glossary}

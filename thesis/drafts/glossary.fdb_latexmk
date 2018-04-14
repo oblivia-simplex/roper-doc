@@ -1,0 +1,12 @@
+# Fdb version 3
+["latex"] 1522264864 "glossary.tex" "glossary.dvi" "glossary" 1522264864
+  "/nix/store/6f95awjjmjz1ba2pjjbg1ks844qfj9v2-texlive-combined-full-2016/share/texmf-var/web2c/pdftex/latex.fmt" 1 3901162 6aa83583733374b1ff817eda98cce0d3 ""
+  "/nix/store/6f95awjjmjz1ba2pjjbg1ks844qfj9v2-texlive-combined-full-2016/share/texmf/fonts/map/fontname/texfonts.map" 1 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
+  "/nix/store/6f95awjjmjz1ba2pjjbg1ks844qfj9v2-texlive-combined-full-2016/share/texmf/fonts/tfm/public/cm/cmti10.tfm" 1 1480 aa8e34af0eb6a2941b776984cf1dfdc4 ""
+  "/nix/store/6f95awjjmjz1ba2pjjbg1ks844qfj9v2-texlive-combined-full-2016/share/texmf/fonts/tfm/public/cm/cmtt10.tfm" 1 768 1321e9409b4137d6fb428ac9dc956269 ""
+  "/nix/store/6f95awjjmjz1ba2pjjbg1ks844qfj9v2-texlive-combined-full-2016/share/texmf/web2c/texmf.cnf" 1 33577 0ee803e4eb2b18f01ac17c7ed520efd9 ""
+  "glossary.aux" 1522264845 8 a94a2480d3289e625eea47cd1b285758 ""
+  "glossary.tex" 1522264620 2441 9dd239312263fd5762e0e1ff4a142955 ""
+  (generated)
+  "glossary.log"
+  "glossary.dvi"

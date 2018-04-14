@@ -1,0 +1,9 @@
+PWD /home/oblivia/text/Projects/thesis/drafts
+INPUT /nix/store/6f95awjjmjz1ba2pjjbg1ks844qfj9v2-texlive-combined-full-2016/share/texmf/web2c/texmf.cnf
+INPUT /nix/store/6f95awjjmjz1ba2pjjbg1ks844qfj9v2-texlive-combined-full-2016/share/texmf-var/web2c/pdftex/latex.fmt
+INPUT glossary.tex
+OUTPUT glossary.log
+INPUT /nix/store/6f95awjjmjz1ba2pjjbg1ks844qfj9v2-texlive-combined-full-2016/share/texmf/fonts/map/fontname/texfonts.map
+INPUT /nix/store/6f95awjjmjz1ba2pjjbg1ks844qfj9v2-texlive-combined-full-2016/share/texmf/fonts/map/fontname/texfonts.map
+INPUT /nix/store/6f95awjjmjz1ba2pjjbg1ks844qfj9v2-texlive-combined-full-2016/share/texmf/fonts/tfm/public/cm/cmtt10.tfm
+INPUT /nix/store/6f95awjjmjz1ba2pjjbg1ks844qfj9v2-texlive-combined-full-2016/share/texmf/fonts/tfm/public/cm/cmti10.tfm

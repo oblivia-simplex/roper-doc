@@ -1,0 +1,166 @@
+* Notes on Q: Exploit Hardening Made Easy
+:PROPERTIES:
+:CUSTOM_ID: schwartz11
+:END:
+
+* "Darwin Inside the Machines: Malware Evolution and the Consequences for Computer Security"
+:PROPERTIES:
+:CUSTOM_ID: iliopoulos11
+:END:
+
+[[file:~/Library/GENETIC_PROGRAMMING/pdfs/darwin_inside_the_machines.1111.2503.pdf]]
+[[https://arxiv.org/pdf/1111.2503.pdf]]
+
+
+Dimitris Iliopoulos, P\'eter Sz\"or, and Christoph Adami
+
+"Recent advances in anti-malware technologies have steered the
+security industry away from maintaining vast signature databases and
+into newer defense technologies such as behaviour blocking,
+applications white-listing and others. Most would agree that the
+reasoning behind this is to keep up with the arms race established
+between malware writers and the security community almost three
+decades ago. Still, malware writers have not as yet created new
+paradigms. Indeed, malicious code development is still largely limited
+to code pattern changes utilizing polymorphic and metamorphic engines,
+as well as executable packer and wrapper technologies. Each new
+malware instance retains the exact same core functionality as its
+ancestor and only alters the way it looks. What if, instead, malware
+were able to change its function or behaviour autonomously? What if,
+in the absence of human intervention, computer viruses resembled
+biological viruses in their ability to adapt to new defense
+technologies as soon as they came into effect? In this paper we will
+provide the theoretical proof behind malware implementation that
+closely models Darwinian evolution." (1)
+
+FUCKING YES
+
+
+"As opposed to computer malware, Alife systems are squarely aimed at
+the research environment. In these systems, the code is implemented
+with small, well-defined instruction sets that are highly evolvable,
+that is, the probability that a mutation leads to another functional
+program is high (of the order of several to tens of percents).  Most
+standard computer languages are not robust in this manner. For
+example, the x86 instruction set only tolerates very few mutations (on
+the order of fractions of a percent of the code [7])." (1-2)
+
+- this is very nicely put. i make the same point in my Ottawa slides, and elsewhere.
+
+A source worth consulting:
+
+"In particular, Spafford performed an exhaustive review of computer
+viruses under the Artificial Life perspective confirming the absence
+of functional evolution in such programs [9]."
+
+-> Spafford EH (1994) Computer viruses as Artificial Life. Artif Life I: 249-265.
+
+
+"More recently, the idea [of evolving malware] has resurfaced, with a
+higher emphasis this time on the outcome [10] and the possible
+mechanics of its emergence [11]. We argue here that apart from a hint
+and some failed implementation attempts (e.g. W32/Zellome, see [12]),
+self-evolving malware has yet to appear. The concept itself, however,
+is relatively simple, and the consequences of the release of evolving
+malware should be studied." (2)
+
+-> 10: Hofmeyr S (2005) Evolving viruses. Nth world commentaries (Sana Security Inc.)
+-> 11: Agapow P-M. Computer viruses: The inevitability of evolution? In: Green D,
+   Bossmaier T, editors; 1993. Amsterdam: IOS Press. pp.46-54.
+-> 12: Ferrie P, Shannon H (2005) It's zell(d)ome the one you expect -- w32/zellome.
+   Virus Bulletin 5/2005: 7-11.
+
+"Evolution as a process requires the presence of three simple elements: 
+/replication/, /variation/, and /differential fitness/." (2)
+
+"During the three decades of their existence, computer viruses have
+moved from simple replicators to advanced polymorphic and metamorphic
+implementations [17]. The underlying goal of this progression has been
+to increase the variability of the virus' signature to the point that
+tracking different instances of the same virus becomes too daunting a
+task. Nonetheless, even for the most sophisticated metamorphic viruses
+[18], the specific functionality and overall behaviour of the virus
+remain intact. Signature obfuscation, or as we will refer to it here
+as 'cryptic variation', will not allow for the discovery of new
+functionality.  What true Darwinian evolution can accomplish is vastly
+different, because it is the process responsible for the /de novo/
+generation of all the complexity of life." (pp 2-3)
+
+ohboyboyhoyhoyy
+
+"The variation observed in surviving lineages of biological viruses
+(as compared to their ancestors) is a direct result of information
+'exchange' between the virus and its environment. Simply put,
+biological viruses are constantly testing new ways of exploiting
+environmental resources via the process of mutation.  In contrast,
+computer viruses do not exhibit such traits, relying instead on
+changing their appearance to avoid detection. /Functional/ (as opposed
+to cryptic) variation, such as the discovery of a new exploit or the
+mimicry of non-malicious behaviour masking malicious actions, is not
+part of the arsenal of current malware. While there are examples of
+functional variation that have occurred by chance (reviewed below in
+support of our hypothesis) ther are no examples of computer malware
+that exhibits intentional functional change between generations.  In
+the absence of functional variation, differential fitness will never
+be realized in computer viruses since the reproductive success of
+offspring remains unchanged. In the event that a behavioural signature
+is developed for the virus, the entire population, including the
+cryptic variants, is affected equally." (3)
+
+
+"Researchers that envisioned how autonomously evolving malware could
+be coded have largely focussed on binary code manipulation.
+The high percentage of lethal mutations that would be experienced by
+such malware (due to the brittleness of the code) would forbid
+evolution from occurring. Conseuqently, the need for an 'evolvable'
+language or meta-language of implementation becomes apparent." (3)
+
+no shit! why does every other paper miss this (with the exception of
+Sadia Noreen's -- she does set up a very sensible and evolvable
+metalang to run grammatical GP over, but ends up kind of squandering
+it on a relatively unambitious problem. I hope she kept running with
+it. Maybe the technology's become proprietary. :shrug:
+
+cf. Ofria C., Adami C. Colier TC (2002) Design of evolvable 
+computer languages. IEEE Transactions on Evolutionary Computation 6: 420-424
+
+oh my shit oh my shit
+
+"By relying instead on functional code that is already present in the
+malware's environment, the problem is reduced to finding a way of 
+adopting that functionality in the malware code, instead of creating
+a language that can code for that functionality autonomously." (3-4)
+
+"A threat might be able to snatch code from another program in its
+environment. We have seen examples of a virus like Pinfi jumping on
+top of worms to replicate in new environments as a combination
+threat. Security products do not always recognize the worm once it is
+infected with a virus, and the combination helps the survival of both
+threats. Disinfected worm copies can also escape attention, as can
+copies of worm replicas that changed due to transfer of code over
+network channels. It is conceivable that an evolutionary function in
+the malware could snatch clean or malicious code from other
+programs. It could integrate code from other programs by identifying
+function prolog and epilog code. When this takes place, a function is
+safely inserted into the code base of the evolutionary virus as a new
+“function” by running the newly acquired code as a new
+thread. Existing features might be replaced by the code, which could
+end up producing reliable output to a given input.  (For example, as
+long as function X returns values greater than 0, it is accepted.)
+Even complete functionality might be snatched from another clean
+program, or another virus as well. As previously predicted [17], a
+cooperation protocol can enhance sharing of features between malicious
+executables as well. Code snatching is a tried and true function of
+almost all biological organisms. Bacteria exchange code in small
+segments called plasmids, while viruses routinely integrate bacterial
+code into their own. Often, viruses carry this piece of code to other
+bacteria, a phenomenon known as transduction."
+(6)
+
+holy shit
+
+* Schmitt on GA and ergodicity
+:PROPERTIES:
+:CUSTOM_ID: schmitt01
+:END:
+ 

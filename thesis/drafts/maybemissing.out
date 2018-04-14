@@ -1,0 +1,163 @@
++++ thesis.recovered.org	2018-04-07 14:39:08.654177226 -0300
++* TODO Experimental Studies
++*** Classification of the Iris data set
++The famous iris data set is a well-worn benchmark for training elementary
++machine learning systems, and to the machine learning specialist, there is
++If you're interested in developing an intelligent classifier, you're 
++unlikely to consider doing so using the unweildy scraps of hijacked process's
++memory, and if you're interested in crafting a low-level attack payload, a reverse
++shell probably seems like a more sensible goal than a moderately clever flower
++sorter -- unless, of course, what you're really after in either field are ways
++of making machines do strange, strange things. 
++]
++
++
++*** A note on the naming convention
++*** Classifying a Balanced Data Set
++ But gls:roper is capable of more complex and subtle tasks than this, and these
++ set it at some distance from deterministic ROP-chain compilers like $Q$. As an
++ initial foray in this direction, we set gls:roper the task of attempting some
++ standard, benchmark classification problems, commonly used in machine learning,
++ beginning with some well-known, balanced datasets. In this context,
++ \gls{roper}'s task is to evolve a ROP-chain that correctly classifies a given
++ specimen when its $n$ attributes, normalized as integers, are loaded into $n$
++ of the virtual \gls{cpu}'s registers (which we will term the `input registers')
++ prior to launching the chain. $m$ separate registers are specified as `output
++ registers', where $m$ is the number of classes that gls:roper must decide
++ between. Whichever output register contains the greatest signed value after the
++ attack has run its course is interpreted as the classification of the specimen
++ in question.
++
++ The basis of the fitness function used for these tasks is just the detection
++ rate.
++ # % use something more sophisticated?
++ We will look at the results of these classification experiments in the next
++ section.
++*** Playing an Interactive Game
++** Initial Findings
++ # NB: This would be a good place to address robustness
++*** Preparing System Calls by Matching CPU Context 
++**** TODO Pattern Matching for =execv()=
++ # let's try something a bit better here -- a bind or reverse
++ # shell, maybe. a reverse shell would be best, or even just
++ # an open socket, sending a message, which we could test for.
++ # we also need to improve the way dereference is handled. what
++ # we have here is a bit of a cheat, and it's been gnawing at me.
++
++ A simple and practical example of \gls{roper}'s pattern-matching capability is to have
++ it construct the sort of ROP chain we would use if we wanted to, say, pop open a
++ shell with the host process' privileges. The usual way of doing this is to write
++ a chain that sets up the system call =execv("/bin/sh", ["/bin/sh"], 0)= For this
++ to work, we'll need =R0= and =R1= to point to ="/bin/sh"=, =R2= to contain $0$,
++ and =R7= to contain $11$, the number of the =execv= system call. Once all of
++ that is in place, we just jump to any =svc= instruction we like, and we have our
++ shell.
++
++ First, of course, we need to pick our mark. We'll use a small HTTP server from
++ an gls:arm router from ASUS, =tomato-RT-N18U-httpd= [fn:tomato]. After a bit of
++ exploration with Radare 2, we see that this binary already has the string
++ ="/bin/sh"= sitting in plain sight, in =.rodata=, at the address =0x0002bc3e=.
++ The pattern we want to pass to gls:roper is "=02bc3e 02bc3e 0 _ _ _ _ 0b=".
++
++ # There's an error here: the second parameter needs another
++ # layer of indirection, and should be a *pointer* to 02bc3e.
++
++
++ gls:roper is able to evolve a chain that brings about this exact register state
++ within a couple of minutes or so, on average. In table~ is one such result: a
++ $31^{\textrm{st}}$-generation descendent of our initial population of 2048
++ chains, with a 45% mutation rate, spread over 4 demes with 10% migration
++ trafficking between them. Address pointers are listed in the left-hand margin,
++ with immediate values extending to the right.
++ # The chain
++ # nevertheless concludes without crashing, ending with a branch to
++ # the pre-established halting address (=blx r2=, which
++ # happens to contain =0x00000000=).
++ Table \ref{tab:disas} provides a disassembly of the chain as it wound its way
++ through the HTTP daemon's memory. After each gadget we printed out the state of
++ the four registers we're interested in, i.e. =R0, R1, R2, R7=.
++*** TODO "Fleurs du Malware"
++#
++#  start generating graphs for these. have the graph script also
++#  output latex, please.
++\Gls{roper}'s pattern-matching capabilities allow it to
++automate tasks commonly undertaken
++by human hackers. The end result may not /resemble/ a
++ROP-chain assembled by human hands (or even by a
++deterministic compiler), but its function is essentially the same
++as the ones carried out by most human-crafted ROP-chains:
++to prepare the gls:cpu context for this or that system call,
++so that we can spawn a shell, open a socket, write to a file,
++dump a region of memory, etc.
++
++In this section, we'll see that gls:roper is also capable of
++evolving chains that are, in both form and function, entirely
++unlike anything designed by a human. Though it is still in its
++early stages, and its achievements so far should be framed only
++as proofs of concept, gls:roper has already shown that it
++can evolve chains that exhibit learned or adaptive behaviour.
++To illustrate this, we will set gls:roper the task of
++classifying Ronald Fisher and Edgar Anderson's famous /Iris/
++data set
++#
++\footnote{Available at
++\url{https://archive.ics.uci.edu/ml/datasets/Iris}}
++This is a fairly simple, balanced dataset, with just four
++attributes, and three classes, and is widely used to
++benchmark machine learning algorithms.
++#
++# %%%%%%%%%%%
++#
++#  DETAILS %%
++#
++# %%%%%%%%%%%
++The fitness curve of our best specimens /without fitness-sharing/
++typically took the form of long, shallow plateaus, against the
++backdrop of a population swayed more by evolutionary drift than
++selective pressure.  A second-order selective pressure appeared to
++encourage intron formation, of which the crash rate seems to be a
++fairly reliable index (crashes are the casualties of a certain method
++of intron formation, in this context). This is what we see unfolding
++in figure >> TODO: make ref{:good-nosharing}. A dip in average length coincides
++with the peak in the crash rate, around phylogenic generation 350 --
++though there is a great deal of back-and-forth between the two curves,
++as if the two strategies for intron-formation -- bloat and branching
++-- are in competition
++implementing /fitness sharing/. Here, we had factored the crash
++penalties into the raw fitness passed to the sharing formula, instead
++of applying them after the fact. We also overlooked a loophole that
++would reduce the penalty for crashing to near zero, so long as the
++return counter approached the number of gadgets expected. Now, there's
++a vulnerability in our implementation of the return counter -- it
++lives in the VM's own memory space, which can be corrupted by the very
++ROP-chains it's supposed to be monitoring. If this is exploited, a
++specimen can artificially increment its return counter, making it
++appear as if it executed its payload to completion, while still
++segfaulting and raising an exception in the VM. If our population was
++able to exploit this feature, then it would have been able to enjoy
++the protective benefits of navigating its way through a network of
++extended gadgets -- resistance to destructive crossover events -- with
++relative ease and abandon, and no real pressure to refrain from
++crashing. The result was a complete takeover of the population by
++dominant, crashing genotypes: a congenital plague of segfaults. 
++The result was a superb run -- achieving 96.6% detection rate on the
++training set in 27,724 tournaments, 216 seasons of difficulty
++rotation, and an average phylogenic generation of 91.3. Figure
++>> TODO: make ref{:okay} shows the course the evolution took, with the
++right-hand panel showing the responding environmental pressures -- the
++=difficulty= scores associated with each class, showing both mean and
++standard deviation.
++
++This run can be fruitfully compared with the one illustrated in
++fig. >> TODO: make ref{:nosharing}.  Note the tight interbraiding of problem
++difficulties in fig. >> TODO: make ref{:okay}, as compared to their gaping --
++but still, slowly, fluctuating -- disparity in
++fig. >> TODO: make ref{:nosharing}. The ballooning standard deviation of
++difficulty by class in fig. >> TODO: make ref{:okay} also suggests a dramatic
++increase in behavioural diversity in the population, which is
++precisely what we aimed for with fitness sharing.
++*** TODO Playing a Game of Snake
++*** TODO Aside: A Plague of Segfaults
++<<sec:plague>>
++# NB: it might make more sense to put this in the Experimental Studies chapter, but
++# we can always move it around later. Just keep your references position-independent.

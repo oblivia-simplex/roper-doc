@@ -1,0 +1,3500 @@
+#+OPTIONS: toc:nil H:5 d:nil ':t ^:{}
+#+LINK: note rtcite:~/org/bibliography.org::#%s
+#+LINK: bib rtcite:~/org/bibliography.bib::%s
+
+#+LATEX_CLASS: dalthesis
+#+LATEX_CLASS_OPTIONS: [12pt,glossary]
+#+LATEX_HEADER: \input{header}
+#+LATEX: \input{frontmatter}
+
+* Introduction
+<<sec:intro>>
+** What is the aim of this research?
+<<sec:problem>>
+
+This thesis explores the use of evolutionary techniques in gls:rop. It details
+the design and implementation of an engine called gls:roper, which employs the
+methods of gls:gp to generate declaratively specified gls:rop payloads
+from scratch, and walks through a series of experiments that establish the
+feasibility of this approach. Since this is, to the best of my knowledge, the
+first time that evolutionary techniques have been put to work in the field of
+return-oriented programming, my intention is only to establish a /proof of
+concept/, rather than to advance the state of the art in terms of performance
+and precision.[fn::
+  Unless we cast a null "state of the art" to zero.
+]
+
+** Why is this interesting?
+
+The "crafted input" by means of which a hacker controls the execution of
+an exploited system is typically best understood as a sequence of instructions
+for a previously unknown virtual machine, whose supervenience on the intended
+machine is accidental, and often unknown before it is exploited.
+These payloads tend to be short, highly constrained by contingent
+pressures, and forged from obscure and irregular materials. These factors,
+which tend to greatly increase the ratio of difficulty to functionality in
+payload implementation, for human programmers, also make the problem
+well suited to evolutionary approaches. This, at least, was the intuition
+that sparked this project. The hope is that by putting evolutionary techniques
+to work in this field, we can better explore and understand the algorithmic
+wilderness that supervenes on our machines, and gain a deeper sense of the
+possibilities harboured there.
+
+** Where can this work be applied?
+The techniques developed here can quite viably be put to work in the field of
+offensive cybersecurity, and be used to generate swarms of attack payloads whose
+diversity is, for all intents and purposes, unbounded. The technology developed
+here could, with minor adaptations,[fn:: Discussed in Section [[sec:future]].] used
+to test and train glspl:ids, or provide one more instrument in the penetration
+tester's toolbox.
+
+** Who is this for?
+
+I hope that the work presented here may be of interest to newcomers to
+both low-level exploit development and genetic programming, and to those
+who may have a solid background in one but not the other. The work presented
+here shows how problems drawn from the field of application security provide
+an extremely fertile ground for evolutionary experimentation, which I believe
+is of interest in its own right, independent of applications. 
+
+Of course, there's nothing preventing the use of this technology by malicious
+actors, and in this respect gls:roper is in the same boat as any other product
+of security research -- the only defence against use by blackhats, after all,
+would be to ensure that the research is useless. This isn't just an unavoidable
+aspect of security research, it's one of its essential motors. Without the endless
+arms race between attacker and defender, between whitehat and blackhat, it's
+unlikely we'd have even an /sliver/ of the understanding of our own
+abstractions -- and of all their leaky concretizations -- that the concern for
+security demands. The harsh reality that any worthwhile development in security
+can be picked up and studied by blackhats seeking to use, abuse, apply, subvert,
+and exploit it, isn't something we should shy away from or apologise for. It's the
+crucible in which our ideas and their implementations are tested, and a tireless
+generator of new ideas in its own right. The economic and political fates of
+attackers and defenders may rise and fall in the arena of applied cybersecurity,
+but the science ratchets on, day and night.
+#+LATEX: \footnote{In the immortal words of Pastor Manul Laphroaig:
+#+LATEX:  \begin{quote}
+#+LATEX:  I must warn you to ignore this Black Hat/White Hat nonsense. As a Straw Hat,
+#+LATEX:  I tell you that it is not the color of the hat that counts; rather, it is the
+#+LATEX:  weave. We know damned well that patching a million bugs won't keep the bad guys
+#+LATEX:  out, just as we know that the vendor who covers up a bug caused by his own
+#+LATEX:  incompetence is hardly a good guy. We see righteousness in cleverness, and we
+#+LATEX:  study exploits because they are so damnably clever! It is a heroic act to build
+#+LATEX:  a debugger or a disassembler, and the knowledge of how to do so ought to be 
+#+LATEX:  spread far and wide. 
+#+LATEX:
+#+LATEX:  First, consider the White Hats. Black Hats are quick to judge these poor fellows
+#+LATEX:  as do-gooders who kill bugs. They ask, "Who would want to kill such a lovely bug,
+#+LATEX:  one which gives us such clever exploits?" Verily I tell you that death is a
+#+LATEX:  necessary part of the ecosystem. Without neighbours squashing old bugs, what
+#+LATEX:  incentive would there be to find more clever bugs, or to write more clever
+#+LATEX:  exploits? Truly I say to the Black Hats, you have recouped every dollar you've
+#+LATEX:  lost on bugfixes to the selective pressure that makes your exploits valuable
+#+LATEX:  enough to sustain a market!
+#+LATEX:
+#+LATEX:  Next, consider the Black Hats. White Hat neighbors are so quick to judge these
+#+LATEX:  poor fellows, not so much for selling their exploits as for hoarding their
+#+LATEX:  knowledge. A neighbor once said to me, "Look at these sinners! They hide their
+#+LATEX:  knowledge like a candle beneath a basket, such that none can learn from it."
+#+LATEX:  But don't be so quick to judge! While it's true that the Black Hats publish
+#+LATEX:  more slowly, do not mistake this for not publishing. For does not a candle,
+#+LATEX:  when hidden beneath a basket, soon set the basket alight and burn ten times as
+#+LATEX:  bright? And is not self-replicated malware just a self-replicating whitepaper, 
+#+LATEX:  written in machine language for the edification of those who read it? Verily
+#+LATEX:  I tell you, even the Black Hats have neighborliness to them. 
+#+LATEX:
+#+LATEX:  So please, shut up about hats and get back to the code.
+#+LATEX: \end{quote}}
+# ^ org mode doesn't like finding block quotes inside footnotes, so we need
+# to just do this in \LaTeX
+
+# cite and discuss [[note:iliopoulos11]] here
+That said, we should nevertheless take a moment to consider the risks posed
+by the introduction of evolutionary malware, or any technology that could facilitate
+its development, into the existing information security ecosystem.
+
+
+I have decided to make the source code for this project available to the public,
+warts and all, and place it under the gls:gpl. It can be accessed on Github,
+at [[https://github.com/oblivia-simplex/roper]], and freely experimented with. 
+
+
+** Synopsis
+<<sec:synopsis>>
+
+In Chapters [[sec:weird]] and [[sec:genetic]], I set up some of the conceptual
+background for this study, exploring the broader problems broached by gls:rop
+and gls:gp, respectively, before surveying a handful of historical efforts to
+enlist evolutionary techniques in the domain of offensive security and malware
+design, in Section [[sec:genetic-offsec]].
+
+Chapter [[sec:design]] introduces my contribution to research in the field of
+evolutionary offensive security, with an overview of the design and implementation of
+a gls:rop evolution engine called gls:roper.
+
+Chapter [[sec:experimental]] goes over a handful of experimental studies with
+gls:roper, and consequent modifications to the design. 
+
+Chapter [[sec:future]] lays out some directions for future work and study on this
+topic, and brings this thesis to a conclusion.
+ 
+
+
+# some general stuff on evolutionary methods in information security
+\begin{savequote}
+Between the idea\\  
+And the reality\\  
+Between the motion\\ 
+And the act\\
+Falls the Shadow
+\qauthor{T.S. Eliot, "The Hollow Men"}
+\end{savequote}
+* Weird Machines and Return-Oriented Programming
+<<sec:weird>>
+<<sec:background>>
+** A Fundamental Problem of Cybersecurity
+<<sec:fundamental>>
+
+The distinction between data and code tends to fade from view as we approach the
+most elementary strata of computation -- whether we are dealing with the austere
+formalism of the lambda calculus, the ideal Von Neumann machine model, or the
+various instruction set architectures that concretize it.[fn:: And, as we'll
+see, machine models that /appear/ to take such a distinction as primitive, such
+as the Harvard Bus model, often only succeed in draping a thin and permeable
+veil betweeen the two. ]
+
+But at any level where one computational system interfaces with another, "in the
+real world", the problem of imposing and maintaining this distinction is
+critical -- even, I would argue, the /fundamental/ problem of cybersecurity.
+What we call data, generally speaking, is information that one system (A)
+receives from another (B), or the result of applying any sequence of
+transformations to that information. Insofar as we are to have any assurances at
+all about the behaviour of system A, A must, by design, place some constraints
+on how it lets itself be steered by the data it receives -- unless, of course,
+it is /intended/ to be a general programming environment.[fn:prog_env] Data is
+/just/ data only to the extent that such constraints can hold.
+
+Nothing makes this clearer than remote code execution (RCE) attacks, each of
+which can be seen as a "proof by construction" that what we assumed to be
+"merely data" was in fact code for a machine that we didn't understand.[fn:: I
+owe this formulation to Sergey Bratus. ] In many such cases, the breach occurs
+when the attacker slips past the /intended/ interface and dispatches
+instructions (perform state transitions) on one or more of the system's
+"internal" components. Take the classic gls:sql injection attack, for example. The
+attack succeeds when the attacker crafts the input data to the system in such a
+way that the system interpret some portion of that data as code. In the simplest
+cases, this may be done by inserting a single quotation mark in the text
+provided to an input field. If this input is not safely parsed by the frontend,
+then any text /following/ the delimiting quote will be interpreted as additional
+gls:sql instructions, and executed by the backend. The injected delimiter plays the
+role of an unsuspected pivot between data and code, switching the context of the
+input string to an gls:sql execution environment.
+#+COMMENT: Diagram here.
+
+Something similar happens in the classic style of buffer overflow attack
+described in Aleph One's famous textfile, "Smashing the Stack for Fun and
+Profit". The /pivot/, in that case, is achieved by the attacker supplying an
+input string that the vulnerable application writes to a buffer that has not
+been allocated enough space to contain it. In many cases, this gives the
+attacker the ability to write to stack memory "beneath" the ill-sized buffer.
+What makes this dangerous is that, according to a certain, widely implemented
+abstract machine model, the return address of each subroutine is often stored on
+the stack as well, just a few words below the space where local variables are
+stored. This lets the attacker control the return address, which can be
+redirected to /another/ region of the input data, where the attacker has encoded
+a sequence of machine code instructions for the vulnerable system's gls:cpu.
+#+COMMENT: Diagrams would be helpful here
+
+In these cases, and in many, many more, the attacker succeeds in exploiting some
+oversight in the design or implementation of the input handler, in such a way
+that the vulnerable system treats some portion of the input just as it would
+treat its own code. In each of these cases, it's possible to distinguish two
+distinct moments:
+
+1. the delivery mechanism, or "pivot", of the attack, by which the input
+   "data" is transubstantiated into "code" -- the abberent delimiter in the gls:sql
+   injection, or the corruption of the instruction pointer, in the case of the
+   buffer overflow, for example, and
+
+2. the "payload", through which the attacker exercises fine-grained control
+   over the vulnerable system. In the case of the buffer overflow attack, this
+   may be a string of shellcode. In the case of the gls:sql injection, a sequence of
+   one or more gls:sql expressions or operations.
+
+This is the general outlook that seems to motivate most defensive tactics in
+computer security. Take, for instance, a tactic that has been widely deployed in
+an effort to defend against shellcode attacks. These attacks play on the fact
+that, to the gls:cpu, "code" is wherever it points its program counter[fn:pc]. The
+stack overflow vulnerability detailed by Aleph One is one such delivery
+mechanism, but the general strategy of feeding the vulnerable system machine
+code instructions in the form of input data, and then redirecting the program
+counter so that it points to that data, and executes it as code, has other forms
+as well -- such as use-after-free attacks, which may exploit a lack of
+coordination in heap memory management to overwrite a virtual function pointer
+(an object method, for example) with a pointer to the attacker's shellcode.
+Defensive measures against these attacks, then, could follow two distinct
+prongs: on the one hand, we could inhibit the /pivot/ stage, or on the other
+inhibit the /payload/.
+
+With respect to the pivot stage, buffer overflow attacks can be prevented,
+piecemeal, by carefully constraining the data that's written to fixed-length
+buffers on the stack (use =strncpy()= instead of =strcpy()=, etc.). They can
+also be mitigated by the compiler, by inserting a random string as a sort of
+tripwire between the writeable stack buffer and the return address, such that
+any attempt to overwrite that portion of the stack would also corrupt this
+randomized value or "stack canary". Neither of these mitigations prevent a block
+of malicious code that the attacker has written to memory from being executed,
+should some other means of corrupting the instruction pointer become available.
+
+# Funny aside: Microsoft introduced DEP in XP SP2 as a protection
+# against "buffer overflows"! KB 889741
+# https://support.microsoft.com/es-pe/help/889741/windows-xp-service-pack-2-part-7-protecting-against-buffer-overflows
+
+The sort of attack that Aleph One describes could also be prevented by
+mitigating the attacker's ability to pass control to the payload, rather than
+their ability to achieve the initial corruption of the instruction pointer. This
+is what is achieved, for example, through what Windows natives call "gls:dep",
+and what Unix dwellers call, a bit less
+pronounceably, "gls:w+x", whereby the memory pages of a
+running process may be mapped as writeable, or may be mapped as executable, but
+may no longer be mapped as /both/.[fn:windows_dep_release] With this mitigation
+in place, the attacker may succeed in corrupting the instruction pointer, and
+may succeed in loading their attack code into memory, but is unable to pass
+control to the latter -- an instruction pointer dereferenced to a non-executable
+location in memory will result in a segmentation fault (as Unixers call it) or
+an access violation error (as it's known in Windows), which may succeed in
+crashing the program, and thereby carrying out a non-trivial denial-of-service
+(DoS) attack, but at no point does the attacker achieve fine-grained control of
+the process.
+
+# NB: the missile/payload distinction corresponds to the
+#     way Flake explains the difference between "provably correct"
+#     and "non-exploitable". Side 71.
+
+There is another way of looking at all of this, which is both more general and
+more fruitful. As hacker folklore is fond of repeating, what we call a system's
+"code" is, in some sense, nothing but /the specification of a state machine
+driven by the input data/.[fn:ifsm] As Halvar Flake explains, to write a program
+is to constrain the virtually boundless potential of a general computer so as to
+have it emulate "a specific finite-state machine that addresses your problem".
+"The machine that address the problem," he go on,
+
+#+BEGIN_QUOTE
+    The machine that addresses the problem is the *intended finite state
+    machine* [...]
+
+    The security properties of the gls:ifsm are 'what we want to be true' for the
+    gls:ifsm. This is needed to define 'winning' for an attacker: He wins when he
+    defeats the security properties of the gls:ifsm. 
+
+#+END_QUOTE
+
+ 
+
+Assuming that there has been no trivial misconfiguration of the gls:ifsm, and that
+it is, on its own, particular, level of abstraction, consistent, the
+attacker defeats those security properties by ferreting out a leak in the
+programmer's abstraction, and tapping into a reserve of computational power
+that the programmer had considered foreclosed by the gls:ifsm. This is done by,
+/first/, finding a way to access a state from the gls:ifsm that is not accounted
+for by the gls:ifsm's design. These are what Sergey Bratus [CITE] calls "weird
+states". An example is the state that the gls:cpu enters when its instruction
+pointer has been overwritten by input. This is what we have called the
+/pivot/ of the attack.
+
+
+#+BEGIN_QUOTE
+    Once a weird state is entered, many other weird states can be reached by
+    applying the transitions intended for sane states on them. A new computational
+    device emerges, the "weird machine". The /weird machine/ is the computing device
+    that arises from the operation of the emulated transition of the gls:ifsm on weird
+    states. 
+    
+    ...Given a method to enter a weird state from a set of particular sane states,
+    /exploitation/ is the process of:
+    1. setup (choosing the right sane state)
+    2. instantiation (entering the weird state), and
+    3. programming of the weird machine
+    so that security properties of the gls:ifsm are violated. 
+
+#+END_QUOTE
+
+
+The concept of a /weird machine/ opens onto an extremely versatile and general
+theory of exploitation. [finish thought]
+
+# --> Needs some concluding bits here, and transition
+
+#  The question, indeed, becomes formally
+# undecideable the moment the input data is able to control A's
+# execution in a Turing-complete fashion. Once this becomes the case,
+# there can no longer be a question of securing A at all, at least not
+# in any rigorous sense. The best we can then do is to firewall it, or
+# put a choke on the way neighbouring systems interact with it -- and
+# here is where all the usual questions of least privilege and access
+# come up. As for A itself, it is well and truly owned by whoever is
+# able to write Turing-complete code for it.  \\
+
+** Return and Jump Oriented Programming
+<<sec:rop>>
+# \epigraph{"[I]f we consider each gadget as a monolithic instruction, the stack pointer plays the role of the instruction pointer in a normal program, transferring the control flow from one gadget to the next." :CITE: G-Free paper, p.50}
+
+It is due to a leaky abstraction of this nature, and an unswerving view of
+the underlying gls:cpu /from the perspective of application programmers and
+compilers/, that $X \oplus W$ ultimately fails to prevent remote code execution.
+It fails because it is built on an insufficiently general concept of /code/.
+
+*** The C Abstract Machine Model
+<<sec:c-vm>>
+# >> Not thrilled about calling this the "C Abstract Machine Model" (CAMM)
+#    or the "C Virtual Machine" (gls:spmm). As Andrea pointed out, it's not
+#    quite *prescribed* by the C standard. Just sort of suggested by it.
+#    Look at the System V ABI, and the Windows ABI, and suss out what
+#    they have in common.
+
+# >> There is a lot of vagueness here, but is it essential vagueness?
+#    MLP seems to agree that it is. But this is itself a very interesting
+#    point -- there are essential vaguenesses at the interface between
+#    languages and protocols. This is the domain of kantian schematism.
+
+# The first what we could call the C abstract machine, which guided the
+# compilation of its source code to the machine code of its target
+# architecture, and which most existing architectures have evolved to
+# facilitate.
+
+
+
+According to this model, computation proceeds by iterating through a buffer of
+instructions in a designated segment of memory, using a designated register, the
+"program counter" or "instruction pointer", to track the location of the next
+instruction to execute (we'll call this the IP when referring to its abstract
+role, but its concretization has different names on different architectures --
+EIP on x86, RIP on x86_64, gls:pc on gls:arm, etc.) Each instruction prompts the
+processor to mutate its state (its registers, memory, etc.) in some fashion.
+"Code" is wherever gls:ip points, and he instruction set is fixed by the
+architecture.
+# what do you call the instruction parser here?
+
+On this basis is implemented the /procedural/ layer of abstraction, which the
+underlying architecture is largely designed to accommodate. According to this
+layer, a program is typically broken up into a collection of /subroutines/ (or
+"functions"). A subroutine is characterized by two essential properties:
+  1. it has a local variable scope, and
+  2. it can be run, or "called", as a cohesive unit, with execution
+     /returning/ to the place it is run from once it completes Abstractly, both
+of these properties rely on the /stack/ data structure. Both the scopes, and the
+execution flow, of subroutines, is organized in a first-in-last-out fashion.
+
+# a diagram would be useful here.
+
+Interestingly, though they are /conceptually/ distinct, the data stack and the
+execution stack are typically /interleafed/ in practice.
+# (This
+# convention, which, for decades, has been nearly universally adopted,
+# is responsible for the /weird states/ on which the stack smashing attack
+# relies.)
+This interleafing is orchestrated, on most modern architectures, by means of
+three abstract registers: gls:sp, gls:fp, and gls:ip. On x64_64,
+these are implemented by =RSP=, =RBP=, and =RIP=, respectively. On gls:arm, by
+=SP/R13=, =FP/R12=, and =SP/R15=. When a subroutine is called, the address of
+the next instruction address in the calling routine is typically pushed onto the
+stack. (In some cases a special register is used to hold the most recent return
+address -- the top of the abstract calling stack -- as an optimization. This is
+the role of gls:lr on gls:arm. For nested subroutine
+calls, however, it's necessary to fall back to a stack structure. The gls:fp is then
+used to mark the base of the scope of stack memory that belongs to the
+subroutine. Any memory beyond gls:fp is the subroutine's own to make use of,
+though this claim is abandoned when the subroutine returns. Returning from a
+subroutine, in most cases, is just a matter of popping the return address from
+the control stack, and loading it into the instruction pointer. On x64_64, this
+is accomplished by the =ret= instruction, on gls:arm, by =pop {pc}=, and on MIPS
+by first loading a register from the top of the stack, and then jumping to that
+register.
+
+# Though, on the level of the concept, the two stacks may be distinct,
+# in that they are not meant at any point to interfere or interact,
+# and in an innocent world a conscientious C programr, writing bug-
+# free code, would be able to program as if this were, in actuality,
+# the case, the C virtual machine (on the level of "transcendental
+# schematism", we could say, to put things in Kantian terms) tends to
+# interleaf these two stacks when the source code is compiled to the
+# native machine code of its target architecture.
+#
+# +--------------------------+ <- Stack Pointer
+# |Local Stack for Frame     |
+# |(Space for local          | [DATA]
+# |variables, etc.)          |
+# +--------------------------+
+# |Saved Frame Pointer       | [DATA]
+# +--------------------------+
+# |Saved Instruction Pointer | [CONTROL]
+# +--------------------------+
+# |Data Passed to Subroutine | [DATA]
+# |(Function Arguments, etc) |
+# +--------------------------+
+#
+
+This is, of course, why an attacker can "smash the stack for fun and profit".
+Even if they must tailor their attack for a specific architecture, they are
+attacking a vulnerability in the C virtual machine: that improperly handled
+writes to the data stack can corrupt the control stack with which it is
+interleafed. The interleafing makes accessible to the attacker the critical kind
+of /weird states/ on which their attack pivots. In executing this attack, the
+attacker violates the conceptual separation of schematically interleafed control
+and data stacks, but otherwise remains within the same basic abstract machine
+model. An elegant shellcode payload will even take care to restore any corrupted
+registers, clear its own local stack, and return control to the caller, as if
+nothing out of the ordinary had happened. The attacker is descending to a lower
+level of abstraction, but not an entirely foreign one. It is a level already
+implicit, and (leaks notwithstanding) encapsulated in the victim process.
+
+*** The ROP Virtual Machine
+<<sec:rop-vm>>
+
+A gls:rop chain can be seen as actualizing a somewhat weirder machine, which just
+happens to supervene on the same process mobilized by the programmer's machine
+model, the process that is /supposed/ to be executing a perfectly normal
+program. Let's call this a gls:rovm.
+
+Like the programmer's machine model, the gls:rovm works by iterating through a
+sequence of instructions, tracking the location of the next instruction by means
+of a special registerr, and in the process mutates the gls:cpu context. But the
+instruction set used for this machine is /not/ the instruction set targetted by
+its host. It is an emergent instruction set, peculiar to the state of
+conventionally executable memory at the time of the pivot. These instructions
+are called "gadgets", and are composed of chunks of data that is:
+  1. already mapped to executable memory -- on Unix systems, this
+     generally means the =.text= section of the binary;
+  2. performs some mutation of gls:cpu context when conventionally
+     executed, and
+  3. returns control of execution flow to the attacker-supplied data
+     after executing. Trait #3 is typically satisfied by chosing gadgets that
+end with a *return* instruction, or some semantic equivalent -- any combination
+of instructions that results in a value from the stack being loaded into the
+instruction pointer. This can also be accomplished by means of a combination of
+*load* and *jump* instructions, which gives us "JOP", or
+jump-oriented-programming, but the difference between JOP and gls:rop is not
+critical here, and for our purposes "gls:rop" will be used to refer to both
+varieties.[fn::
+  Cite the passage on free branches, from that thesis on ARM ROPs.
+]
+
+# >> Put a table of correspondances here.
+
+The gls:rovm is, in some sense, an essentially parasitic, or supervenient,
+creature. Its instruction set is cobbled together from chunks of machine code
+whose frequency in the victim process is largely a result of the process's
+intended code being crafted with the procedural abstraction in mind.
+
+# only reason why that ROP-chainer can expect to find a variety of semantically
+# diverse clusters of instructions followed by one or more instructions
+# that are semantically equivalent to "pop the stack into IP" (which is
+# how the gls:spmm tends to implement a function return). And it's the gls:spmm's use
+# of a data stack that provides a space for the gls:rovm's instruction buffer.
+
+This point is worth dwelling on for a moment, because it beautifully illustrates
+the ingenuity of gls:rop. gls:w+x, after all, /prevents/ the data stack, which
+needs to remain writeable by the process, from being used as a code buffer, the
+way it is in a shellcode attack. But the schematic idea of /code/ that gls:w+x 
+guards against is code as understood by the programmer's machine model. The
+gls:rovm /is/ able to use the data stack as a code buffer because it represents a
+change in perspective regarding what counts as code, what counts as an
+instruction, and what counts as an instruction pointer. Even when a strict
+separation of "data" and "code" is in place (via gls:w+x, and/or the
+hardware restrictions imposed by a Harvard Bus architecture), the gls:spmm /expects/
+an interleafing of the control and data stacks, and so cannot very well ban the
+presence of code segment pointers from its stack, or prevent the loading of the
+pointer at the top of its stack into its own designated instruction pointer. But
+these two factors are all that are needed in order to superimpose the gls:rovm on
+top of the gls:spmm: we don't need to execute gls:spmm level instructions from the stack,
+we just need to be able to use /data/ on the stack to /influence/ the execution
+of instructions, in a fine-grained fashion. But this is just what the =return=
+instruction does, in the gls:spmm: it fetches data from the top of the stack, maps
+that data to an address in its own code buffer, and then executes the
+instructions it finds there, until it is instructed to fetch the next pointer
+from its stack. In this way, the gls:spmm already /implies/ the possibility of the
+gls:rovm, which is its shadow. The \gls{spmm}'s interleafing of control stack and data
+stack makes the principled separation of the writeable and the executable all
+but futile, since the latter represents a true separation of *code* and *data*
+only if the abstract machine model stays fixed.
+
+Between the programmer's abstract machine model, and the actual behaviour of the
+gls:cpu, between the specification and the implementation, falls the shadow.
+
+** Prior Art: Exploit Engines and Weird Compilers
+# Both ROP-specific and more generally
+
+# Pasted in from berlin paper. Spruce up this joint.
+
+A handful of technologies have already been developed for the automatic
+generation of ROP-chains. These range from tools that use one of several
+determinate recipes for assembling a chain -- such as the Corelan Team's very
+handy =mona.py= [fn:mona] -- to tools
+[fn:mona] \url{https://github.com/corelan/mona}
+which approach the problem through the lens of compiler design, running with the
+insight that the set of gadgets out of which we build ROP chains is, in fact,
+the instruction set for a virtual machine, which can be treated as just another
+compiler target.
+
+
+We are aware of two such projects at the moment: /Q/ [[bib:schwartz11]], 
+which is able to compile instructions in a simple scripting
+language into ROP chains, and which has been shown to perform well, even with
+relative small gadget sets, and ROPC, which grew out of its authors' attempts to
+reverse engineer /Q/, and extend its capabilities to the point where it could
+compile ROP-chains for scripts written in a Turing-complete programming
+language. [fn:ropc_llvm] The latter has since spawned a fork that aims to use
+ROPC's own intermediate language as an LLVM backend, which, if successful, would
+let programs written in any language that compiles to LLVM's intermediate
+language, compile to ROPC-generated ROP-chains as well.
+# NB: The developers mention that the generated chains tend to be
+# far too large to be of any practical use in an attack, and that
+# ROPC is better seen as a PoC than a hacking tool.
+
+
+
+Another, particularly interesting contribution to the field of automated
+ROP-chain generation is /Braille/, which automates an attack that its developers
+term "Blind Return-Oriented Programming", or BROP [[bib:bittau14]]. BROP solves the
+problem of developing ROP-chain attacks against processes where not only the
+source code but the binary itself in unknown. /Braille/ first uses a
+stack-reading technique to probe a vulnerable process (one that is subject to a
+buffer overflow and which automatically restarts after crashing), to find enough
+gadgets, through trial and error, for a simple ROP chain whose purpose will be
+to write the process's executable memory segment to a socket, sending that
+segment's data back to the attacker -- data that is then used, in conjunction
+with address information obtained through stack-reading, to construct a more
+elaborate ROP-chain the old-fashioned way. It is an extremely interesting and
+clever technique, which could, perhaps, be fruitfully combined with the genetic
+techniques I will outline here.
+
+** Prospects for Genetic ROP-chain Crafting
+
+To the best of our knowledge, no attempt has yet been made to bring evolutionary
+methods to bear on the problem of ROP-chain generation; there is little
+precedence, in fact, for any use of genetic techniques to craft exploits.
+
+
+
+
+
+
+
+\begin{savequote}
+The biological analogy was obvious; evolution would favor such code,
+especially if it was designed to use clever methods of hiding itself and using
+others' energy (computing time) to further its own genetic ends. So I wrote some
+simple code and sent it along in my next transmission. Just a few lines in
+Fortran told the computer to attach these lines to programs being transmitted to
+a certain terminal. Soon enough -- just a few hours -- the code popped up in
+other programs, and started propagating.
+\qauthor{Gregory Benford, Afterword to "The Scarred Man"}
+\end{savequote}
+* On the History and Potential of Genetic Programming in Offensive Security
+<<sec:genetic>>
+
+** A Brief Overview of Genetic Programming
+
+** Natural Selection Considered Harmful: Evolutionary Computation in Offensive Security
+<<sec:genetic-offsec>>
+# refactor so that the ROP section comes after the virus
+# and offsec-evocomp stuff
+
+# To the best of our knowledge, neither evolutionary nor other
+# machine-learning-driven techniques have been employed in the
+# generation of ROP attacks -- indeed, precious little work has
+# been documented in the use of machine learning and evolutionary
+# computation in /any/ exploit technology, with the exception of
+# fuzzing. Where we do tend to find these methods being used --
+# at least as far as is given to public knowledge -- is in the
+# field of defence. The development of the HadROP detection system, by
+# Pfaff et al., represents a recent contribution to this field
+# [[bib:pfaff15]], which trains support vector machines on the behaviour of
+# hardware performance counters to detect the control flow patterns
+# characteristic of ROP attacks.
+
+# needs segue
+
+While evolutionary techniques have been more or less frequently employed in the
+field of /defensive/ security -- where they are put to work much in the same way
+as other machine learning algorithms, and built into next-generation firewalls,
+intrusion-detection systems, and so on -- there has been far less exploration of
+these techniques in the realm of offensive security. This is not to say,
+however, that the idea has never occurred to anyone -- the idea seems to have
+captured the imagination of hackers, malware engineers, and cyberpunk science
+fiction authors, ever since there have been such things.
+:NOTE:
+Find citations re: examples of usage of evolutionary computation in defensive
+security.
+:END:
+
+*** Viruses and Evolutionary Computation
+<<sec:vx>>
+**** 1969: Benford
+
+
+
+The oldest occurrence of the concept of evolving, intrusive code that I was able
+to excavate dates to sometime around 1969, in an experiment performed -- and
+subsequently extrapolated into fiction -- by the astrophysicist and
+science-fiction author, Gregory Benford, during his time as a postdoctoral
+fellow at the Lawrence Radiation Laboratory, in Livermore, California. "There
+was a pernicious problem when programs got sent around for use: 'bad code' that
+arose when researchers included (maybe accidentally) pieces of programming that
+threw things awry," Benford recalls of his time at the LRL.
+
+#+BEGIN_QUOTE
+ One day [in 1969] I was struck by the thought that one might do so
+intentionally, making a program that deliberately made copies of itself
+elsewhere. The biological analogy was obvious; evolution would favor such code,
+especially if it was designed to use clever methods of hiding itself and using
+others' energy (computing time) to further its own genetic ends. So I wrote some
+simple code and sent it along in my next transmission. Just a few lines in
+Fortran told the computer to attach these lines to programs being transmitted to
+a certain terminal. Soon enough -- just a few hours -- the code popped up in
+other programs, and started propagating. 
+#+END_QUOTE
+
+ Benford's experiments
+unfolded in relative obscurity, apart from inspiring a short story that he would
+publish in the following year, entitled "The Scarred Man". As far as we can
+tell, however, the invocation of "evolution" remained entirely analogical, and
+did not signal any rigorous effort to implement Darwinian natural selection in
+the context of self-reproducing code. It was nevertheless an alluring idea, and
+one that would reappear with frequency in the young craft of virus programming.
+
+**** 1985: Cohen
+
+Though anticipated by over a decade of scattered experiments, the *concept* of
+"computer virus" made its canonical entrance into computer science in the 1985
+dissertation of Fred Cohen, at the University of Southern California, /Computer
+Viruses/ [[bib:cohen85]]. /Computer Viruses/ is a remarkable document. Not only does it provide
+the first rigorously formulated -- and /formalized/ -- concept of computer
+virus, which Cohen appears to have discovered independently of his predecessors
+(whose work was confined to obscurity and fiction), explore that concept at the
+highest possible level of generality, in the context of the Turing Machine
+formalism, develop an elegant order-theoretic framework for plotting contagion
+and network integrity, leverage language-theoretic insights to subvert
+hypothetical (because it did not yet exist!) anti-virus software through
+Godelian diagonalization, and suggest a number of defenses, such as the
+cryptographic signing of executables, which are still used today, it also hints
+-- elliptically -- at the potential for viral evolution. At first glance, what
+Cohen calls the /evolution/ of a virus resembles what would later be called
+/polymorphism/ or even /metamorphism/
+# explain difference?
+-- the process of altering the /syntactic/ structure of the pathogen in the
+course of infection, so that the offspring is not simply a copy of the parent.
+This is indeed enough to expose the virus to a certain amount of differential
+selective pressure, so long as antiviral software (the virus's natural predator)
+pattern matches on the virus's syntactic structure (the precise sequence of
+opcodes used), or on some low-level features on which the syntax supervenes (one
+or more bitwise hashes of the virus, for example). But Cohen goes a step further
+than this, and considers a far broader range of infection transformations that
+do /not/ preserve semantic invariants. That is to say, he considers reproduction
+operators -- operators embedded in the virus itself, which, following
+Spector [fn:autoconstruction] I can call "autoconstructive operators" -- which
+generate semantically dissimilar offspring.
+
+Cohen thus deploys all the essential instruments for an evolutionary treatment
+of viruses:
+
+  1. reproduction with variation (the "genetic operators")
+  2. selection (detection by recognizers, or "antivirus" software)
+  3. differential survival (there is no recognizer that can recognize
+     every potential virus, as a corrolary of Rice's theorem) :CITE:
+
+He goes no further in systematizing this dimension of the problem,
+unfortunately, and nowhere in this text do we find anything that either draws on
+or converges with contemporaneous research into evolutionary computation as a
+mechanism for program discovery or artificial intelligence.
+
+Cohen can hardly be blamed for this, of course. The dissertation as it stands is
+a work of rare ambition and scope. The casual observer of virus research and
+development over the past three decades, however, might be surprised by the
+impression that so little has been done to bridge the distance that lay between
+it and study of evolutionary computation. While the rhetoric surrounding the
+study of computer viruses remained replete with references to evolution, to
+ecology, to natural selection, and so on, [MEMO: CITATIONS ] efforts to actually
+integrate the two fields appear to have been rare.
+
+This impression is not wholly accurate, however. Closer study shows us that the
+experimental fringe of the gls:vx scene has indeed retained an interest in exploring
+the use of genetic methods in their work. If this has gone relatively unnoticed
+by the security community, this is likely for one or two reasons:
+
+1. the glspl:vxer who have implemented genuinely evolutionary methods in their
+   work seem to be motivated primarily by hacker's curiosity and not by monetary
+   gain. The viruses they write are intended to be more
+   playful than harmful, and it appears that several of the evolutionary viruses
+   I have found were sent directly by their authors to antivirus researchers, or
+   published, along with source code and documentation, on publically accessible
+   websites and gls:vxer ezines.
+
+2. Of course, we should consider the non-negligible selection
+   effect implied in reason #1: it's not surprising that the viruses /that I was
+   able to find/ in the course of writing this chapter are those circulated by
+   the grey-hat gls:vxer community, as opposed to those developed, or contracted, by
+   intelligence agencies and criminal syndicates, who tend to hold somewhat more
+   stringent views on matters of intellectual property. And so a second,
+   plausible-enough explanation presents itself: it is possible that far less
+   playful evolutionary viruses /do/ exist in the wild, but that they tend to
+   either go undetected, are used primarily for targetted operations less
+   exposed to the public, or that they are not being properly recognized or
+   reported in the security bulletins released by the major antivirus companies.
+
+# a short bit on encrypted, oligomorphic, polymorphic, metamorphic
+
+**** Nonheritable Mutations in Virus Ontogeny
+
+For reasons of stealth, virus writers have explored ways of incorporating
+variation into their mechanisms of infection and replication. The first trick to
+surface was simple encryption, employed for the sake of obfuscation rather than
+confidentiality. This first became widely known with the Cascade virus in
+[YEAR]. Viruses using this obufscation method would encrypt their contents using
+variable keys, so that the bytewise contents of their bodies would vary from
+transmission to transmission. The encryption engine itself, however, would
+remain unencrypted and exposed, and so antiviral software simply looked for
+recognizable encryptors instead.
+
+Next came oligomorphic viruses, starting with Whale in [YEAR]. These would use
+one of a fixed set of encryption engines, adding some variability to the mix.
+This would make the problem of detection some 60 or 90 times harder, depending
+on the number of engines, but such distances are easily closed algorithmically.
+
+Next came polymorphic engines, which would scramble and rebuild their own
+encryption engine with each transmission, while preserving all the necessary
+semantic invariants. The antivirus developers countered by running suspicious
+code in emulators, waiting until the body of the virus was decrypted before
+attempting to classify it.
+
+The last and most interesting development in this (pre-genetic) sequence rests
+with /metamorphic/ viruses, which redirected the combinatorial treatment that
+polymorphics reserved for the encryption engine onto the virus body as a whole.
+There was no longer any need for encryption, strictly speaking, since the
+purpose of encryption in polymorphism is to obfuscate, not to lock down, and
+this allowed viruses to avoid any reliance on the already somewhat suspicious
+business of decrypting their own code before running.
+# what was the first? i forget...
+
+In biological terms, what we're seeing with both polymorphic and metamorphic
+viruses is a capacity for ontogenetic variation. While it is possible for the
+results of metamorphic transformations to accumulate over generations, in most
+cases (unless there are bugs in the metamorphic engine), these changes are
+semantically neutral, and do not affect the functionality of the code (though
+this raises a subtle point regarding what we are to count as 'functionality',
+especially when faced with detectors that turn syntactic quirks and timing
+sidechannels into a life-or-death matter for the virus). They are also, in
+general, reversible, forming a group structure. So long as they are not
+subjected to selective pressure, and complex path-dependencies don't form, the
+'evolution' of a metamorphic virus typically has the form of a random walk.
+
+It is nevertheless evident how close we are to an actual evolutionary process.
+
+**** 2000: W32.Evol
+
+**** 2002: MetaPHOR (W32/Simile, {W32,Linux}/Simile.D, Etap.D)
+
+In 2002, Mental Driller developed and released a virus that bridged the gulf
+between metamorphic viruses and a new variety of viruses that could be called
+"genetic". MetaPHOR is a highly sophisticated metamorphic virus, capable of
+infecting binaries on both Linux and Windows platforms. Written entirely in x86
+assembly, it includes its own disassembler, intermediate pseudo-assembly
+language, and assembler, as well as a complex metamorphic and encryption
+engines. Its metamorphic engine mutates the code body through instruction
+permutation, register swapping, 1-1, 1-2, and 2-1 translations of instructions
+into semantic equivalents, and the injection of 'garbage code', or what we will
+later call "semantic introns".
+
+But the final touch, which elevates this program to evolutionary status, is the
+use of a simple genetic algorithm, which is responsible for weighting the
+probabilities of each metamorphic transformation type. As Mental Driller
+comments in the MetaPHOR source code:
+
+#+BEGIN_QUOTE
+  I have added a genetic algorithm in certain parts of the code to make it
+evolve to the best shape (the one that evades more detections, the action more
+stealthy, etc. etc.). It's a simple algorithm based on weights, so don't expect
+artificial intelligence :) (well, maybe in the future :P). 
+#+END_QUOTE
+
+ The way
+it works is that each instance of the virus carries with it a small gene
+sequence that represents a vector of weights -- one for each boolean decision
+that the metamorphic engine will make when replicating and transforming the
+virus, in the process of infection. These are modified
+# by how much? still reading the code and not sure
+a little with each replication. The hope is that the selective pressure imposed
+(for free!) by antiviral software will select for strains of the virus that have
+evolved in such a way as to favour transformations that evade detection, and
+shun transformations that give the virus away. (Descendents of the virus, for
+instance, may adapt in such a way as to never use decryption, if that should
+turn out to the a tactic that attracts the scanners' attention, in a given
+ecosystem. Or they may evolve to be less aggressive in infecting files on the
+same host, or filter their targets more carefully according to filename.
+
+**** 2004-2005: W32/Zellome
+# add that here. then surprise, Zellome!
+
+The frequent invocation of ecological and evolutionary tropes in virus
+literature, combined with the lack of any genuine appearance of evolutionary
+malware, has led many to speculate as to its impossibility. The most frequently
+cited reason
+# Add citations :CITE:
+for the unfeasibility of viral evolution is /computational brittleness/ -- the
+claim being that the machine languages (or even scripting languages) that most
+viruses are implemented in are relatively intolerant to random mutation. The
+odds that a few arbitrary bitflips will result in functional, let alone
+'fitter', code is astronomically small, these critics reason. This is in
+contrast to the instruction sets typically used in GP and ALife, which are
+/designed/ to be highly fault-tolerant and evolvable.
+
+# Fun fact: Mark Ludwig used the same reasoning to conclude (1) that
+# virus evolution in unfeasible in the wild, and (2) that organic
+# evolution, too, in unfeasible without divine guidance!
+
+
+This is so far from being an insuperable obstacle that it suggests its own
+solution: define a more robust meta-grammar to which genetic operators can be
+more safely applied, and use those higher-level recombinations to steer the
+generation of low-level machine code.
+
+We can find this idea approximated in a brief article by ValleZ, appearing in
+the 2004 issue of the gls:vxer ezine, /29A/, under the title "Genetic Programming in
+Virus". The article itself is just a quick note on what the author sees as
+interesting but in all likelihood impractical ideas.
+
+#+BEGIN_QUOTE
+  I wanna comment here some ideas i have had. They are only ideas... these ideas
+seems very beautiful however this seems fiction more than reality. 
+#+END_QUOTE
+
+
+ValleZ goes on to sketch out the main principles behind genetic programming, and
+then gets to the crux of the piece: "how genetic programming could be used in
+the virus world".
+
+As already noted, most of the essential requirements for GP are already present
+in viral ecology: selective pressure is easy to locate, given the existence of
+antiviral software, and replication is a given. However, ValleZ notes, the
+descendant of a virus tends to be (semantically) identical to its parent, and
+even when polymorphism or metamorphism are used, the core semantics remain
+unchanged, and there is no meaningful accumulation of changes down generational
+lines.
+
+(Conjecture: If we were to picture the distribution of diversity in the
+genealogy of a metamorphic virus, for instance, we would see a hub-and-spoke or
+starburst design in the cluster, with no interesting progressions away from the
+centre. Take a look at the Eigenvirus thesis to see if there's any corroboration
+there.)
+
+ValleZ suggests the use of genetic search operators -- mutation, and, perhaps,
+in situations where viruses sharing a genetic protocol encounter one another in
+the same host, crossover -- in virus replication. They would take over the work
+that is usually assigned to polymorphic engine, with the added, interesting
+feature of generating enough semantic diversity for selective pressures to act
+on. But for this to work, they note, it would be necessary to operate not on the
+level of individual machine instructions (which are, as noted, rather brittle
+with respect to mutation) but higher-level "blocks", envisioned as compact,
+single-purpose routines that the genetic operators would treat as atomic.
+
+The idea is left only barely sketched out, however, and ValleZ concludes by
+reflecting that it seems more an idea "for a film than for real life, however i
+think its not a bad idea :-m".
+
+
+In 2005, an email arrived in the inbox of the virus researchers Peter Ferrie and
+Heather Shannon. Attached was a sample of what would go on to be known as the
+W32/Zallome worm. The code of the worm appeared unweildly and bloated, but its
+unusual polymorphic engine captured the analysts' attention.
+
+**** 2009: Noreen's experiment on grammatic malware evolution
+
+At GECCO '09, Sadia Noreen presented a report on her recent experiments
+involving the evolution of computer viruses. The approach she adopted was to
+first collect samples of several varieties of the Beagle worm (CARO name
+W32/Bagle.{a,b,c,d,e}@mm), and then define a regular grammar that isolated the
+separable components of each variant, and which could be used to recombine and
+generate new variants. An initial population of grammatically correct, but
+randomly generated, individuals would then be spawned.
+
+The fitness function used in these experiments was, curiously, resemblance to
+the existing samples, as judged by a distance metric and then ratified by an
+antivirus scanner. The idea was that if an evolved specimen so closely resembled
+the original samples they were indiscernibly to a scanner, than this would prove
+that viruses *could* be generated using evolutionary techniques.
+
+This isn't the most compelling use of evolutionary techniques in this realm --
+that random sets of parameters can be made to approximate or match a training
+sample, when the fitness function depends precisely on the resemblance of the
+former to the latter, is not surprising. Genetic algorithms are often introduced
+through the use of "hello world" exercises posing formally similar problems. But
+the framework that Noreen developed could, itself, be put to much more
+interesting and creative ends, and the idea of assuring the evolvability and
+mutational robustness of viral genotypes by defining and adhering to a strict
+grammar is promising.
+
+The idea of taking detection as a goal (in an effort to establish the
+possibility of evolution in this context) rather than as an obstacle is a
+strange approach, given that several scanners *also* use grammatical analysis to
+detect the code (often limiting themselves to regular expressions and FSAs), and
+so it's quite possible that the grammar itself went a long way towards
+preserving the invariants that resulted in detection.
+
+If the goal were to evolve viruses that had a chance of being viable in the
+wild, and so had to contend with the selective pressures imposed by detectors,
+the ideal approach would be to employ a grammar with greater Chomsky complexity,
+as the virus writer known as "Second Part to Hell" points out in a 2008 post on
+his website [[bib:spth08]].
+
+**** 2010-2011: Second Part to Hell: Evoris and Evolus
+
+Second Part to Hell's experiments in viral evolution appear to be the most
+sophisticated yet encountered. SPTH begins by identifying computational
+fragility as the principal obstacle to the the evolvability of virus code as
+implemented in x86 assembly. An obvious way to circumvent this problem, SPTH
+reasons, is to have the genetic operators operate, not on the level of
+architecture-specific opcodes, but on an intermediate language defined in the
+virus's code itself.
+
+SPTH designed his IL to be as highly-evolvable as possible, structured in such a
+way that an arbitrary bit-flip would still result in a valid instruction, so
+that they could be permuted or altered with little risk of throwing an
+exception, and so that there would exist a considerable amount of redundancy in
+the instruction set: 38 semantically unique instructions are defined in a space
+of 256, with the remainder being defined as NOPs, affording a plentiful supply
+of introns, should they be required.
+
+"The mutation algorithm is written within the code (not given by the platform,
+as it is possible in Tierre or avida)", SPTH notes, referring to two well-known
+Artificial Life engines. [[bib:spth10a]]
+# ties in with "red pill" motif
+The same is true of the IL syntax. In fact, what's particularly interesting
+about this project, and with the problem of viral evolution in general, is that
+the entire genetic machinery must be contained either in the organism itself, or
+in features that it can be sure to find in its environment. In Evoris, the only
+mechanism that remains external to the organism is the source of selective
+pressure -- antivirus software and attentive sysadmins. Two types of mutation
+are permitted with each replication: the first child is susceptible to bit flips
+in its IL sequence, with a certain probability. With the second, however, the IL
+instruction set may mutate as well, meaning that the virtual architecture itself
+may change shape over the course of evolution. Interestingly, the first-order
+mutation operators in the virus are themselves implemented with the viral IL,
+and so a mutation to the alphabet -- one that changes the =xor= instruction to a
+=nop=, for instance -- may, as a consequence, disable, or otherwise change the
+functioning of, first-order mutation (as SPTH observed in some early
+experiments).
+
+Evolus extends Evoris to include a third type of mutation: "horizontal gene
+transfer" between the viral code and files that it finds in its environment.
+Since the bytes taken from those files will be interpreted in a language
+entirely foreign to their source, there's no real reason to expect any useful
+building blocks to be extracted, unless, of course, the Evolus has encountered
+another of its kind, in which case we have something analogous to crossover.
+(Horizontal gene transfer with an arbitrary file would then be analogous to
+"headless chicken crossover", with the random bytes being weighted to reflect
+what the distribution found in the files from which the bytes are sourced.)
+
+# the quasi-physical experiments on the 'energy level' of the language
+# were really interesting and potentially usable in the context of roper.
+# segue
+
+Though SPTH's results were fairly modest, the underlying idea of having the
+virus carry with it its own language for genotype representation, and to take
+cares to ensure the evolvability of that language -- and to expose the genetic
+language itself to mutation and selective pressure -- is inspired, and turns
+SPTH's experiments into valuable proofs of concept.
+With them, at least two major obstacles to the use of evolutionary techniques
+in the field of offence *have* been addressed and, to some extent, solved by the
+gls:vx community: the problem of code brittleness, or the viability of genetic
+operators, and the problem of self-sufficiency (unlike academic experiments in
+evolutionary computation, the virus must carry an implementation of the relevant
+genetic operators with it everywhere it goes -- "the artificial organisms are
+not trapped in virtual systems anymore", SPTH writes, in the conclusion to the
+first of his series of essays on Evoris and Evolus, "they can finally move
+freely -- they took the redpill" ([[bib:spth10a]], 18).
+
+
+**** Concluding remarks on the history of evolutionary techniques in virus programming
+
+Interestingly, even in the virus scene, which is certainly where we find the
+most prolonged and serious interest in evolutionary computation among black and
+grey hat hackers, the uses to which evolutionary methods are put tend, for the
+most part, to be fairly modest, and oriented towards defence (defending the
+virus from detection). When genetic operators are employed, they tend to serve
+as part of a polymorphic or metamorphic engine, and the force of selection
+principally makes itself felt through antivirus and IDS software. 
+Outside of science fiction [[bib:xfiles-killswitch]], however, we have not seen any
+discernable attempt to put evolutionary techniques in the service of malware that
+/learns/, in a fashion comparable to what we see with next-generation defence
+systems. There is nevertheless a tremendous amount of potential in this
+direction, and the threat of unpredictable, evolving viral strains emerging from
+this sort of research is one that hasn't failed to capture the imagination.
+
+In a paper presented at the 2008 /Virus Bulletin/ conference, two artificial
+life researchers, Dimitris Iliopoulos and Christoph Adami, together with malware
+analyst P\'eter Sz\"or of Symantec, outline the threat that such technology may
+pose and the extent to which it would be feasible to produce [[bib:iliopoulos11]].
+The greatest risk, it seems, concerns the possibility of detecting such malware.
+Existing obfuscation techniques, they note, all share the same theoretical
+limit: though polymorphic and metamorphic variants of a malware strain may evade
+literal signature detection, and and syntactic/structural detection, they do
+tend to share common /semantic/ invariants, and remain vulnerable to detection
+by means of a well-tuned behavioural profile. "Simply put," they write,
+
+  #+BEGIN_QUOTE
+  biological viruses are constantly testing new ways of exploiting environmental
+  resources via the process of mutation. In contrast, computer viruses do not
+  exhibit such traits, relying instead on changing their appearance to avoid
+  detection. /Functional/ (as opposed to cryptic) variation, such as the discovery
+  of a new exploit or the mimicry of non-malicious behaviour masking malicious
+  actions, is not part of the arsenal of current malware. 
+  #+END_QUOTE
+
+Evolutionary techniques, by contrast, could allow for the generation of malware
+instances whose semantic variation is bounded in extremely minimal, abstract,
+and subtle fashions, as demanded by the task at hand, offering little to no
+foothold for existing detection technologies. If allowed to develop more freely,
+moreover, with no selective pressures beyond replication, survival, and the
+subversion of the systems intended to stop them -- and if they could incubate
+in environments where those particular pressures are gentle enough to allow for
+relatively "neutral" (non-advantageous, but non-deleterious) exploration of their
+environment -- then "the emergence of complex adaptive behaviors becomes an
+expected result rather than an improbability, as long as exploitable opportunities
+exist within the malware's environment" [[bib:iliopoulos11]].
+
+Sz\"or, Iliopoulos, and Adami, here, are discussing the use of evolutionary
+techniques in virus generation, rather than payload generation, as examined
+in this thesis -- and, indeed, as we'll see, despite the relative dearth of concrete
+advancements, the theme of evolutionary computation has been a preoccupation
+of virus writers ever since the first computer virus was crafted, a phenomenon
+we don't see paralleled in other fields of offensive/counter-security. There
+are challenges facing the deployment of evolutionary malware "in the wild" that
+we don't encounter when developing it "in vitro" -- that is to say, in a virtual
+laboratory, where selective pressures can be fine-tuned with care, rather than
+left to external circumstance. Where the research presented here rejoins
+Sz\"or, Iliopoulos, and Adami's anticipations is in examining the results of
+relatively free and unconstrained exploration of a host environment by
+evolutionary malware, where the tether to semantic invariance is intentionally
+kept as loose as possible and the specimens have the ability to salvage and
+recombine whatever functional code they can from their hosts. This is, after
+all, the very nature of a "code reuse" or "data-only" attack -- terms often
+given to gls:rop in the literature -- a quality that makes them an especially
+appealing subject for evolutionary study. It should nevertheless be emphasized
+that we are /not/ engineering /viral/ malware here -- \gls{roper}'s populations
+are not capable of /self/-replication, and do not encapsulate their own genetic
+operators. For that, they rely on the gls:roper engine. Once generated, they
+can certainly be /deployed/ in the wild, but we do not expect any such specimens
+to be capable of reproduction, there, and so their evolutionary history ends
+as soon as they exit the incubator.
+
+The historical lineage that comes closest to what we are doing here, then, is
+what we could call /evolutionary payload generation/. 
+# best name?
+This lineage is considerably shorter -- we see no comparable fascination with
+evolutionary techniques in the exploit-writing world, as compared to the gls:vx
+scene -- but the achievements that have been made in this direction tend to be
+considerably more robust, in terms of evolutionary computation. The most likely
+reason for this is simply that payload evolution -- where the malware is /produced/
+using genetic techniques, but is not expected to /continue/ evolving once "released"
+-- is amenable to laboratory study, and to rapid iterations of the evolutionary cycle,
+in a way that virus crafting is not. 
+
+
+# >>> still need some citations on defence stuff
+*** Genetic Payload Crafting
+
+**** that SQL paper...
+
+**** Gunes Kayacik and the evolution of buffer overflow attacks
+Gunes Kayacik's 2009 research brought evolutionary methods -- specifically,
+linear genetic programming (LGP) and grammatical evolution (GE) -- to bear on
+the problem of automatically generating shellcode payloads for use in the sort
+of buffer overflow attacks already known to us from Aleph One. The aim of that
+research is twofold:
+
+1. it aims to evolve payloads that can evade not just
+   rudimentary signature-based detection engines, like Snort's, monitoring
+   inbound packets, but also anomaly-detecting, host-based intrustion detection
+   systems, such as Process Homeostasis (pH). In this respect, it has much in
+   common with the uses of genetic algorithms that we start to see in some of
+   the more experimental corners of the virus scene, in the early years of the
+   millenium. In fact, the principal means of obfuscation that Kayacik saw
+   emerging from his attack population was the proliferation of "introns", or
+   what the virus literature refers to as "garbage code" when discussing an
+   analogous tactic of metamorphic engines.
+
+2. the secondary aim of Kayacik's research, however, is to use
+   these evolving shellcode specimens to better train the same defensive AIs
+   that the population of attacks is struggling to subvert. The ideal, here, is
+   to lock both intelligences into an evolutionary arms race. In practice,
+   however, the attack populations had little difficulty leaving the defenders
+   in the dust.
+
+# Citations needed
+
+*** The Road Ahead
+
+Despite the relative dearth of work being done on the intersection of exploit
+research and evolutionary computation -- an intersection which is all but
+barren, though flanked by thriving research communities on both sides -- it is
+our conviction that this may become extraordinarily fertile terrain for
+research. Evolutionary methods are naturally well-suited to the exploration of
+the possibility space inhabited by weird machines. This is not least due to the
+fact that such machines, whose existence is an emergent and altogether
+accidental effect, are in no way designed to be hospitable to human programmers.
+Even the most obtuse and ugly programming language -- including the tiramisu of
+backwards-compatible ruins that makes up the x64_64 -- is designed with /some/
+aspiration of cognitive tractability and elegance in mind. As much as it may
+/seem/ that this or that programming environment cares little for the
+programmer, this is never truly the case -- until you enter the terrain of weird
+machines. These are landscapes that were never intended to exist in the first
+place -- they're a wilderness supervening on artifice.
+
+* On the Design and Implementation of ROPER: Algorithmic Overview
+<<sec:design>>
+<<sec:algorithmic-overview>>
+
+What we will establish in the pages that follow is that it is
+indeed possible to generate functioning, ROP-chain payloads
+through purely evolutionary techniques. By "purely evolutionary",
+here, we mean that payloads are to be evolved /from scratch/,
+starting with nothing but a collection of gadget pointers, of
+which we have virtually no semantic information, and a pool of
+integer values. This stands in contrast to
+# citations
+most previous experiments in the field of offensive
+security, where the role of evolutionary techniques is restricted
+to the fine-tuning or obfuscation of already existing malware
+specimens
+# citations
+or to the recombination of high-level modules into working
+programs, following an established pattern.
+
+By "functioning", we mean only that we are able to generate
+ROP payloads that reliably perform to specification, for a wide
+variety of tasks. Some of these tasks are simple and exact
+-- such as preparing the gls:cpu context for a given system call,
+with certain parameters -- whereas others are complex but
+vague in nature -- tasks concerning the classification of data
+by implicit properties, or interacting with a dynamic environment.
+In each case, /all/ that is provided to our system by way of
+instruction are the specifications of the task, translated into
+selective pressures in the form of a "fitness function".
+
+It should be emphasized that this system, acronymously named gls:roper, is
+presented as a /proof of concept/, and not as a refinement of evolutionary
+techniques. gls:roper is far from being an impressively efficient compiler or
+classifier, and no attempt was made to have it be otherwise. What gls:roper is, is
+the first known use of evolutionary computation in return oriented programming,
+and, more generally, the first time that genetic programming has been put to
+work at a task for which it seems so obviously suited: the autonomous
+programming of state machines that emerge entirely by accident, supervening on
+the systems we designed, without our having ever designed them, and having
+languages and instruction sets all their own, without having ever been
+specified, spontaneously coalescing in the cracks of our abstractions.
+
+:NOTE:
+update diagram, make new diagram
+label the arrows with reference to the algorithms
+:END:
+#+CAPTION: A bird's eye view of gls:roper
+#+LABEL: fig:birdseye
+[[file:../images/birdseye.png]]
+
+
+# Algorithm Blocks
+
+\begin{algorithm}
+\caption{Population Initialization}
+\label{alg:initpop}
+\begin{algorithmic}[1]
+\REQUIRE $\varepsilon$, ELF binary of the process to be attacked
+\REQUIRE $\pi$, the problem set specification
+\REQUIRE $n$, the desired population size
+\REQUIRE $\iota$, a pool of raw integers
+\REQUIRE $(\frak{R},s)$, a pseudo-random number generator and seed
+\STATE {text, rodata $\gets$ parse($\varepsilon$)}
+\STATE {$\iota$ $\gets$ $\iota$ $\cup$ find-pointers(rodata, $\iota$)}
+\STATE {$\gamma \gets$ harvest-gadgets(text)}
+\STATE {$\Pi \gets$ empty-vector($n$)}
+\STATE {$\frak{R}$ $\gets$ seed($\frak{R},s$)}
+\FOR {$x \gets 1 $ \TO $n$}
+\STATE {$\frak{R}$, $\Pi_x$ $\gets$ 
+        spawn-individual($\frak{R}$, $\gamma$, $\iota$, rodata)}
+\label{alg:initpop:line:spawn-individual}
+\ENDFOR
+\RETURN population
+\end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}
+\caption{Genotype Evaluation (Ontogenesis)}
+\label{alg:evalgen}
+\begin{algorithmic}[1]
+\REQUIRE $E$, the CPU emulator
+\REQUIRE $IO: [(in, out, weight)]$, the input/output rules for the problem set
+\REQUIRE $\varphi: [\mathbb{N}] \rightarrow \mathbb{F}$, 
+\REQUIRE \texttt{SENTINEL}: uint, a fixed-width integer constant (0, e.g.)
+\REQUIRE $\mu$: $\mathbb{N}$, the maximum number of execution steps permitted
+the fitness function, mapping vectors of integers to floats
+\REQUIRE $\Gamma$, the genotype to be evaluated
+\STATE {$\sigma \gets $ serialize($\Gamma$) $\cup$ [SENTINEL]}  \COMMENT {\emph{into a stack of bitvectors}}
+\STATE {accumulator $\gets$ ()}
+\FORALL {case in $IO$}
+\STATE {$E$ $\gets$ prime $E$ with case.in}
+\STATE {$E$ $\gets$ load $\sigma$ into stack memory of $E$}
+\STATE {$E$ $\gets$ exec($E$, \texttt{"POP PC, SP"})} \COMMENT {\emph{pop stack into program counter}} 
+\STATE {$i \gets 0$}
+\WHILE {$i < \mu$ \AND program-counter($E$) $\neq$ SENTINEL \AND in-legal-state($E$)}
+\STATE {$E \gets$ step($E$)} \COMMENT {\emph{fetch instruction at }\texttt{PC}\emph{ and execute}}
+\STATE {$i \gets i+1$}
+\ENDWHILE
+\STATE {accumulator $\gets$ acc(accumulator, case.weight, $\varphi$(read-registers($E$), case.out))}
+\STATE {$E$ $\gets$ reset($E$)}
+\ENDFOR 
+\RETURN {accumulator} \COMMENT {\emph{the `phenotype'}}
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+\caption{Evolve Population (Tournament Selection)}
+\label{alg:evolve}
+\begin{algorithmic}[1]
+\REQUIRE $\Pi$, the population \COMMENT {\emph{as initialized by Algorithm~\ref{alg:initpop}}}
+\REQUIRE $E$, the CPU emulator
+\REQUIRE $\Omega: \Pi \rightarrow \mathbb{B} $, the stop condition (predicate over $\Pi$)
+\REQUIRE $\Sigma$, the problem set
+\REQUIRE $(\frak{R}, s)$, a PRNG and seed
+\REQUIRE $n$, the number of individuals competing in each selection tournament
+\STATE {$\frak{R}$ $\gets$ seed($\frak{R}, s$)}
+\REPEAT
+\STATE {$\frak{R}$, candidates $\gets$ using $\frak{R}$, pick $n$ from $\Pi$}
+\label{alg:evolve:line:candidates}
+\STATE {$\Phi \gets $ empty list of (float, genotype) pairs}
+\FOR {$\Gamma$ in candidates} 
+\STATE {$\Gamma_\textit{fitness}$ $\gets$ evaluate-genotype($\Gamma, \Sigma, E$)}
+\COMMENT {\emph{Algorithm~\ref{alg:evalgen}}}
+\ENDFOR
+\STATE {$\Phi \gets$ sort($\Phi$, by \emph{fitness})}
+\STATE {victors $\gets$ take $m$ from $\Phi$}
+\STATE {vanquished  $\gets$ take $k$ of reverse($\Phi$)}
+\STATE {$\frak{R}, \textrm{offspring}_{1\dots k} \gets \textit{breed}(\frak{R}, k, \textrm{victors})$}
+\ref{alg:evolve:line:breed}
+\STATE {$\Pi \gets [\textrm{vanquished/offspring}]\Pi$} \COMMENT {replace vanquished with offspring}
+\UNTIL {$\Omega(\Pi) = \TRUE$}
+\STATE {champion $\gets$ head(sort($\Pi$, by \textit{fitness}))}
+\RETURN {champion}
+\end{algorithmic}
+\end{algorithm}
+
+Algorithms \ref{alg:initpop}, \ref{alg:evalgen}, and \ref{alg:evolve}
+furnish a bird's eye view of gls:roper, abstracting away from questions of
+implementation, and streamlining away various bits of functionality
+aimed at optimization, bookkeeping, and fine-tuning.
+
+gls:roper begins with the analysis of an executable binary file (either an
+application or a library). For the time being, we are restricting
+ourselves to binaries targetting the 32-bit gls:armv7 architecture, in ELF
+format, but there is nothing essential about this restriction, and
+gls:roper could easily be extended to handed a variety of hardware
+platforms and executable formats, if desired. It harvests as many viable
+ROP gadgets as it can from the file (within parameterizable limits), by 
+means of a linear sweep search, walking backwards through the file's
+executable =.text= section until it hits a return instruction, and then
+walking further backwards until it reaches an instruction that would
+prevent the execution flow from reaching the return. This isn't the
+most thorough or exacting technique for finding gadgets, and a wider
+variety of potentially usable gadgets can be uncovered by means of
+a constraint-solving algorithm, which is able to detect stack-controllable
+indirect jumps other exploitable control-flow artefacts as well. (We experiment
+with such an approach in gls:roper II, which is still in progress at the time of
+writing.) A linear sweep nevertheless suffices to provide us with a fairly
+generous number of gadgets for our purposes, and has the advantage of being
+both simple and efficient.
+# provide some numbers here. 
+
+The addresses of these gadgets, together with a pool of potentially useful
+immediate integer values and data pointers, which can be supplied by the
+user, or inferred from the specification of the problem set, supply us with
+the primtive genetic units from which the first genotypes in the population will
+be composed. With no more abuse of terminology than is customary in evolutionary
+computation, we can call this the "gene pool" of the population. It should
+nevertheless be noted that the biological concept of /gene/ presupposes many
+structural constraints that have, as of yet, no parallel in our system.
+# CITATION AND EXPLANATION NEEDED
+
+The initial population, as yielded by Algorithm \ref{alg:initpop}, is
+little more than an array of variable-length vectors of fixed-width
+integers (32-bits, so long as we are restricting ourselves to the
+gls:armv7, but, again, this restriction matters little so far as the
+system's algorithmic structure is concerned). The length of the
+initial individuals is left parameterizable, but is upper-bounded by
+the amount of stack memory that will be available in the target
+process for our attacks to write to. We will complicate this structure
+somewhat, in Section [[sec:clumps]], but it remains a useful
+simplification.
+
+The main loop, outlined in Algorithm \ref{alg:evolve}, is built around a
+well-known and widely used genetic programming algorithm called "tournament
+selection". On each iteration of the loop, $n$ (typically 4) distinct candidate
+genotypes are chosen from the population, with equal probability. Each is then
+mapped to its phenotype (its behavioural profile in the emulated gls:cpu), and its
+fitness evaluated (by applying the fitness function to that profile). The $m$ 
+(typically 2) candidates with the best fitness are selected for reproduction,
+while the least-fit $k$ candidates are culled from the population. 
+
+The genotypes selected for reproduction are then passed to our genetic operators,
+which will return $k$ offspring, who will replace the least-fit $k$ candidates
+in the tournament. In the genetic programming literature, these operators are
+often referred to as the "search operators", as they "define the manner in which
+the system moves through the space of possible solutions" ([[bib:banzhaf98]], 144).
+In gls:roper, our genetic operators comprise a single-point crossover function,
+which maps a pair of parents into a pair of offspring, and a mutation operator,
+which maps a single genotype into a variant thereof. The internals of these
+operators are detailed in Section [[sec:genetic_operators]].
+
+This loop continues until the halting conditions are satisfied. These are most
+often set either to a maximum number of iterations, or the attainment of a set
+degree of fitness by the population's fittest specimen.
+
+In the following sections, we will explain the finer-grained design decisions
+involved in implementing the algorithms specified above. 
+
+:TODO:
+we need
+- a graceful transition to the next section
+- elaboration of the design decisions glossed in the berlin paper
+- occasional forays into experimental tests, for little things. 
+:END:
+
+:NOTES:
+- section title could use work.
+:END:
+In the following sections, I will unfold and justify the decisions that went into
+implementing the algorithms surveyed in Section [[sec:algorithmic-overview]].
+We can begin with the representation of the genotypes constructed by
+the *spawn-individual()* algorithm, called on line
+\ref{alg:initpop:line:spawn-individual} of Algorithm \ref{alg:initpop}.
+
+** Gadget Extraction
+<<sec:gadget-extraction>>
+
+Since the aim of gls:roper is to foster the evolution of ROP chains, we 
+must begin by supplying the engine with a sufficient pool of gadgets, 
+harvested from the target executable. 
+  [fn::See Section [[sec:rop]] for a sustained explanation of how return-oriented
+  programming works, and an explanation of the concept of 'gadget'.]
+
+There are several ways that this can be done, but the simplest is just to
+scan the executable for a subset of easily recognizable 'gadgets' using a
+linear sweep algorithm, shown in Algorithm \ref{alg:rop-sweep}. Since we are
+dealing only with a RISC instruction set architecture here, we can avoid 
+several complexities in our gadget search that we would need to grapple with
+were we adapting gls:roper to handle CISC instruction sets (such as the x86 and
+its ilk) as well. The instructions of a RISC ISA are all of equal length
+(with a certain exceptions, and assumping the mode fixed), and so if a
+sequence of bytes beginning at address $i$ is parsed as instruction $X$
+when beginning the parse /from/ $i$, then it will also be parsed as $X$
+when beginning the parse from some $j < i$. To put it another way, the
+list of RISC instructions parsed from bytevector $\mathbf{C}$, beginning
+at address $i$, extends /monotonically/ with each decrement of $i$.
+In practical terms, this means that an instruction that looks like a
+return from far away will still look like a return by the time you've parsed your
+way up to it. This is very different from what we encounter with CISC ISAs,
+where the length of instructions is variable, and instructions are not aligned.
+Suppose we had the string ="aabbcc"= of bytes. Suppose that =aa= parses to
+\alpha, =ab= parses to \beta, =bb= parses to \tau, =cc= parses to \delta and
+=bcc= parses to \gamma. If we begin the parse from the beginning of the string,
+we get $\alpha \tau \delta$. But if we increment our cursor one byte forward
+before parsing, then our parse yields $\beta \gamma$, with \delta nowhere
+to be seen. In order to adapt our gadget harvesting algorithm to CISC ISAs,
+therefore, we would have to continually check to ensure that the *return*
+instruction spotted at line \ref{alg:rop-sweep:line:see-ret} of
+Algorithm \ref{alg:rop-sweep} is still parseable as a return, and still reachable, from
+the address indicated by $i$ on line \ref{alg:rop-sweep:line:storegadget}. This
+would increase the complexity of the algorithm substantially. 
+
+Fortunately, for the time being, we are concerned only with the two main instruction
+sets of the gls:armv7: the /arm/ instruction set, which is aligned to four-byte intervals, 
+and the /thumb/ instruction set, which is aligned to two-byte intervals. A sufficient
+supply of gadgets can usually be found by passing our extraction algorithm twice
+over the executable segments of our target binary, gathering a pool of both /arm/
+and /thumb/ gadgets. Since the least significant bit of an instruction address is
+invariably 0, for this ISA, the gls:arm gls:cpu uses this bit to distinguish between /arm/
+mode and /thumb/ mode. We therefore increment the address of each of our freshly
+harvested thumb gadgets by 1.
+# Note: you repeat yourself on this point a bit later.
+
+
+
+\begin{algorithm}
+\caption{Linear sweep algorithm for gadget extraction.}
+\label{alg:rop-sweep}
+\begin{algorithmic}[1]
+\REQUIRE {$\mathbf{C}$: a contiguous vector of bytes representing instructions}
+\REQUIRE {$\ulcorner{X_j}\urcorner: [\mathbf{byte}] \rightarrow \mathbb{N} \rightarrow \textrm{inst}|\Lambda$,
+a parsing function, from byte-vectors $X$ and indices $j$ to instructions, or $\Lambda$ in
+case of unparseable bytes.}
+\REQUIRE {$\rho: \textrm{inst} \rightarrow \mathbb{B}$, predicate to recognize returns}
+\REQUIRE {$\varphi: \textrm{inst} \rightarrow \mathbb{B}$, predicate to recognize control instructions,
+with $\forall(x)~\rho(x)\Rightarrow\varphi(x)$, but not necessarily the converse. $\varphi$ should
+also return \textbf{true} for $\Lambda$ (signalling unparseable bytes).}
+\REQUIRE {$\delta$: positive integer,  offset of base virtual address for $\mathbf{C}$}
+\STATE {$\Gamma \gets$ empty stack of integers}
+\STATE {$i \gets $ length($\mathbf{C}$)}
+\WHILE {$i > 0$}
+  \STATE {$i \gets i - 1$}
+  \IF {$\rho(\ulcorner\mathbf{C}_{i+1}\urcorner)$} \label{alg:rop-sweep:line:see-ret}
+    \WHILE {$\neg \varphi(\ulcorner\mathbf{C}_i\urcorner)$ \AND $i > 0$}
+      \STATE {push $i$ onto $\Gamma$} \label{alg:rop-sweep:line:storegadget}
+      \STATE {$i \gets i - \textrm{length}(\ulcorner\mathbf{C}_i\urcorner)$}
+    \ENDWHILE
+  \ENDIF 
+ \ENDWHILE
+\STATE {$\Gamma^\star \gets \textrm{map~}(\lambda x. \delta + x) \textrm{ over } \Gamma$}      
+\RETURN {$\Gamma^\star$}
+\end{algorithmic}
+\end{algorithm}
+
+** Genotype Representation: Gadgets, Clumps, and Chains
+    <<sec:clumps>>
+    \label{sec:clumps}
+
+From a certain perspective -- that of the evaluation engine -- the individual
+genotypes of the population are little more than bare ROP-chain payloads:
+vectors of 32-bit words, each of which is either a pointer into the executable
+memory of the host process, or raw data (the former being a subtype of the
+latter, of course). The view afforded to the genetic operators, and to the
+initial spawning algorithm, exposes slightly more structural complexity,
+which is introduced in response to the following problem:
+
+# Aside from of a handful of metadata tags that are used to provide a clues to the
+# genetic operators (and which we will detail in Section [[sec:genetic-operators]]),
+
+# NB: Carefully check all the uses of biological terms. Try
+# to find reasonably tight-fitting analogies.
+
+In the set of 32-bit integers ($0x100000000$ in all), the subset representing
+the set of pointers into the executable memory segments of a given ELF file
+tends to be rather small: in the case of =tomato-RT-N18U-httpd=, an HTTP
+server that ships with a version of the Tomato firmware for certain gls:arm
+routers, which we will be using for a few of the experiments that follow,
+we can see that only $0x1873c + 0xc0 = 0x187ec$ bytes are mapped to executable
+memory. Now, the gls:armv7 gls:cpu is capable of running in two different modes, each
+with their own instruction set: /arm/ mode, which requires the instructions to
+be aligned to 4-byte units, and /thumb/ mode, which demands only a 2-byte alignment
+of instructions. Since the least significant bit in a dword can therefore not be
+used to differentiate between instruction addresses, the gls:armv7 gls:cpu uses it to
+distinguish between the two modes: any address $a$ whose least significant bit is 1
+(i.e., any odd-valued address) is dereferenced to a thumb instruction
+at address $a \oplus 1$ (rounding down to the nearest even address). 
+This gives us a total of $\frac{0x187ec}{4} + \frac{0x187ec}{2} = 0x125f1$ valid
+executable pointers -- which, roughly, means that only one in fifty-thousand
+of integers between $0x00000000$ and $0xFFFFFFFF$ can be dereferenced to executable
+memory in a the ELF executable in question -- a ratio that is seldom increased
+by more than one or two orders of magnitude, even when dealing with large,
+statically linked ELF binaries.
+  [fn::There's a fair bit of handwaving, here, when referring to a 'typical' ELF 
+  executable -- obviously the size of the executable can vary. We're also restricting
+  ourselves to the executable memory mapped in the file of a /dynamically linked/
+  executable here, ignoring the addresses that may dereference to executable addresses
+  where dynamically loaded libraries might be mapped.]
+
+\begin{table}
+\scriptsize
+\caption{Program Headers of a Typical ELF Executable}
+\label{tab:readelf-tomato}
+\hrule
+\begin{verbatim}
+$ readelf --program-headers tomato-RT-N18U-httpd
+
+Elf file type is EXEC (Executable file)
+Entry point 0xa998
+There are 6 program headers, starting at offset 52
+
+Program Headers:
+  Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align
+  PHDR           0x000034 0x00008034 0x00008034 0x000c0 0x000c0 R E 0x4
+  INTERP         0x0000f4 0x000080f4 0x000080f4 0x00014 0x00014 R   0x1
+      [Requesting program interpreter: /lib/ld-uClibc.so.0]
+  LOAD           0x000000 0x00008000 0x00008000 0x1873c 0x1873c R E 0x8000
+  LOAD           0x01873c 0x0002873c 0x0002873c 0x0040c 0x005c8 RW  0x8000
+  DYNAMIC        0x018748 0x00028748 0x00028748 0x00118 0x00118 RW  0x4
+  GNU_STACK      0x000000 0x00000000 0x00000000 0x00000 0x00000 RW  0x4
+
+ Section to Segment mapping:
+  Segment Sections...
+   00     
+   01     .interp 
+   02     .interp .hash .dynsym .dynstr .gnu.version .gnu.version_r .rel.dyn 
+          .rel.plt .init .plt .text .fini .rodata .eh_frame 
+   03     .init_array .fini_array .jcr .dynamic .got .data .bss 
+   04     .dynamic 
+   05     
+\end{verbatim}
+\hrule
+\end{table}
+
+This means that if we allow the integers composing the genotypes of our
+initial population to be randomly selected from the entire 32-bit range,
+only a tiny fraction of those integers will dereference to any meaningful
+executable addresses in the code -- let alone useful gadget addresses.
+Restricting the pool of integers sampled to the set of valid executable 
+pointers, let alone potentially useful gadget points, however, may deprive
+the population of useful numerical values. 
+
+The execution of these individuals, after all, will be driven by return
+instructions, and these, in gls:arm machine code, are most often implemented as
+multi-pops, which pop an address from the stack into the program counter, while
+simultaneously popping a variable number of dwords into other, general-purpose
+registers. This means that each =return= -- each "tick" of the ROP state-machine
+-- not only steers the control flow of our machine, sending it to a new gadget,
+but the data flow as well, furnishing each gadget with a handful (between zero
+and a dozen) of numerical values, to use internally. We don't necessarily want
+to restrict these numerical resources to the range of gadget pointers -- it would
+be better, in fact, if we could tailor the pool of "potentially useful" numerical
+values to a set of integers (including, perhaps, data pointers) that seems suited
+to the problem set at hand. 
+
+This suggests a potentially useful structural constraint that we can
+impose on the genotypes, to increase the likelihood that they will be found
+useful for the problem space at hand, and greatly increase the probability that
+=.text= pointers will be popped into gls:pc, while other integers
+integers land predominantly in general-purpose registers.
+To do this, we calculate the distance the stack pointer will shift
+when each gadget executes, $\Delta_{SP}(g)$, and then clump together
+each gadget pointer $g$ with a vector of $\Delta_{SP}(g)-1$ non-gadget
+values. Consider, for example, the instruction,
+\[\mathtt{LDMIA!~~~~SP,~~\{R0, R7, R9, PC\}}\]
+which pops the stack into registers =R0=, =R7=, =R9=, and gls:pc, in sequence,
+"returning" the program counter to the address represented by the fourth dword
+on the stack, while at the same time populating three general purpose registers
+with the stack's first three dwords. This instruction has a $\Delta_{SP}$
+of 4. For a gadget $g$, we define $\Delta_{SP}(g)$ as 
+$$\Delta_{SP}(\pi) = \sum_{i\in \pi} \Delta_{SP}{i}$$
+for some control path $\pi$ in $g$ that reaches the return. In practice,
+we choose our initial pool of gadgets in such a way that each contains only a basic
+block of code, with control flow entirely in the hands of the return instruction
+that terminates it, so that the choice of $\pi$ is unique for each $g$. If this
+condition is relaxed, we suggest generating $n$ distinct clumps for each
+distinct member of $\{\Delta_{SP}(\pi)|\pi \textit{ is a control path in } g\}$.
+Exactitude isn't strictly necessary, here, however -- as we'll see, the
+evolutionary process that follows is robust enough to handle a fairly large
+number of gadgets with miscalculated $\Delta_{SP}$ values. A good rule of thumb,
+here, is that when the approximation of $\Delta_{SP}(g)$ is left inexact, in the
+interest of efficiency, dump several options into the pool, and let natural
+selection sort them out.
+
+Given a gadget entry point address $\addr{g}$, a "clump" around $g$ can now be
+assembled by taking a stack of $\Delta_{SP}(g)-1$ arbitrary values, and pushing
+$\addr{g}$ on top of it. By the time $g$ has run to completion, it will have popped
+$\Delta_{SP}(g)$ values from the process stack. The first $\Delta_{SP}-1$ of
+these will populate the general purpose registers of the machine, and the
+${\Delta_{SP}}^{\textit{th}}$ will pop the entry point of the /next/ gadget,
+$g'$, into =pc=. That entry point, $\addr{g'}$ will be found at the top of the
+next clump in the sequence that makes up the genotype.
+  [fn::gls:roper also handles gadgets that end in a different form of
+  return: a pair of instructions that populates a series of registers
+  from the stack, followed by an instruction that copies that address
+  from one of those registers to =pc=. In these instances,
+  $\Delta{SP}(g)$ and the offset of the next gadget from $g$ are
+  distinct. But this is a complication that we don't need to dwell on
+  here.]
+
+As explained in Section [[sec:rop-vm]], it is often helpful to think of
+each gadget as an instruction in a virtual machine -- an emergent machine,
+supervening on the host's native instruction set architecture. What we're
+calling a clump here maps onto this concept of "instruction", but with a
+slight displacement: the gadget address can be seen as something
+like an "opcode" for the ROP-VM, and the immediate values in each clump
+can be seen as operands -- /but operands of the next instruction/, not of
+the instruction whose opcode is represented by their own clump's gadget
+pointer.
+
+When the initial population is generated, we take a pool of gadget pointers, 
+harvested from the target binary (see Section [[sec:gadget-extraction]]), and a
+pool of integers and data pointers, supplied by the user as part of the problem
+specification. We then form clumps, as described above, using randomly chosen
+elements of these two pools, as needed. The clumps are then assembled into 
+variable length chains (with the minimum and maximum allowed lengths being
+parameterized by the user), which gives us our genotype representation. The
+internals of this algorithm are details in Algorithm ref{alg:spawn}.
+
+\begin{algorithm}
+\caption{Spawning an Initial Individual}
+\label{alg:spawn}
+\begin{algorithmic}[1]
+\REQUIRE $\mathbf{G}: [\![\mathbb{N}^{\,32}]\!]$, a set of gadget pointers
+\REQUIRE $\mathbf{P}: [\![\mathbb{N}^{\,32}]\!]$, a set of integers and data pointers
+\REQUIRE $(\mathfrak{R}, s)$: a PRNG and seed
+\REQUIRE $(min, max): (\mathbb{N}, \mathbb{N})$, minimum and maximum genotype lengths
+\STATE {$\Gamma \gets $ empty stack of clumps} \COMMENT{\emph{the genotype representation}}
+\STATE {$\mathfrak{R} \gets $ seed$(\mathfrak{R},s)$}
+\STATE {$n, \mathfrak{R} \gets $ random-int($\mathfrak{R}$, min, max)}
+\FOR {$i \gets 0$ to $n$}
+  \STATE {$\addr{g}, \mathfrak{R} \gets $ choose$(\mathfrak{R}, \mathbf{G})$}
+  \STATE {$C \gets $ empty stack of $\mathbb{N}^{\,32}$}
+  \STATE {$\delta \gets \Delta_{SP}(g)$}
+  \COMMENT {\emph{cf. sec. \ref{sec:clumps} for def. of $\Delta_{SP}$}}
+    \FOR {$j \gets 0$ to $\delta$} 
+      \STATE {$p, \mathfrak{R} \gets $ choose$(\mathfrak{R}, \mathbf{P})$}
+      \STATE {push $p$ onto $C$}
+    \ENDFOR
+    \STATE {push $\addr{g}$ onto $C$}
+  \STATE {push $C$ onto $\Gamma$}
+\ENDFOR
+\RETURN {$\Gamma$}
+\end{algorithmic}
+\end{algorithm}
+ 
+** Genetic Operators
+   <<sec:genetic_operators>> 
+
+In order for our population of loosely structured but otherwise random
+ROP chains to explore the vast and uncharted space of possible combinations
+and (on the side of phenotypes) their associated behaviours, we need a
+means of moving from a given subset of our population to "similar" genotypes
+in the neighbourhood of that subset, which may not yet belong to the population.
+This is accomplished by the genetic operators, which allow our population to
+search the genotype space through reproduction and variation.
+
+gls:roper makes use of two such operators: a crossover operator, which operates 
+on genotypes as lists of clumps, and a mutation operator, which operates on
+clumps internally. 
+
+*** Mutation
+     <<sec:mutation>>
+The mutation operator selects, randomly, from a set of transformations,
+which it then applies to one or more words contained in one or more randomly
+selected clumps. The choice of operation is constrained by the word slot being
+operated on: the word that is (probabilistically) fated to be loaded into the
+instruction pointer isn't subject to the same range of modifications that the
+other words in the clump are. The reason for this is that the performance of an
+individual will, in general, be more sensitive to modifications to its gadget
+pointers than to its immediate values, and so it makes sense to afford the
+mutation operator a greater degree of freedom when dealing with a value that is
+unlikely to be used to directly control the instruction pointer. It is
+relatively safe to increment or decrement a pointer by a word size or two, but
+almost always hazardous to negate or shift it, for example.
+
+The rest of the words in the clump can be mutated much more freely. The
+operations currently available include:
+
+1. arithmetically, by applying either numerical operations such as addition and
+   subtraction;
+2. bitwise operations, such as shifts, rotations, sums, and products by
+   a randomly selected constant value;
+3. the pointer operations of dereference (interpreting a value as a pointer,
+   when possible, and replacing it with the value found at the corresponding
+   address in the process's memory) and indirection (the somewhat more
+   costly ($O(n)$ over the size $n$ of the memory space) operation of
+   searching through memory for an instance of the value, and replacing
+   it with a pointer that dereferences to it). When a value cannot be
+   dereferenced as a pointer, or a pointer to a word cannot be found in
+   memory, the operation collapses to the identity function;[fn::
+   Putting $\&$ for raw indirection and $*$ for raw dereference, as in C,
+   our pointer operators $\&'$ and $*'$ are defined as endomorphisms in
+   $\mathbb{2}^{32}$, where $\&'(x) = \&x$ when $(\exists y) *y = \&x$,
+   and $\&'(x) = x$ otherwise. $*'$ is the dual of $\&'$. Unlike the
+   familiar C operators, our pointer mutations therefore have algebraic
+   closure.
+]
+4. a permuation operation, by which two randomly selected machine words in a clump exchange
+   places;
+5. a combination of 3 and 4, where two randomly selected words in a clump are chosen,
+   and one is replaced with their bitwise sum, the other with their bitwise product;
+   
+What the four mutation operations have in common is that
+they share a certain minmal algebraic structure. Within each set, each
+operation -- which, formally, is a endomorphism over $\mathbb{[2^32]}$ --
+has an inverse: 
+\[
+(\forall M\in S)(\forall x)(\exists y) M(x) = y \Rightarrow 
+(\exists M'\in S) M'(y) = x
+\]
+and an identity:
+\[
+(\forall M\in S)(\exists x) M(x) = x
+\]
+What this means is that over each set of mutation operators -- and
+therefore over their union -- the concatenation or succession their
+application forms a cyclic group.[fn::
+  The proof is left as an exercise for the author.
+]
+
+In practical terms, this is a generally beneficial property for genetic
+operators to possess: all else being equal, they should be designed with
+an eye towards neutrality with respect to an arbitrary choice of fitness
+functions. By ensuring that the mutation operators are involutive, or, more
+generally, that they form a cyclic concatenation group, involution just being
+the smallest nontrivial form of such a structure, with a cycle of two, we
+(imperfectly) guard against a situation where they ratchet the population into a
+small corner of the genotypic (and, consequently, the phenotypic) landscape,
+/independent of the fitness function/. (Identity is less significant, in this
+context, and is introduced into the mutation operators only
+as a way of ensuring closure.) Ratcheting occurs when the genetic
+operators are not properly balanced. In the situation where the algebra defined
+by concatenation over the mutation operators does /not/ form a cyclic group --
+when there is "no way back" from some mutation $M$ by any succession of further
+mutations -- ratcheting is inevitable. This problem is distinct from, but
+related to, the problem of genetic drift, which it exacerbates. Involutive pairs
+of operators, selected with equal probability, provide some safeguard against
+this. The /ideal/, in some sense, would be to select genetic operators that
+would engender an /ergodic/ system under a null fitness function:[fn:: Thanks to
+Andrea Shepard for this insight. ] one whose behaviour is evenly distributed
+over the probability landscape it inhabits. In practice, even with fitness
+anulled, evolutionary systems rarely exibit such regularity, which has some very
+interesting effects on the paths that evolution pursues. We will study some of
+these consequences in Chapter [[sec:experimental]].
+
+:NOTE:
+Evolutionary processes seldom play out on a blank slate, and in gls:roper this
+is particularly evident. The processes we observe show the effects of
+interaction between three distinct "landscapes" or probability spaces, each with
+their own contingent features that may skew development in different directions:
+
+1. the /genotypic/ landscape, or edit-distance topography, traversed by
+   mutation and crossover;
+2. the /fitness/ landscape, and
+3. the /"material"/ landscape ...
+:END:
+
+- TODO: Consider mathematical findings of Schmitt's paper on ergodicity of GA
+
+*** Crossover
+     <<sec:crossover>> 
+
+:TODO:
+save mathematical gloss as in mutation section
+:END:
+
+At a slightly higher structural level, the reproduction
+algorithm may apply a crossover operation to the list of clumps, taking the
+clumps as opaque units.
+
+I chose single-point crossover over two-point or uniform crossover to favour
+what I judged to be the most likely form for gene linkage to take in this
+context: A single gadget can transform the gls:cpu context in fairly complex
+ways, since it may include any number of architectural instructions. The
+prevalence of multipop returns in gls:arm code further increase the odds that
+the work performed by a gadget $g$ will be clobbered by a subsequent gadget
+$g'$, and this risk increases monotonically as we move down the chain from $g$.
+This means that adjacent gadgets are more likely to achieve a combined,
+fitness-relevant effect, than non-adjacent gadgets. Lacking any reason to
+complicate things further, we restricted the number of parents involved in each
+mating event to two. [fn::One of the limitations of gls:roper is that the mating
+algorithm, and the genetic search operators in general, are assumed fixed. In
+gls:roper II, we will experiment with a technique for opening this, too, to
+genetic exploration and selective pressure, which Lee Spector calls
+"autoconstructive evolution".]
+
+
+In single-point crossover between two genotypes, $\mu$ and $\varphi$, we
+randomly select a link index $\mu_i$ where $\mu_i < |\mu|$, and $\varphi_i$
+where $\varphi_i < |\varphi|$. We then form one child whose first $\mu_i$ genes
+are taken from the beginning of $\mu$, and whose remaining genes are taken from
+the end of $\varphi_{\mu_i\dots}$, and another child using the complementary
+choice of genes. The only modification I make to this well-known algorithm, in
+gls:roper, is to weight the choices of $\mu_i$ and $\varphi_i$, using a
+parameter we call "fragility", whose calculation I explain in Section
+[[sec:fragility]]. The details of the algorithm itself can be found in
+\ref{alg:crossover}.
+
+:NOTE:
+- standardize algorithm notation
+- TODO what are crossover's algebraic properties?
+--- commutativity? yes
+--- associativity? doubtful
+------ but consider probability distributions and equivalence classes
+       of all possible spawn
+--- diamond property?
+#+BEGIN_EXAMPLE
+(A x B) 
+   |
+   V
+[(AB x BA)]  x  [(C x D)]  ==?  [(A|B x C|D)] ??
+#+END_EXAMPLE
+:END:
+
+\begin{algorithm}
+\caption{Single-Point Crossover, with Fragility} \label{alg:crossover}
+\begin{algorithmic}[1]
+
+\REQUIRE $(\vec{\mu}, \vec{\varphi})$: ([\![ \textbf{clump} ]\!], [\![
+\textbf{clump} ]\!]), the parental genotypes \REQUIRE \emph{Fragility}: [\![
+\textbf{clump} ]\!] $\times$ [\![ \textbf{clump} ]\!] $\times$ lineage $\to
+\mathbb{F}$ \REQUIRE $(\mathfrak{R}, s)$: a PRNG and seed \REQUIRE $n$:
+$\mathbb{N}$, brood size
+
+\STATE {$\mathfrak{R} \gets \textit{seed}(\mathfrak{R}, s)$} \STATE
+{splice-points $\gets ()$} \COMMENT {the indices at which the parental genes
+will be recombined} \FOR {$\vec{\alpha} \in (\vec{\mu }, \vec{\varphi})$} \STATE
+{$t \gets \sum_{\alpha \in \vec{\alpha}} 1.0 - \textit{Fragilty}(\alpha)$}
+\STATE {$p, \mathfrak{R} \gets \textit{random-float}(\mathfrak{R}, t)$} \COMMENT
+{$p$ is more likely to fall on a highly fragile link} \STATE {$x \gets 0$}
+\STATE {$i \gets 0$} \WHILE {$x < p$} \STATE {$x \gets x +
+\textit{Fragility}(\alpha_i)$} \STATE {$i \gets i + 1$} \ENDWHILE \STATE {push
+$(\vec{\alpha}, i)$ onto splice-points} \ENDFOR \STATE {\textbf{let} $\mu^a,
+\mu^b = $ split $\mu$ at splice-points.lookup($\mu$)} \STATE {\textbf{let}
+$\varphi^b, \varphi^a = \textit{split} \varphi \textit{at}
+\textit{splice-points.lookup}(\varphi)$} \STATE {\textbf{let} $\chi^a = \mu^a
+\cup \varphi^a$} \STATE {\textbf{let} $\chi^b = \varphi^b \cup \mu^b$} \RETURN
+{$\chi^a, \chi^b$} \COMMENT {the offspring} \end{algorithmic} \end{algorithm}
+     
+**** Fragility and Gene Linkage
+ <<sec:fragility>>
+
+ As a way to encourage the formation of complex 'building blocks' -- sequences of
+ clumps that tend to improve fitness when occurring together in a chain -- we
+ weight the random choice of the crossover points $\mu_i$ and $\varphi_i$,
+ instead of letting them be simply uniform. With each each adjacent pair of nodes
+ is associated a "fragility" value, representing the likelihood of that
+ pair being split by a crossover operation. The fragility of each link in $A$ is
+ derived from the running average of fitness scores exhibited by the sequence of
+ ancestors of $\mu$ who shared the same linked pair. Links that have a genealogical
+ track record of appearing in relatively fit ancestors (i.e., ancestors with anumerically 
+ /low/ fitness rank) will have a correspondingly low fragility score, while links
+ from weaker genealogical lines will have a respectively greater fragility.
+
+ Following a fitness evaluation of $\mu$, the link-fitness of each clump $f(\mu_i)$
+ (implicitly, between each clump and its successor) is calculated on the basis of
+ the fitness of $\mu$, $F(\mu)$: $$ f(\mu_i) = F(\mu)$$ if the prior link fitness
+ $f'(\mu_i)$ of $\mu_i$ is =None=, and $$ f(\mu_i) = \alpha F(A) + (1-\alpha)
+ f'(\mu_i) $$ otherwise. The prior link-fitness value $f'(\mu_i)$ is inherited from
+ the parent from which the child receives the link in question. If the
+ child $\mu$ receives its $i^{th}$ clump from one parent and its $(i+1)^{th}$ clump
+ from another, or if $i$ is the final clump in the chain, then $f'(\mu_i)$ is
+ initialized to =None=.
+
+ Fragility is calculated from link-fitness simply by substituting a default value
+ (50%) for =None=, and taking the link-fitness score, otherwise.
+
+ In the event of a crash -- where the emulation of a specimen terminates
+ prematurely, due to a gls:cpu exception, such as a segmentation fault or division by
+ zero -- the link-fitness of the clump prior to the one responsible for the
+ crash-event is severely worsened (raised) and the fragility adjusted
+ accordingly. Attribution of responsibility is approximate at best -- all we do
+ is lay the blame at the feet of the last clump to execute before the crash event
+ -- but the penalty is ultimately probabilistic. A clump whose successful
+ execution is highly dependent on the existing gls:cpu context should be seen as a
+ liability, in any case, regardless of whether or not that same clump may have
+ behaved normally in other circumstances. (An example of such a clump would be
+ one that reads from a memory location specified by a register that it does not,
+ itself, set.) This penalty in link-fitness makes connections to the
+ crash-liable clump highly fragile, and so the weighted crossover employed here
+ becomes much more likely to set a splice point just prior to that clump.
+ This has the effect of weeding particularly hazardous genes out of the genepool
+ fairly quickly, as we will see.
+
+** Ontogenesis and Evaluation
+<<sec:ontogenesis-and-evaluation>>
+
+The algorithms explained above all depend, either directly or in the way they
+hang together, on having a way to evaluate the "fitness" of arbitrary genotypes.
+
+The genetic programming literature often enlists the biological distinction
+between /genotype/ and /phenotype/.
+
+*** From Genotype to Phenotype
+<<sec:genotype-to-phenotype>>
+
+"Genotype" is used to refer to the immediate representations of the individuals
+in the population, as sequences of semantically uninterpreted instructions. It
+is, in a sense, a purely /syntactic/ concept. The genotype is the genetic syntax
+of an individual in the population, and belongs to the domain of the genetic
+operators -- crossover, mutation, and so on, all of which operate on syntax alone,
+at least in principle.[fn::
+  It could be argued that the fragility mechanism described above leaks some
+  amount of semantic/phenotypic information into our genetic operations, but
+  this is no cause for concern -- the distinction is simply descriptive, and
+  carries no prescriptive force.
+]
+
+/Selection/, however, does not directly operate on genotypes but /phenotypes/.
+In the context of genetic programming, "phenotype" is the name given to the semantic
+interpretation of an individual's genetic code. If the genotype is a sequence of
+instructions, then the phenotype is the behaviour expressed when that sequence is
+/executed/. Some theorists, such as Wolfgang Bahnzaf, have argued that the notion
+of phenotype should be constrained further still, to refer not just to the semantic
+interpretation of the genome, but to /the result of applying the fitness function
+to that interpretation/. 
+# cITE -- also check spelling of name
+While this distinction does bring some clarity to the issue, and give the engineer
+a better view of /what/, exactly, is the subject of selection, it does deprive us
+of a nice term for the /intermediate representation/, between genotype and fitness
+value. In gls:roper, in particular, the semantic image of the genotype is complex
+enough that it's worth distinguishing from its later collapse into a fitness value,
+for some purposes. We have, moreover, set things up in such a way that it is possible
+to vary the /fitness function/ while keeping the semantic image -- what we call the
+phenotype -- constant. It is simpler, in this case, to "carve nature at the joints",
+and define the fitness function as a function /from phenotypes to floats/, rather
+than as much more complex function from genotypes to floats. The floats, in this
+case, will be called "fitness values", rather than phenotypes, as Bahnzaf would have it.
+
+As for the function from genotypes to phenotypes -- the semantic evaluation function
+-- we might as well keep on pilfering biology textbooks for our terminology, and
+refer to it as /ontogenesis/.
+
+*** Ontogenesis of a ROP-chain
+
+Our definition of ontogenesis in gls:roper should be no suprise: it is simply the
+execution of the ROP-chain payload encoded in the genotype in the "womb" 
+of the host process. 
+
+If we strip away the clump structure, and associated metadata, such as fragility
+ratings, with which we saddled our genotypes in order to provide better traction
+to our genetic operators, what remains is just a stack of fixed-width integers.
+Some of these integers index "gadgets" in the host process, while others are
+there only to provide raw numeric material to register and memory operations. If
+we take this stack, pack it down to an array of bytes, and write it to the stack
+memory of the host process, we should be able to evaluate it simply by popping
+the first item on the stack into the instruction pointer -- which is precisely
+what would happen when a =pop {ip}= return instruction is executed.
+
+From that point on, we only need to sit back at watch as the ensuing cascade of
+returns executes our payload. This is no different from what takes place in
+a ROP-chain attack in the wild -- aside from a few simplifications: for the time
+being, we are abstracting away from any particular attack vector or preexisting
+machine state. The registers of the virtual machine are all initialized to arbitrary,
+constant values, and we don't bother to ask /how/ the ROP payload happened to get
+written to the stack. The stack is of fixed size, and restricted to the region
+of memory that the ELF program headers precribe for it -- thereby placing an upper
+bound on the effective size of individuals in our population -- but the exact
+address of the stack pointer at the moment of inception is not based on any
+observed process state, just set, conveniently, to the centre of the available
+stack segment. No consideration, as of yet, has been given to avoiding "bad
+characters" in our payloads, though introducing this restriction would be fairly
+trivial. Execution is terminated as soon as any of the following conditions obtain:
+  1. the value of the instruction pointer is 0;
+  2. the gls:cpu has thrown an exception (a segmentation fault, a bad instruction,
+     division by zero, etc.);
+  3. some fixed number $n$ of instructions has been executed.
+
+The first outcome is treated as a "well-behaved" termination, as though the
+payload had reached its proper conclusion. Null bytes are written to the
+stack just beneath each payload, with the intention of having =0x00000000=
+popped into the instruction pointer by the final return statement. This condition, 
+of course, can easily be gamed by an individual that finds another means of
+zeroing out its instruction pointer, with something like
+  #+BEGIN_EXAMPLE nasm
+  xor r3, r3, r3
+  mov ip, r3
+  #+END_EXAMPLE
+for example. 
+
+The second and, to a lesser extent, the third outcome both result in a variable
+penalty to fitness, the details of which will be discussed in Section [[sec:fitness]].
+
+The execution of the ROP chain payload is, in the context of gls:roper, our
+ontogenesis function: it gives us the phenotype, the behavioural, semantic
+profile of the genotype. It is to this structure that the fitness functions
+are applied. 
+
+*** Fitness Functions
+<<sec:fitness>>
+
+Each of the fitness functions with which we've experimented begin with a partial
+sampling of the individual's behavioural profile, generally restricted to just
+a few features:
+  1. the state of the \gls{cpu}'s registers at the end of the individual's execution;
+  2. the number of gadgets executed, as determined by the number of =return=
+     instructions evaluated;
+  3. whether or not a gls:cpu exception has been thrown.
+
+This behavioural synopsis is then passed to a task-specific fitness function. We
+experimented with three types of task : 
+  a. reproduction of an specific register state, such as we might try to achieve
+     in order to prepare the gls:cpu for a specific system call, for example;
+  b. classification of a simple data set, using supervised learning techniques;
+  c. participation in an interactive game, where the evaluation of the payload
+     makes up the body of the game's main loop.
+
+The task-specific function maps the behavioural synopsis onto a double-width float,
+between 1.0 and 0.0, with better performance corresponding to lower values. 
+The exact nature of the tasks and performance of the system will be discussed in
+detail in Chapter [[sec:experimental]]. For the time being, the matter of gls:cpu
+exceptions deserves closer comment.
+
+**** Failure modes and crash rates
+
+Our population of random ROP-chains begins its life as an extraordinarily noisy
+and error-prone species. The old problem of /computational brittleness/ [MEMO:
+reference to earlier section] resurfaces here in full force: the odds of a
+randomly generated chain of gadgets executing without crashing is extremely
+small [MEMO: collect some solid figures here] -- under 5%, on average, at the
+beginning of a run. [MEMO: discover the robustness of the genetic operators, run
+the necessary experiments] If we were to let each crash count as unconditionally
+lethal, this would impose such a tremendous selective pressure on the population
+as to make it virtually unevolvable. What few islands of stability exist in the
+initial population would be cut off form one another by an inhospitable ocean of
+segfaults, leaving little room for exploration.
+
+Fortunately, our chains have the luxury of being raised in the safety of a
+virtual nursery, and nothing obliges us to make crashes unconditionally fatal.
+We have at least two alternative possibilities:
+
+1. apply a fixed penalty to fitness in the event of a crash,
+2. make the crash penalty proportionate to the ratio of
+   the chain that executed prior to the exception, measured in gadgets
+
+We decided to implement follow the second tactic, which we implemented by
+trapping the return instructions in the Unicorn emulator. The lets us smooth an
+abrupt cliff in the fitness landscape down to a gentle slope, incentivizing
+adaptations that minimize the likelihood of crashing while at the same time
+leaving room to reward specimens that do a failure good job of solving the
+problems posed to them, even if they botch the landing. This prevents us from
+sacrificing a number of useful genes, and gives them a chance to decouple from
+their pathological counterparts, through crossover, or to be repaired through
+mutation.
+
+# This is more of an empirical result, and should go in the next section:
+
+With this modification to the fitness function in place, the percentage of
+chains that crash before completing execution has a tendency to drop to less
+than 10% within a few hundred generations. [MEMO: need exact figures] What's
+particularly interesting is what happens when the average fitness of the
+population hits a plateau: the crash rate begins to rise again, until the
+plateau breaks, and the error rates begin to drop again. A plausible explanation
+for this behaviour is that we are seeing the genetic search start to explore
+riskier behaviours as the competition between combatants in each tournament
+slackens (we will soon examine some examples in detail). As soon as a new
+breakthrough is discovered in the problem space, the competition once again
+hardens, and crash-prone behaviour becomes a more severe liability. In this way,
+he fitness landscape, as a whole, becomes elastic.
+
+
+
+# The moderate selective pressure that pushes /against/
+# crashes is typically enough to steer the population towards
+# more stable solutions.
+
+
+#  binaries
+#  datasets
+#  results for pattern matching -- chose realistic examples, such
+#  as you'd use to prime the registers for a system call
+
+*** Fitness Sharing
+ <<sec:sharing>>
+
+ The most serious problem that \gls{roper}'s populations appear to encounter, particularly
+ when dealing with relatively complex problem spaces -- classification problems or
+ interactive games -- is the depletion of diversity. 
+ # insert explanation of why this is bad -- i like the genetic hypercube explanation
+ # where did i see that? Bahnzaf?
+ As a population becomes increasingly homogenous, the exploratory potential of the
+ genetic operations becomes more and more constricted. There are two distinct, but
+ closely related, forms under which diversity should be considered here: genotypic
+ diversity and phenotypic diversity. At the beginning of the evolutionary process,
+ when the population consists entirely of randomly-initialized specimens,
+ genotypic diversity is likely at its historic peak: the sum of genetic
+ differences between each specimen and every other is maximal, with no
+ discernible "family resemblance" between them, beyond those afforded by chance.
+ Behavioural, or phenotypic, diversity, however, is typically rather meager at this
+ point. Unless the problem is extremely simple, and likely to be solved by random
+ search, the odds are that almost every specimen behaves in an effectively similar
+ fashion: near-total failure. Nevertheless, if sufficient genetic material exists, however, and if
+ the fitness function is sufficiently subtle, /some/ phenotypic gradients will 
+ distinguish themselves from the white noise of failure, and it is these minor differences
+ that selection will accentuate. As a result, the population will often experience a
+ "Cambrian Explosion" of some form in the early phases of the evolutionary process: a
+ tremendous flowering of phenotypic diversity, paid for by a reduction in genotypic
+ diversity (at least insofar as we can measure genotypic diversity in terms of raw
+ hamming distances or bitstring similarity, without giving any consideration to structure).
+ The danger is that some particular family of phenotypes will be so strongly favoured
+ by selection that its corresponding genotypes /consistently/ replicate faster than any
+ others, squeezing their rivals out of the population altogether. This can lead us to a
+ point where the exploratory power of recombination is nearly exhausted: the only remaining
+ sources of novelty, now, is the slow trickle of random mutation or the creation of new,
+ random individuals /ex nihilo/. The likelihood of this situation being disrupted by
+ sheer randomness, however, is as small as that of discovering competitive solutions to
+ the problem set through random search. The result is that evolution stagnates, if not
+ eternally, at least for much longer than we, as experimenters and engineers, would care
+ to wait.
+
+ When the problem set we are dealing with is plural -- as it is in the second and third types
+ of fitness function, listed in Section [[sec:fitness]] -- one way that diversity depletion often
+ occurs is through /hypertelia/, or an adaptive fixation on low-hanging fruit.[fn::
+   The notion of hypertelia used here has been borrowed from Gilbert Simondon. See,
+   for example, the discussion in Chapter II, Section I, of 
+   /On the Mode of Existence of Technical Objects/, which begins, "The evolution of technical objects manifests certain hypertelic phenomena which
+   endow each technical object with specialization, which causes it to adapt badly
+   to changes, however slight, in the conditions of its operation or manufacture."
+ ] 
+ It is common for some subset of the problem set to be considerably simpler than the rest,
+ or for distinctions between certain classes in a classification problem to be more computationally
+ tractable than distinctions between other, more ambiguous or complexly defined classes. 
+ It is consequently likely that the population will produce specimens that are capable of
+ handling those simpler problems and clearer distinctions before anything exhibits comparable
+ skill in handling the "harder" problems. So long as the fitness function remains static,
+ selection will magnify this discrepancy, and the simple-problem-solvers will enjoy a persistent
+ reproductive advantage over any specimens that may be still fumbling their way through the
+ more complex regions of the fitness landscape. Once the bottomfeeders reach such numerical
+ dominance that they start to appear in the majority of tournaments, there remains very little
+ selective advantage in tackling any other aspect of the problem space, and the population
+ suffers a rapid loss of phenotypic diversity. Whatever tacit grasp on the problem
+ space's more challenging terrain may have emerged in the population up to that point is
+ quickly eclipsed and snuffed out. In the evolutionary computation literature, this dynamic
+ is referred to as "premature convergence". 
+ # citations, citations, etc.  
+
+ What guards natural ecosystems against this development are the merciless
+ pressures of crowding, scarcity, competition, which introduce a dynamic selective
+ pressure for phenotypic diversity. The fitness rewards provided by low-hanging
+ fruit are no longer boundless, but diminish in proportion to the number of
+ individuals that reap them. At a certain point, the selective advantage no longer
+ lies with those individuals that exploit the same, simple regions of the problem
+ space, but with those who discover a niche that hasn't yet been picked thin by
+ crowds of competitors.
+
+ A similar tactic can be adopted in evolutionary computation, where it goes by
+ the name of "fitness sharing". At least two implementations of this strategy
+ have become canonical in the literature: /explicit/ fitness sharing, introduced
+ in [[bib:deb89]], and /implicit/ fitness sharing, introduced in cite:smith92.
+
+ The underlying idea in both is that /selective advantage should be diluted by
+ nondiversity/. Explicit fitness sharing "relies on a distance metric to cluster
+ population members," writes R.I. McKay in [[bib:mckay00]]. "Implicit fitness sharing,"
+ by contrast, "differs from the explicit form in that no explicit distance metric
+ is required. Instead, all population members which correctly predict a particular
+ input/output pair share the payoff for that pair." 
+ In gls:roper we adopt a variation on the latter approach. The implementation is as
+ follows:
+ # NB: fashion this into an algorithm block
+
+ 1. each exemplar is initialized with a baseline
+    =difficulty= score. It doesn't much matter which value is used for this,
+    but setting it to the inverse of the probability of solving the problem 
+    by random guess works well, when dealing with classification problems;
+
+ 2. each problem is also allocated a =predifficulty= score, which is initialized to 1.
+    Every time an individual responds to it correctly, the problem's
+    =predifficulty= is incremented by 1; if the problem is such that a successful 
+    solution is a matter of degree (with 0.0 being a perfect solution and 1.0 being
+    and utter failure), the predifficulty is incremented by $1.0 - \text{score}$);
+
+ 3. after a $N$ tournaments, where
+    $$N \gets \frac{\texttt{population\_size}}{\texttt{tournament\_size} * (1 - x)}$$
+    and $x$ is the probability of "headless chicken crossover" (cf. Algorithm
+    \ref{alg:headless}), we iterate through the problem set. The
+    problem $e$'s =difficulty= field is set to
+    $$\frac{\texttt{predifficulty}(e)}{N * x * \texttt{tournament\_size}}$$ 
+    The higher, the harder, since $\texttt{difficulty}(e)$ approximates the fraction
+    of the contestants who got $e$ wrong. The =predifficulty= field is set
+    to 1.
+
+ 4. when an individual correctly responds to an exemplar,
+    it receives $1.0 - \texttt{difficulty}(e)$ points, when it responds
+    incorrectly, it receives 1.0. The baseline shared
+    fitness of the individual is then set to the average of the
+    scores it receives over all exemplars. (We say
+    `baseline' fitness, since it will later be modified by crash
+    penalties etc.)
+   
+
+ # \begin{algorithm}
+ # \begin{algorithmic}[1]
+ # \caption{An Implicit Fitness Sharing Algorithm}
+ # \label{alg:fitness-sharing}
+ # 
+ # \REQUIRE {$\Pi$: the problem set}
+ # 
+ # \end{algorithmic}
+ # \end{algorithm}
+ # 
+ # # explicit and implicit fitness sharing
+ # # cite forrest et al.
+
+
+ # do a bit of quick research on evolutionary genetics and crowding/niching
+
+**** Mechanisms of Selection
+ This brings us back to where our algorithmic overview began: to the tournament
+ algorithm used to select mating pairs. In the interest of bolstering the diversity
+ of the population, and staving off premature convergence, we incorporated two
+ fairly well-known modifications into the steady-state, tournament selection
+ scheme described in Algorithm \ref{alg:evolve}: the partitioning of the population
+ into "islands" or "demes", with rarefied points of contact, and the occasional use of 
+ "headless chicken crossover" as ongoing supply of novelty to the gene pool.
+
+***** Islands in the Bitstream
+ The mechanism used to isolate \gls{roper}'s subpopulation or "demes" is extremely simple:
+ when we go to select our candidates for each tournament, we do so by choosing 
+ $n$ random indices $\vec{i}$ into the general population array, but each time we
+ choose, we restrict ourselves to choosing integer between 0 and some constant, 
+ $\text{island\_size}$, decided in advance. The index $j$ of the candidate is then
+ set to $j \gets i * \text{island\_size} + \text{island\_id}$. So long as this 
+ restriction is in place, each individual will only directly compete with its
+ compatriots, throttling the speed at which the population is likely to converge
+ on a single dominant genetic strain. This throttle is modulated by allowing the
+ selection of every $m^{th}$ candidate to be chosen from the general population,
+ without any regard given to island of origin. The migration rate, $m$, can be
+ easily adjusted to experiment with more and less genealogically interconnected
+ populations.
+
+***** Headless Chicken Crossover
+ As a means of supplying the gene pool with an additional spring of novelty,
+ we also make use of a simple technique called "headless chicken crossover",
+ which amounts to a small patch to Algorithm \ref{alg:evolve}: we replace
+ line \ref{alg:evolve:line:candidates} with Algorithm \ref{alg:headless}.
+
+ \begin{algorithm}
+ \caption{Headless Chicken Patch}
+ \label{alg:headless}
+ \begin{algorithmic}[1]
+ \REQUIRE {$H$: float, with $0.0 < H < 1.0$}
+ \REQUIRE {$\mathbf{G}, \mathbf{P}, \text{min}, \text{max}$: the parameters needed for
+ Algorithm \ref{alg:spawn}: the gadget pool, the integer pool, and the minimum and maximum
+ length of new individuals}
+ \STATE {$\frak{R}, i \gets \frak{R}$, {pick a random float} $0 < i < 1$}
+ \IF {$i < \textrm{headless\_chicken\_rate}$}
+ \STATE {$\frak{R}, \textrm{candidates} \gets$ using $\frak{R}$, pick $n-1$ from $\Pi$}
+ \STATE {$\frak{R}, \textrm{candidates} \gets \textrm{candidates} \cup \textit{spawn}(\frak{R},
+ \mathbf{G}, \mathbf{P}, \texttt{min}, \texttt{max})$}
+ \COMMENT {Using Algorithm \ref{alg:spawn}}
+ \ELSE
+ \STATE {$\frak{R}$, candidates $\gets$ using $\frak{R}$, pick $n$ from $\Pi$}
+ \COMMENT {As before}
+ \ENDIF
+ \end{algorithmic}
+ \end{algorithm}
+
+
+
+ #
+ #  Diagram would be handy here
+
+
+** Remarks on Implementation
+
+The system described above has been implemented using the Rust programming
+language, and the Unicorn emulation engine [[bib:unicorn]] cite:nguyen15. 
+
+Rust was chosen for its speed, type-safety, and functional niceties, 
+though this decision wasn't entirely unarbitrary -- prototypes of the
+system in Lisp, Haskell, and OCaml are still strewn about my hard drives
+and Git repositories in various states of incompleteness. The decision
+to make use of the Unicorn framework remained somewhat more constant.
+Evaluating arbitrary gls:rop chains on bare metal turned out to be
+every bit as hazardous and messy as it sounds, and so the need to find
+a suitable virtualization framework became apparent very early in the
+project. Spinning up full-fledged gls:qemu glspl:vm for each evaluation
+-- or even for each evaluation that ended in a fatal system state --
+would bring with it a prohibitive amount of overhead. I needed something
+that would let me evaluate thousands upon thousands of individuals within
+a reasonable timeframe. 
+
+Unicorn, which its authors describe as, "a lightweight multi-platform,
+multi-architecture gls:cpu emulator framework", exposes the gls:cpu
+emulation logic of gls:qemu, while abstracting away from gls:io devices and any
+interface with the operating system, along with all their associated overhead.
+The machine state of the emulator remains transparent, and is easily
+instrumented by the user. This makes Unicorn ideal for performing a fine-grained
+semantic evaluation of gls:rop chains, under the assumption of a given gls:cpu
+context. The evaluation, that is to say, is strictly "concrete" -- it will tell
+us only how a given chain will behave, /assuming that the gls:cpu context and
+memory space is in such and such a state/. This can be seen as an limitation of
+gls:roper, as compared to procedurally deterministic but symbolically
+indeterministic gls:rop compilers like /Q/ [[bib:schwartz11]], which makes use of symbolic
+execution (via gls:bap) to precisely determine the semantic valence of each
+available gadget so as to /explicitly/ fashion them into the gls:isa targetted
+by /Q/'s own compiler. What \gls{roper}'s procedurally stochastic and
+semantically concrete (i.e. "deterministic") approach loses in semantic
+precision and robustness, however, is made up for with a singular cunning when
+it comes to exploiting the /particular/, concrete state of its host process. Its
+task, after all, is not to craft a portable, reusable gls:rop payload that can
+be cut-and-pasted, off-the-shelf into arbitrary attack contexts, but to craft
+payloads that are as idiosyncratically adapted to the peculiarities of its
+chosen target as a moth to its orchid.
+
+*** Initialization of the environment
+In the discussion of the algorithmic specification of gls:roper, above,
+we have, for the most part, abstracted away from the environment in which
+the evolutionary process occurs. Setting up this environment is the first
+task of the engine, and it proceeds as follows.
+
+It begins by parsing and analysing the target binary -- either a standalone
+executable, or a statically compiled library file. Gls:roper is currently 
+only prepared to handle gls:elf binaries targetting 32-bit, little-endian
+gls:arm architectures, though there's no /essential/ reason for any of these
+restrictions, and the system could be fairly easily adapted to handle other
+gls:abi formats (such as Apple's gls:macho or Window's gls:pe formats), or
+other architectures (some tenative work on adapting gls:roper to gls:mips
+is already underway, and it turns out to be fairly straightforward to 
+take on other gls:risc glspl:isa; gls:cisc glspl:isa pose a few more
+challenges, but tend to make for extremely fertile gadget sets -- the
+gls:x86 instruction set is so vast and intricate, for example, that
+it can be a challenge to find a string of bytes that /can't/ be parsed
+as a series of gls:x86 machine instructions!). 
+
+Gls:roper reads the gls:elf program headers and loads the program data into
+the memory of a cluster of Unicorn emulator instances, at the appropriate
+addresses, and with the appropriate permissions, just as the Linux kernel
+would do when launching the executable on the metal. While doing this, 
+gls:roper (optionally) can ensure that gls:w+x is enforced, even if not strictly
+required by the binary.
+
+Since gls:roper, like any genetic programming system, relies heavily on
+randomness, a word or two about its gls:PRNG is in order. The gls:prng
+used is supplied by Rust's default =std::rand::thread_rng= function, which,
+as of version 0.5 of the =rand= library, rests on an implementation of
+the cryptographically secure gls:hc-128 algorithm [[bib:wu08]], seeded on a per-thread
+basis by the operating system's entropy pool. In the current implementation,
+the seeds passed to this generator are not logged, and cannot be manually specified
+by the user, which makes the exact replication of a run impossible. I hope to
+address this shortcoming in a future overhaul of the codebase. The salient point
+about the gls:prng, for now, is that it is of fairly high quality, and /should/
+not be vulnerable to being exploited by the populations. 
+ 
+
+
+
+
+* TODO Experimental Studies
+<<sec:experimental>>
+
+** Overview
+
+As of the time of writing, I have experimented with four distinct classes of
+fitness functions in gls:roper, with a handful of variations within each class.
+
+
+*** The null task
+
+As discussed in Sections [[sec:mutation]] and [[sec:crossover]], when designing a genetic
+system, a question that naturally arises as to what constraints are brought into
+play by the shape of the system itself, in its genotypic and phenotypic topography,
+independent of any particular fitness function that could be applied to it. In the
+case of simple and unilateral genetic algorithm systems -- where there is no distinction
+between phenotype and genotype (the genetic syntax of individuals and their 
+operational semantics), it is possible for the system to be strongly /ergodic/.
+Under less harmonious conditions, however, there may exist various attractors in
+the genotypic and phenotypic landscapes, and in their interaction, that incline
+the system to converge in ways that are relatively independent of any specific
+fitness function. 
+
+One way to empirically study these dynamics is to define an
+effectively uninformative fitness function, one that metes out rewards arbitrarily
+and inscrutably, without any detectable pattern. A cryptographically secure
+random number generator is well suited to this particular sort of absurdity, and
+this is how gls:roper implements its null task.[fn::
+  In the current implementation, this task can be chosen by setting the 
+  problem type to =kafka=, in the configuration.
+] 
+
+
+:TODO: 
+delve a little into [[note:schmitt01]] on this
+:END:
+
+*** Preparing the parameters for a system call
+
+This task is the most immediately practical of the set, and comes the closest to
+a practical, "real world" application of gls:roper in the domain of application
+security. One of the most common use cases for a gls:rop chain is to prepare
+the gls:cpu context for a particular system call, permitting the attacker to
+read or write to a file, open a socket, execute a program, or any other task
+that requires the cooperation of the operating system. To do this in assembly
+or machine code, the programmer needs to set certain registers to contain and
+point to the relevant values. To call =execv("/bin/sh", ["/bin/sh"], NULL)=, 
+for instance, and spawn a shell process, on the gls:arm architecture, she needs
+to set register =R0= to point to the null-terminated string ="/bin/sh\0"=, 
+register =R1= to point to a pointer to that string, set =R2= to zero, and
+set =R7= to the code for this particular system call. Once this is done, dispatching
+the call is just a matter of executing the =SVC= instruction. To perform this
+operation with a gls:rop chain, the same requirements must be met, but in a more
+roundabout fashion, since the gls:rop hacker isn't able to execute any instructions
+directly, but must conduct the processor to execute a series of gadgets whose
+cumulative effect is to prepare just this machine state. The final gadget in the
+chain, however, is trivial: it is just the address of an =SVC= instruction, followed,
+perhaps, by whatever series of gadgets is necessary to clean up the process and 
+restore the normal flow of execution, if stealth is desired. (Though it's entirely
+possible, in most cases, to simply let the host process crash after performing the
+desired call -- it's just a bit sloppier, and can bring about other problems in the
+context of a real-world attack.)
+
+The task we assign gls:roper is to carry out the preparation stage of this operation,
+but it can easily be extended to complete the call -- it is, after all, just a matter
+of appending a single, trivial gadget to the chain, which can almost always be found
+in binary, since the =SVC= call is perfectly generic and does not embed any of its
+arguments in the instruction itself. This step is omitted in our experiments only
+because Unicorn abstracts away from any interaction with the operating system, and
+doesn't handle system calls in a meaningful way. The cleanup stage is more context-sensitive
+and complex, but something I may experiment with in the future, in order to prepare
+fully deployable payloads with gls:roper.
+
+The fitness function defined for this task aims to be a gauge of the distance between
+the register and memory state resulting from an individual chain's execution, and
+the state required for the call. "Distance", here, however, is a tricky concept, and
+it isn't at all obvious how it should be defined in such as way as to both track
+material progress towards the goal in view, and remain efficiently calculable. Ideally,
+it would be defined as edit distance in the Markov chain that represents a genotype's
+trajectory through probability space: how many generations, or applications of the
+genetic operators, are required to achieve the target state, and how probable are each
+of those genetic pathways? In practice, we make do with a very loose approximation of
+this ideal:
+
+- For each target immediate value, we first check the execution result in the target register,
+  and take the hamming distance between the two values (the number of 1s in 
+  $\text{target} \oplus \text{result}$), and divide it by the maximum hamming distance
+  (32, on this architecture), storing the quotient in the variable =nearest=;
+- If $\texttt{nearest} \neq 0$, we iterate through the remaining result registers,
+  and calculate the hamming quotient with the target for each value found there. We
+  then apply a "wrong register" penalty to the quotient, and if the result is still
+  less than =nearest=, we rebind =nearest= to the result.
+- We then pass to our memory samples from the execution -- one for each register that
+  could be validly referenced in the machine state at the end of execution, each holding
+  $n$ bytes (currently, $n$ is set to 512, but this may undergo tuning) from the
+  engine's memory, starting with the address in the register. We scan the memory
+  sample for the desired value, and, if found, we return the quotient of the value's
+  offset by the length of the sample (e.g., if we find it at offset 256, then we
+  return $\frac{256}{512} = 0.5$). If the index of the register dereferenced to
+  that memory sample is the same as the target's, then we consider this quotient
+  as a new candidate for =nearest=, after applying a "right value, but needs to be
+  dereferenced" penalty. If there is a mismatch in the register index, we also 
+  apply the "wrong register" penalty, and do the same.
+- After completing these iterations for a particular target register, 
+  we push the final setting of =nearest= into an error vector, to be considered later.
+- =nearest= is then reset to the maximum value of $1.0$, and we repeat the process for
+  the next immediate target register.
+  
+- We then move on to the indirect targets in our target vector, and repeat more or
+  less the same process, first scanning the memory samples returned from the
+  individual's execution in the emulator, recording any findings, and then passing
+  on to consider the immediate values in the register, where we calculate the hamming
+  quotients, applying the same penalties as above wherever there occur mismatches 
+  between target and resultant register index, or mismatches between desired indirection
+  and resultant immediacy. At the end of each check, the final value of =nearest= is
+  pushed to the error vector.
+- Finally, we take the mean of the values in the error vector, and return it as a float
+  between $0.0$ and $1.0$: this is the fitness value for that particular evaluation.
+
+The function used for the "wrong register" and "needs to be dereferenced or indirected"
+penalties was, like most details in gls:roper, arrived at through a great deal of
+trial and error, and at the time of writing has settled into $1 \sqcap \sqrt{x+0.1}$,
+which seems to generate a reasonable amount of pressure while still maintaining
+a traversable gradient in the fitness space. Restricting the primary distance measure
+to hamming distance and forward linear scans feels like a fairly crude approximation,
+but seem serviceable enough for now.
+
+*** Classification of the Iris data set
+
+:CITATIONS:
+
+The famous iris data set is a well-worn benchmark for training elementary
+machine learning systems, and to the machine learning specialist, there is
+nothing particularly interesting about yet another classifier churning out
+results for such a relatively unchallenging set.
+
+Here, however, we enter essentially uncharted waters as far as return-oriented
+programming -- or even, to the best of my knowledge, any form of low-level
+"weird machine" exploitation -- is concerned. There is no real precedent for
+having anything like a gls:rop payload implement even a basic and rudimentary
+machine learning benchmark, and so this task is introduced here entirely as
+a proof of concept.[fn::
+If you're interested in developing an intelligent classifier, you're 
+unlikely to consider doing so using the unweildy scraps of hijacked process's
+memory, and if you're interested in crafting a low-level attack payload, a reverse
+shell probably seems like a more sensible goal than a moderately clever flower
+sorter -- unless, of course, what you're really after in either field are ways
+of making machines do strange, strange things. 
+]
+
+
+
+
+
+:TODO:
+
+#+BEGIN_FIGURE
+\begin{algorithm}
+\caption{Fitness function for syscall preparation} \label{alg:syscall-fitfunc}
+\begin{algorithmic}
+\REQUIRE $\vec{R}$ register vector resulting from execution \REQUIRE $\vec{M}$
+memory state resulting from execution (cached sample) \REQUIRE Target TODO
+\end{algorithmic} \end{algorithm} #+END_FIGURE
+:END:
+
+
+*** A note on the naming convention
+
+Keeping track of numerous, varying artificial populations is a challenge at the
+best of times, and I've found that assigning short,
+pronounceable names to each batch is a useful mnemonic device. For this purpose,
+I've borrowed a trick from the designers of /Urbit/, and used strings of six
+random letters, following the pattern "=consonant vowel consonant consonant vowel consonant="[fn::
+  This superficially resembles the namespace that Yarvin and Wolff-Pauly allocate
+  to "stars" in /Urbit/, but is a bit less constrained: their namespace has room
+  for $2^16-1$ names, ours accommodates $(20 * 6 * 20)^2 \approx 2^{11.2}$. 
+]. Using these labels over the course of this chapter lets me avoid circumlocutions
+like "as seen in the second population discussed in Section $N", and has the
+further advantage of setting up a self-documenting correspondence between the
+analyses in this chapter and my system of log files. 
+
+
+
+*** Classifying a Balanced Data Set
+ But gls:roper is capable of more complex and subtle tasks than this, and these
+ set it at some distance from deterministic ROP-chain compilers like $Q$. As an
+ initial foray in this direction, we set gls:roper the task of attempting some
+ standard, benchmark classification problems, commonly used in machine learning,
+ beginning with some well-known, balanced datasets. In this context,
+ \gls{roper}'s task is to evolve a ROP-chain that correctly classifies a given
+ specimen when its $n$ attributes, normalized as integers, are loaded into $n$
+ of the virtual \gls{cpu}'s registers (which we will term the `input registers')
+ prior to launching the chain. $m$ separate registers are specified as `output
+ registers', where $m$ is the number of classes that gls:roper must decide
+ between. Whichever output register contains the greatest signed value after the
+ attack has run its course is interpreted as the classification of the specimen
+ in question.
+
+ The basis of the fitness function used for these tasks is just the detection
+ rate.
+ # % use something more sophisticated?
+ We will look at the results of these classification experiments in the next
+ section.
+
+*** Playing an Interactive Game
+
+** Initial Findings
+ # NB: This would be a good place to address robustness
+
+*** Preparing System Calls by Matching CPU Context 
+**** TODO Pattern Matching for =execv()=
+
+ # let's try something a bit better here -- a bind or reverse
+ # shell, maybe. a reverse shell would be best, or even just
+ # an open socket, sending a message, which we could test for.
+ # we also need to improve the way dereference is handled. what
+ # we have here is a bit of a cheat, and it's been gnawing at me.
+
+ A simple and practical example of \gls{roper}'s pattern-matching capability is to have
+ it construct the sort of ROP chain we would use if we wanted to, say, pop open a
+ shell with the host process' privileges. The usual way of doing this is to write
+ a chain that sets up the system call =execv("/bin/sh", ["/bin/sh"], 0)= For this
+ to work, we'll need =R0= and =R1= to point to ="/bin/sh"=, =R2= to contain $0$,
+ and =R7= to contain $11$, the number of the =execv= system call. Once all of
+ that is in place, we just jump to any =svc= instruction we like, and we have our
+ shell.
+
+ First, of course, we need to pick our mark. We'll use a small HTTP server from
+ an gls:arm router from ASUS, =tomato-RT-N18U-httpd= [fn:tomato]. After a bit of
+ exploration with Radare 2, we see that this binary already has the string
+ ="/bin/sh"= sitting in plain sight, in =.rodata=, at the address =0x0002bc3e=.
+ The pattern we want to pass to gls:roper is "=02bc3e 02bc3e 0 _ _ _ _ 0b=".
+
+ # There's an error here: the second parameter needs another
+ # layer of indirection, and should be a *pointer* to 02bc3e.
+
+
+ gls:roper is able to evolve a chain that brings about this exact register state
+ within a couple of minutes or so, on average. In table~ is one such result: a
+ $31^{\textrm{st}}$-generation descendent of our initial population of 2048
+ chains, with a 45% mutation rate, spread over 4 demes with 10% migration
+ trafficking between them. Address pointers are listed in the left-hand margin,
+ with immediate values extending to the right.
+
+
+
+ # The chain
+ # nevertheless concludes without crashing, ending with a branch to
+ # the pre-established halting address (=blx r2=, which
+ # happens to contain =0x00000000=).
+ Table \ref{tab:disas} provides a disassembly of the chain as it wound its way
+ through the HTTP daemon's memory. After each gadget we printed out the state of
+ the four registers we're interested in, i.e. =R0, R1, R2, R7=.
+
+*** TODO "Fleurs du Malware"
+#
+#  start generating graphs for these. have the graph script also
+#  output latex, please.
+\Gls{roper}'s pattern-matching capabilities allow it to
+automate tasks commonly undertaken
+by human hackers. The end result may not /resemble/ a
+ROP-chain assembled by human hands (or even by a
+deterministic compiler), but its function is essentially the same
+as the ones carried out by most human-crafted ROP-chains:
+to prepare the gls:cpu context for this or that system call,
+so that we can spawn a shell, open a socket, write to a file,
+dump a region of memory, etc.
+
+In this section, we'll see that gls:roper is also capable of
+evolving chains that are, in both form and function, entirely
+unlike anything designed by a human. Though it is still in its
+early stages, and its achievements so far should be framed only
+as proofs of concept, gls:roper has already shown that it
+can evolve chains that exhibit learned or adaptive behaviour.
+To illustrate this, we will set gls:roper the task of
+classifying Ronald Fisher and Edgar Anderson's famous /Iris/
+data set
+#
+\footnote{Available at
+\url{https://archive.ics.uci.edu/ml/datasets/Iris}}
+This is a fairly simple, balanced dataset, with just four
+attributes, and three classes, and is widely used to
+benchmark machine learning algorithms.
+
+#
+# %%%%%%%%%%%
+#
+#  DETAILS %%
+#
+# %%%%%%%%%%%
+
+#
+# % TODO: Double check statistics. Explain that graphs track error rate. (lower the better), and replace last pair of graphs with the with/without fitness sharing graphs from the last raytheon slides, perhaps. Also try to improve the gnuplot scripts for better-looking graphs.
+
+The fitness curve of our best specimens /without fitness-sharing/
+typically took the form of long, shallow plateaus, against the
+backdrop of a population swayed more by evolutionary drift than
+selective pressure.  A second-order selective pressure appeared to
+encourage intron formation, of which the crash rate seems to be a
+fairly reliable index (crashes are the casualties of a certain method
+of intron formation, in this context). This is what we see unfolding
+in figure >> TODO: make ref{:good-nosharing}. A dip in average length coincides
+with the peak in the crash rate, around phylogenic generation 350 --
+though there is a great deal of back-and-forth between the two curves,
+as if the two strategies for intron-formation -- bloat and branching
+-- are in competition
+
+# : pad the genome with junk gadgets, or sidestep your genome by placing your bets on an extended phenotype found in the host process' memory?
+
+#
+#  Remove this figure, and replace it with the one compared against the
+#
+#  fitness-sharing results in the slides.
+# \begin{figure}
+#   \inputgraphics[height=4cm]{examples/iris/good-nosharing/good-nosharing.png}
+#   \caption{\gls{roper}'s classification of the Iris data set, without
+#   fitness sharing: 86.8% detection rate, after 180800
+#   tournaments}
+#   \label{fig:good-nosharing}
+# \end{figure}
+
+# \begin{figure}
+#   \inputgraphics[height=4cm]{examples/iris/plague/plague.png}
+#   \caption{A plague of segfaults: an overly lax crash penalty
+#   gives way to a 100% crash rate, during \gls{roper}'s Iris
+#   classification. {AB-FIT} is absolute fitness,
+#   FIT denotes relative or shared fitness.}
+#   \label{fig:plague}
+# \end{figure}
+
+Figure >> TODO: make ref{:plague} shows the results of an early attempt at
+implementing /fitness sharing/. Here, we had factored the crash
+penalties into the raw fitness passed to the sharing formula, instead
+of applying them after the fact. We also overlooked a loophole that
+would reduce the penalty for crashing to near zero, so long as the
+return counter approached the number of gadgets expected. Now, there's
+a vulnerability in our implementation of the return counter -- it
+lives in the VM's own memory space, which can be corrupted by the very
+ROP-chains it's supposed to be monitoring. If this is exploited, a
+specimen can artificially increment its return counter, making it
+appear as if it executed its payload to completion, while still
+segfaulting and raising an exception in the VM. If our population was
+able to exploit this feature, then it would have been able to enjoy
+the protective benefits of navigating its way through a network of
+extended gadgets -- resistance to destructive crossover events -- with
+relative ease and abandon, and no real pressure to refrain from
+crashing. The result was a complete takeover of the population by
+dominant, crashing genotypes: a congenital plague of segfaults. 
+
+
+
+The result was a superb run -- achieving 96.6% detection rate on the
+training set in 27,724 tournaments, 216 seasons of difficulty
+rotation, and an average phylogenic generation of 91.3. Figure
+>> TODO: make ref{:okay} shows the course the evolution took, with the
+right-hand panel showing the responding environmental pressures -- the
+=difficulty= scores associated with each class, showing both mean and
+standard deviation.
+
+This run can be fruitfully compared with the one illustrated in
+fig. >> TODO: make ref{:nosharing}.  Note the tight interbraiding of problem
+difficulties in fig. >> TODO: make ref{:okay}, as compared to their gaping --
+but still, slowly, fluctuating -- disparity in
+fig. >> TODO: make ref{:nosharing}. The ballooning standard deviation of
+difficulty by class in fig. >> TODO: make ref{:okay} also suggests a dramatic
+increase in behavioural diversity in the population, which is
+precisely what we aimed for with fitness sharing.
+
+# \begin{figure}
+#   \inputgraphics[height=4cm,width=\columnwidth]{examples/iris/sharing3/sharing3_white.png}
+#   \caption{Sharing both fitness and crash-penalties on the Iris
+#   data set, with chains from tomato-RT-N18U-httpd: 96.6%
+#   detection rate on training set after 27,724 tournaments}
+#   \label{fig:okay}
+# \end{figure}
+#
+# \begin{figure}
+#   \inputgraphics[height=4cm, width=\columnwidth]{examples/iris/nosharing-diff/nosharing-white.png}
+#   \caption{A run with parameters identical to run charted in fig. >> TODO: make ref{:okay}, with fitness sharing
+#     deactivated.}
+#   \label{fig:nosharing}
+# \end{figure}
+#
+# ** Evolving Simple Payloads
+
+*** TODO Playing a Game of Snake
+
+*** TODO Aside: A Plague of Segfaults
+<<sec:plague>>
+# NB: it might make more sense to put this in the Experimental Studies chapter, but
+# we can always move it around later. Just keep your references position-independent.
+
+** Intron Pressure, Self-Modifying Payloads, and Extended Gadgetry
+
+In all of the experimental trials performed, a certain number of peculiar,
+interrelated phenomena appeared in the dynamic behaviour of the population
+as a whole. 
+
+*** Crash Rate Oscillations
+The first has to do with the observed crash rates. In the beginning -- as is to
+be expected, since our initial gadget harvest is deliberatedly roughly hewn
+and approximate, with no attempt to formally verify the individual reliability
+or usefulness of each gadget or combination thereof -- the vast majority of our
+specimens (80 to 90 percent) would crash before completing execution. This would
+most often be the result of a segmentation fault, or memory access violation error,
+when the specimens would attempt to dereference and invalid pointer, or jump to an
+address outside of an executably-mapped segment of memory. Since such violations
+carry with them a fairly steep penalty to individual fitness, /and/ increase the
+likelihood that the genes responsible for exposing the individual to such hazards
+are dropped from the gene pool, the rate of crashes would always drop fairly quickly
+within the first few thousand tournament iterations. There is nothing unusual or
+unexpected about this -- reducing the likelihood of crashing is the simplest way
+for any of our individuals to ensure their survival and prospects of reproduction,
+and appears to be much easier for our populations to accomplish than the specific
+task-oriented components of the fitness function. And whereas the prospect of
+crashing "in the wild", before having a chance to reproduce, is completely and
+utterly fatal to evolving malware strains (see the discussion of this problem
+in Section [[sec:vx]]), our "in vitro" populations have the advantage of a gently
+gradated crash penalty: the fitness penalty incurred by a crash is inversely
+proportionate to the number of gadgets viably executed before the crash.
+
+What /is/ surprising, however, is that the crash rate does not /continue/
+to decline or stabilize at the extremely low level that it tends
+to reach after its initial dropoff. The curve it traces relative to the
+number of iterations doesn't even /approximate/ a monotonic reduction.
+Instead, it eventually -- but consistently -- begins to rise soon after the
+average fitness of the population reaches a plateau, and then starts to
+oscillate, until the plateau is broken and the fitness equilibrium is
+punctured. 
+
+- TODO insert graphs that illustrate this trend
+
+#+BEGIN_FIGURE
+#+NAME: fig:plague
+#+CAPTION: A plague of segfaults: the cyan line indicates the crash rate, and the lower left index shows the average genealogical generation, and not the number of iterations, as used in later graphs. The raw data for this experiment has unfortunately been lost, leaving only this artifact as a historical curiosity.
+[[file:../images/plague.png]]
+#+END_FIGURE
+
+
+In one, particularly fascinating and unusually pathological trial (Figure
+[[fig:plague]]), which I stumbled across early in the experimentation, the crash rate
+skyrocketed, and the /entire population/ fell victim to a congenital plague of segfaults
+before its 20,000^{th} tournament iteration. The cause for this anomaly was quickly 
+uncovered: the population had discovered a way to exploit the sloppy way in which
+I had originally implemented the gadget-return counter responsible for tracking
+how many gadgets had executed before a crash occurred. Out of frustration with a
+few difficulties involved in having a callback to the Unicorn engine soundly pass data
+back to the Rust context from which the engine was dispatched, I'd taken a shortcut
+and built a counter in what I expected would be an unused region of the emulator's
+memory space, and then used a less complicated component of Unicorn's Rust API to
+read the counter after execution had terminated. At the time, I imagined that
+though there was some chance the counter could /perhaps/ get corrupted, I would
+be able to treat that corruption as inconsequential noise. This was a mistake,
+and the population wasted no time in exploiting it. A dominant genetic strain had
+evolved to hijack the return counter, setting it to an artificially high value before
+wantonly crashing. The apparent success of those chains in executing numerous gadgets
+before crashing meant had reduced the crash penalty to near zero, and since enough
+of this line had managed to perform fairly well on the classification task --
+achieving an 82% detection rate against Iris -- in addition to exploiting the
+experimental framework, they soon wiped out every single lineage that they ran
+up against.[fn:: This was a very nice example of what Lehman et. al have called
+"The Surprising Creativity of Digital Evolution" in [[bib:lehman18]]. ]
+
+This was by no means the norm, however. The bug was fixed, and a secure conduit
+for the return counter was implemented, avoiding any in-band communication that
+could be hijacked by the population it was meant to assess. As an additional
+safeguard, a second factor was incorporated into the crash-penalty gradation:
+the penalty would steepen in proportion to the global frequency of crashes in
+the population. 
+
+This bolstered the tendency of the crash rate to oscillate, of course, though
+the oscillations appear to occur to some degree with or without the global
+crash frequency penalty. The global crash rate would generally settle into
+a comfortable oscillation between 1 and 20 percent of the population crashing,
+at any given time.
+
+- TODO: back this up by suspending that factor, and observe
+
+A stricter penalty could easily reduce the crash rate to almost zero, but
+this appeared to negatively impact long-term performance. The fitness landscape
+inhabited by \gls{roper}'s populations, it seems, is extremely jagged, and
+too strict a penalty to crashing would prevent the population from crossing 
+from one fitness peak to another. It made more sense to work with the tendency
+for crash rates to oscillate than against it, and allow exploration of more
+dangerous waters so long as it doesn't threaten to risk the long-term well-being
+of the population as a whole. 
+
+*** The stray rate and extended phenotypes
+
+The new and secured conduit I had implemented for passing detailed execution
+information from the emulator back to the evolutionary engine had opened up
+another rich vein of information, which helped to provide evidence for a
+tendency that, until then, I had only been able to observe by manually
+dissecting the disassembly dumps of individual specimens post-mortem[fn::
+  As discussed in my gls:gecco 2017 report on this project [[bib:fraser17_gecco]],
+  and my talk at AtlSecCon 2017 [[bib:fraser17_atlseccon]].
+]: I had noticed a tendency for gls:roper populations' best
+performers to be those that take strange and enigmatic risks with their own
+control flow -- manipulating the programme counter and stack pointer directly,
+pushing values to their own call stack, branching wildly into unexplored regions
+of memory space, and so on. These traits seemed to be far less common in mediocre
+specimens, but appeared with surprising frequencey in chains that are either
+complete disasters, or which are the population's fittest specimens.
+
+Consider, for example, the specimen displayed in 
+\ref{tab:disas_labrynthine} which
+achieved a perfect fitness in trial of the CPU context matching experiment,
+where the task was to prepare the register vector for an
+#+BEGIN_EXAMPLE
+execv("/bin/sh", ["/bin/sh"], 0)
+#+END_EXAMPLE
+system call -- the sort of task that manually crafted gls:rop chains are often
+designed for, so that the attacker can spawn a shell with the privileges of the
+victim process.
+
+
+
+# #+BEGIN_FIGURE
+\begin{table}
+\caption{Disassembly of a succesful chain, with `extended gadgets'. ** indicates where the pattern is completed.}
+\label{fig:labrynthine}
+ \scriptsize \setlength\columnsep{2pt}
+ \hrule
+ \begin{multicols}{3}
+ \begin{lstlisting}
+ ;; Gadget 0 
+ [000100fc] mov r0,r6 
+ [00010100] ldrb r4,[r6],#1 
+ [00010104] cmp r4,#0
+
+ [00010108] bne #4294967224 
+ [0001010c] rsb r5,r5,r0 
+ [00010110] cmp r5,#0x40
+
+ [00010114] movgt r0,#0 
+ [00010118] movle r0,#1 
+ [0001011c] pop {r4,r5,r6,pc}
+
+ R0: 00000001 R1: 00000001 
+ R2: 00000001 R7: 0002bc3e
+
+ ;; Gadget 1 
+ [00012780] bne #0x18 
+ [00012798] mvn r7,#0 
+ [0001279c] mov r0,r7
+ [000127a0] pop {r3,r4,r5,r6,r7,pc}
+
+ R0: ffffffff R1: 00000001 
+ R2: 00000001 R7: ffffffff
+
+ ;; Gadget 2 
+ [00016884] beq #0x1c 
+ [00016888] ldr r0,[r4,#0x1c] 
+
+ (*\color{red} [0001688c]\ \ bl \#4294967280*) 
+ (*\color{red} [0001687c]\ \ push {r4,lr}*)
+
+ [00016880] subs r4,r0,#0 
+ [00016884] beq #0x1c 
+ [000168a0] mov r0,r1 
+ [000168a4]
+ pop {r4,pc}
+
+ R0: 00000001 R1: 00000001 
+ R2 00000001 R7: 0002bc3e
+
+ ;; Extended Gadget 0 
+ [00016890] str r0,[r4,#0x1c] 
+ [00016894] mov r0,r4
+
+ [00016898] pop {r4,lr} 
+ [0001689c] b #4294966744 
+ [00016674] push {r4,lr}
+
+ [00016678] mov r4,r0 
+ [0001667c] ldr r0,[r0,#0x18] 
+ [00016680] ldr r3,[r4,#0x1c]
+
+ [00016684] cmp r0,#0 
+ [00016688] ldrne r1,[r0,#0x20] 
+ [0001668c] moveq r1,r0
+
+ [00016690] cmp r3,#0 
+ [00016694] ldrne r2,[r3,#0x20] 
+ [00016698] moveq r2,r3
+
+ [0001669c] rsb r2,r2,r1 
+ [000166a0] cmn r2,#1 
+ [000166a4] bge #0x48 
+ [000166ec] cmp r2,#1 
+ [000166f0] ble #0x44 
+ [00016734] mov r2,#0 
+ [00016738] cmp r0,r2 
+ [0001673c] str r2,[r4,#0x20] 
+ [00016740] beq #0x10 
+ [00016750] cmp r3,#0 
+ [00016754] beq #0x14
+
+ [00016758] ldr r3,[r3,#0x20] 
+ [0001675c] ldr r2,[r4,#0x20] 
+ [00016760] cmp r3,r2
+
+ [00016764] strgt r3,[r4,#0x20] 
+ [00016768] ldr r3,[r4,#0x20] 
+ [0001676c] mov r0,r4
+
+ [00016770] add r3,r3,#1 
+ [00016774] str r3,[r4,#0x20] 
+ [00016778] pop {r4,pc} 
+ R0: 0000000b R1: 00000000 
+ R2: 00000000 R7: 0002bc3e
+
+ ;; Extended Gadget 1 
+ [00012780] bne #0x18 
+ [00012784] add r5,r5,r7 
+ [00012788] rsb r4,r7,r4 
+ [0001278c] cmp r4,#0 
+ [00012790] bgt #4294967240 
+ [00012794] b #8
+
+ [0001279c] mov r0,r7 
+ [000127a0] pop {r3,r4,r5,r6,r7,pc}
+
+ R0: 0002bc3e R1: 00000000 
+ R2: 00000000 R7: 0000000b
+
+ ;; Extended Gadget 2 
+ [000155ec] b #0x1c 
+ [00015608] add sp,sp,#0x58 
+ [0001560c]
+ pop {r4,r5,r6,pc}
+
+ R0: 0002bc3e R1: 00000000 
+ R2: 00000000 R7: 0000000b
+
+ ;; Extended Gadget 3 
+ (*\color{red} [00016918]\ \ mov r1,r5 ** *) 
+ [0001691c] mov r2,r6 
+ [00016920] bl #4294967176 
+ [000168a8] push {r4,r5,r6,r7,r8,lr} 
+ [000168ac] subs r4,r0,#0 
+ [000168b0] mov r5,r1 
+ [000168b4] mov r6,r2 
+ [000168b8] beq #0x7c
+
+ [000168bc] mov r0,r1 
+ [000168c0] mov r1,r4 
+ [000168c4] blx r2
+
+ R0: 0002bc3e R1: 0002bc3e 
+ R2: 00000000 R7: 0000000b 
+ \end{lstlisting}
+ \end{multicols} 
+ \vspace{.7em}
+ \hrule
+\end{table}
+# #+END_FIGURE
+ 
+It's an extaordinarily labyrnithine chain, by human standards, and there's
+ little in its genotype to hint at the path it charts through phenospace. Only 3
+ of its 32 gadgets execute as expected -- but the third starts writing to its own
+ call stack by jumping backwards with a =bl= instruction, which loads the link
+ register, and then pushing =lr= onto the stack, which it will later pop into the
+ programme counter. From that point forward, we are off-script. The next four
+ 'gadgets' appear to have been discovered spontaneously, found in the
+ environment, and not inherited as such from the gene pool.[fn::
+ I've given the name 'extended gadgets' to these units of code, meant to suggest
+ analogies with Dawkin's notion of the extended phenotype [[bib:dawkins99]], for
+ somewhat speculative reasons that will be explained in a moment.
+]
+
+By using a secure conduit to track every address visited by every chain in
+its movement through the host process, I was able to confirm my suspicion
+that this bizarre behaviour is not at all uncommon in \gls{roper}'s populations
+-- nor is it only to be found in pathological, crash-prone specimens. 
+
+- TODO: show some detailed heatmaps here. 
+
+#+BEGIN_FIGURE
+#+CAPTION: Bitmap representation of the gadgets in =tomato-RT-N18U-httpd= gls:elf binary
+#+NAME: fig:tomato-gadgets
+[[file:../images/tomato-RT-N18U-httpd_heatmap.png]]
+#+END_FIGURE
+
+#+BEGIN_FIGURE
+#+CAPTION: Scatter plot of the average amount of execution time that an individual spends straying from its explicit gadget set, relative to its fitness
+
+#+END_FIGURE
+
+#+BEGIN_FIGURE
+#+CAPTION: A run on the Iris classification task, with a high stray rate
+#+NAME: fig:hepfap
+[[file:../images/plots/hepfap.pdf]]
+#+END_FIGURE
+
+# we need some numbers, rough numbers at least, on how frequent
+# this sort of phenomenon is.
+
+#+BEGIN_FIGURE
+#+CAPTION: Heatmap montage showing range of addresses executed by gls:roper population, in red tint, superimposed on a map of the explicit gadgets that were harvested to form that population's initial gene pool, in blue tint. The intensity of red tint indicates the frequency with which the corresponding address was visited. Magenta and purple cells indicate orthodox gadget traffic, while red swaths with no tint of blue indicate stray activity. From top-left to bottom-right, each cell is a snapshot of the evolving heatmap at intervals of 20 seasons (a "season", gls:roper, is a number of tournament iterations equal to to the size of the population (2048, in this run) divided by the number of combatants engaged in each tournament (4), which here amounts to 512 tournament iterations). The underlying gadget map is taken from the =tomato-RT-N18U-httpd= binary that we used in this experiment. 
+#+LABEL: fig:fimjek-heatmap
+#+ATTR_LATEX: 
+[[file:../images/plots/fimjek_heatmap_montage.pdf]]
+#+END_FIGURE
+
+*** A conjectural explanation of stray-rate fluctuations as a result of intron pressure
+What pressures could possibly be driving the evolution of such strange
+specimens? The canonical set of gadgets that the population inherits as its
+primordial gene pool is noisy and brittle enough, but at least those gadgets are
+selected for stability -- first, prior to each run, by our gadget harvesting
+routines, which look for code fragments that are at least /likely/ to preserve
+control flow, and then, throughout the run, by fitness pressures that penalize
+the loss of execution control (chains which crash before completion, or which do
+not reach the designated termination address within a fixed number of steps),
+and genetic operators that will tendentially drop unreliable gadgets from the
+gene pool. And yet we find a tendency for the population to occasionally favour
+gadgets that overwrite the individual's own code stack, and branch to uncharted
+regions of executable memory that have no direct representation in the set of
+gadgets making up the gene pool.
+
+This type of behaviour appears to proliferate at a certain phase of the
+evolutionary trajectory, which is no doubt significant: it has a tendency to be
+favoured by periods during which the average fitness of the population more or
+less plateaus, and its standard deviation narrows.
+# the bit about standard deviation is a conjecture, which seems
+# true. verify this.
+
+As Bahnzaf and others have shown [:cite:], these are typically the conditions
+under which we should expect to see signs of an accelerating accumulation of
+/introns/, or non-coding genes, in the population. The reason for this, Bahnzaf
+conjectures, is that as dramatic improvements in the performance of the
+specimens, with respect to their explicit fitness function, become increasingly
+difficult to attain, and as specimens more and more find themselves competing
+against relative equals, the immediate selective pressures imposed by the
+fitness function become less decisive in steering the course of the evolution.
+The greatest differential threat to our specimens -- or, rather, to their
+genetic lineages -- during such plateaus, is no longer the performance of their
+immediate rivals, but the destructive potential of the genetic operators
+themselves. There is very little, after all, to prevent crossover or even
+mutation from mangling the genome beyond repair, and yielding dysfunctional
+offspring. Unlike animals, plants, or any advanced life forms familiar to us
+from nature, our creatures lack any sophisticated mechanism for ensuring the
+homological transfer of genes in sexual reproduction. There is very little to
+predispose crossover operations to preserve adaptive groupings of genes, or to
+replace the genes of one parent with semantically similar genes from the other.
+The only structural constraint that we have explicitly afforded to those
+operations is a fairly lighthanded "fragility" mechanism, that, over time,
+decreases the chance that crossover will break apart adjacent pairs of genes
+that have historically (in terms of the individual's own genealogy) performed
+well together. But this is a very mild constraint.
+
+The gene lines best protected against such threats are those that are structured
+in such a way that crossover is least likely to do damage, or to break apart
+genes that are best kept together. A relatively simple way to achieve such
+protection is to pad the genome with semantically meaningless, or "non-coding",
+sequences. So long as the probability that any gene sequence will be affected by
+the action of a genetic operator is inversely proportionate to the length of the
+genome, increasing the genome's length by adding otherwise ineffectual sequences
+makes it less likely for those operators to mangle it in a semantically
+meaningful -- and /a fortiori/, semantically maladaptive -- way.
+
+Introns are therefore a valuable resource for the gene pool, and are favoured by
+selection as soon as the threat posed by the genetic operators outweighs the
+threat posed by immediate rivals. A particularly common form that introns may
+take, and which we see in a variety of genetic programming systems, is a NOP
+instruction, an instruction that does nothing, or some sequence of instructions
+that semantically cancel one another out. In order to exploit that resource,
+however, we need both a base language in which NOPs or NOP sequences are
+relatively common, and latitude in the maximum length of the individuals, so
+that introns can be freely padded onto the genome.
+
+In the context of ROP chains, a NOP is just a gadget that returns without
+performing any other operations. If we were dealing with gadgets defined over
+the Intel instruction set, we could find these just by taking the address of
+=RET= instructions. When it comes to gls:arm, however, such gadgets are
+significantly rarer. We rarely find a pop instruction that /only/ pops into the
+program counter, without tainting the other registers as well. For reasons of
+efficiency, most compilers favour multipop instructions. Longer gadgets are even
+less likely to execute without inducing side-effects. As we have already noted,
+we simply do not have the luxury of a sleek, minimal, more or less orthogonal
+instruction set, where each instruction performs a single, well-defined,
+semantically atomic operation. Our instruction set will almost always be a noisy
+assemblage of irregular odds and ends, in which the sort of introns we typically
+encounter in genetic programming systems is rather uncommon.
+
+Gadgets that overwrite or leap out of their own ROP stack, on the other hand,
+are relatively easy to come by. Though they pose a tremendous risk to the gene
+line, when it comes to first-order fitness, they offer access to an otherwise
+scarce resource: they protect against damaging crossover operations, by
+rendering the entire, unused sequence of gadgets that will be either overwritten
+or avoided, an unbroken sequence of introns. Crossover and mutation can do
+whatever they will to the lower regions of these aberrant genome without
+inflicting any damage on adaptive clusters of genes.
+
+
+
+# ...
+# could use the pictures from the slide deck here!
+
+
+
+- TODO: Test correlation of stray rate with a more severe crash penalty
+
+It seems unlikely that gls:roper would be able to discover these labyrinthine
+passageways through its host if the selection pressure against errors
+were more severe. As we can see in figure {shellpattern-graph}, about halfway
+back along the champion's phylogenic tree, the percentage of crashes in the
+population peaked to levels unseen since the beginnings of the run. This is an
+extremely common phenomenon in gls:roper evolutions, and tends to occur once fitness
+has plateaued for some time. Length begins to increase as protective code bloat
+and a preponderance of introns is selected for over dramatic improvements in
+fitness, since it decreases the odds that valuable gene linkages will be
+destroyed by crossover.[fn::
+  The analysis of code bloat and introns that we are drawing on here is
+  largely indebted to the theory of introns from Chapter 7, and \S{7.7} in
+  particular [[bib:brameier07]]
+]
+
+We see this clearly enough in our champion ROP-chain displayed in
+Figure \ref{fig:labrynthine}, where 29 of its 32 gadgets
+do not contribute in any way to the chain's fitness -- though they do increase
+the odds that its fitness-critical gene linkages will be passed on to its
+offspring.
+
+# \begin{figure}
+#   \inputgraphics[height=4cm]{examples/shellpattern/shellpattern.png}
+#   \caption{Evolving a shell-spawning chain on {tomato-RT-N18U-httpd}}
+#   \label{shellpattern-graph}
+# \end{figure}
+
+
+
+Branching to gadgets unlisted in the chain's own genome can be seen as a
+dangerous and error-prone tactic to dramatically increase the proportion of
+introns in the genome. Selection for such tactics would certainly explain the
+tendency for the crash rate of the population to rise -- and to rise, typically,
+a few generations before the population produces a new champion.
+
+
+# Such traits are even more common when we turn to a more complex
+# and nuanced problem set, and charge gls:roper with the task
+# of evolving ROP-chain classifiers -- exploits that
+# exhibit subtle, adaptive behaviour.
+
+*** Testing the Extended Gadgetry Conjecture with Explicitly Defined Introns
+
+The explanation given above for the strange behaviour observed seems to me to
+be compelling enough on strictly theoretical grounds, but it still remains
+to be seen if it can withstand experimental testing. If, as I have conjectured,
+this behaviour appears because it represents a rich, even if risky, source of
+introns, which our system has, in various ways, made a rare resource, then we
+should expect to see it decrease in frequency as a consequence of introducing a
+much safer supply of *explicit* introns into the gene pool. All we need to do is
+to define a type of =clump= that doesn't code for any gadgets or immediates
+in the actual payload, but which can still be manipulated by the genetic
+operators. The simplest way to do this is just to attach an =enabled=
+flag with each clump, which can be set to either =true= or =false=. When
+=false=, the clump is ignored by the serialization procedure that prepares
+the payload, so that it's never sent to the emulation engine. We will also
+add a new mutation operator, which is able to toggle the =enabled= flag during
+reproduction. This lets the intron serve the additional, potentially useful
+purpose of acting as a repository for genetic information. If the selective
+pressure responsible for "extended" or "stray" gadgets is indeed derivative
+of the well-known pressure to generate introns, then these glspl:edi should 
+be able to undercut their market share.
+
+The results of this experiment, however, appear to be less clear-cut than
+the theory alone suggests. Over a series of runs on the iris classification
+problem set, the populations lacking glspl:edi appeared to show a somewhat
+greater tendency to stray, but the difference was subtle, noise-ridden, and,
+like any evolutionary experiment, prone to occassional outbursts of anomalous
+activity.[fn:: 
+  And, I have to admit, burdened with their experimenter's confirmation bias.
+] The populations /puhjag/ and /fimjek/, depicted in figures [[fig:puhjag]] and [[fig:fimjek-heatmap]], respectively, 
+for instance, seemed to simmer along happily with a relatively low stray rate,
+until it approached its 200,000th iteration, which witnessed an eruption of
+stray activity, painting the heatmap with large swaths of red (fig. [[fig:fimjek-heatmap]]).
+
+- TODO repeat above trials with bugfixes in place
+
+A more dramatic difference, however, could be seen in the populations used in
+the gls:cpu context matching problem -- aided, perhaps, by the far greater speed
+at which iterations elapse in that set-up, due to the smaller size of the problem
+set (each individual is evaluated only once, rather than a hundred or so times).
+Since the stray address visit rate dynamics that we're interested in appear to
+emerge fairly late in the course of a population's evolutionary history, we can
+also make a few adjustments to our setup to slow down the genetic search process
+and increase the threat posed by crossover damage. In particular, we can do this
+by eliminating mutation, with the exception of gls:edi rate mutation in the populations
+equipped with an gls:edi mechanism, thereby forcing the population to rely
+entirely on crossover, while at the same time nullifying the effects of the gene
+link fragility metric discussed in Section [[sec:fragility]].
+ 
+# medkek, qatjaq with edis
+# xufmoc, mycwil without
+
+**** Corroboration for the intron conjecture
+
+Patience, and an adaptively disadvantaged experimental setup, was eventually
+rewarded with a compelling corroboration of the intron conjecture regarding
+the proliferation of stray gadgets. 
+
+Four populations of gls:rop chains over the =tomato-RT-N18U-httpd= binary
+were initialized with identical parameters, with the sole exception of the
+gls:edi rate: two (codenames /xufmoc/ and /mycwil/) began with an gls:edi rate
+of zero, with no further possibility of acquiring glspl:edi through mutation.
+The other two (/megkek/ and /qatjaq/) were initialized with an approximate
+10% gls:edi ratio, and a 5% per-clump gls:edi mutation rate -- meaning that
+in the event of a mutation, which occurs in 50% of reproduction events, the
+other 50% being the result of single-point crossover, each individual clump
+has a 5% chance of being toggled. In the event of crossover, the =enabled=
+flag is simply inherited, along with its clump, unaltered. This is a fairly
+aggressive mutation rate, giving us a probability of
+$$ \frac{\sum_{n-1} \frac{1}{20} * (1 - \frac{1}{20})^n}{2} $$ 
+that at least one clump in a chain of length $n$ will be toggled
+on or off, in each reproduction event.
+
+The task component of the fitness function for these trials was to
+match a precisely specified gls:cpu context, similar to the register-matching
+task discussed in Section *ADD REFERENCE*, but with one key difference,
+incorporating a recent update to the engine: the population would be
+responsible for matching not just a series of immediate register values,
+but correctly dereferencing pointers as well (but only up to one degree of
+indirection).[fn::
+  The task assigned to the specimen documented in Figure \ref{fig:labrynthine},
+  it pained me to realize after the fact, was a bit of a cheat: the value
+  of the second register should have been treated as indirect, not immediate,
+  since the task was to prepare the gls:cpu for a call to =execv("/bin/sh", ["/bin/sh"], NULL)=, not =execv("/bin/sh", "/bin/sh", NULL)=. This had gnawed
+  at my conscience for a while, especially given how important that particular
+  individual turned out to be for later experiments.
+] The exact pattern in question, in \gls{roper}'s (updated) syntax, is: 
+#+BEGIN_EXAMPLE
+0002cb3e,&0002cb3e,000000000,_,_,_,_,0000000b
+#+END_EXAMPLE
+
+For these trials, the mutation operators were provided with no direct means
+of handling dereference and indirection, and were limited to arithmetical
+transformations, permutations, and, in the cases of /megkek/ and /qatjaq/, 
+gls:edi toggling. 
+The distance metric, it occurred to me once the system
+was up and running, was also somewhat ill-tuned: certain components of it
+had been disabled (as a kludge against an integer overflow bug in the
+calculation of arithmetical distance), and so it was reduced to a linear
+normalization of bitwise hamming distance between registers. 
+Credit would
+also be awarded if there was a match or proximity between the contents of
+register $n$ in the output and register $m$ in the target vector, when $n /neq m$,
+but offset by a penalty of half. The same penalty and credit would be given
+for proximity between $n$ and $\&n$. 
+
+# present algorithm
+# or just a big curly brace conditional
+
+The poor tuning of this particular setup, however, turned out to be fortuitous 
+so far as testing the conjecture in question is concerned: if the fitness goal
+weren't so refractory to the clumsy means at the populations' disposal, I doubt
+we would have seen the relation between extended gadgets and introns played out
+on a sufficiently long timescale.
+
+After somewhere on the order of one million iterations (or 2500 seasons), the
+following observations seem pertinent:
+
+***** Given time, the stray rate in the EDI populations converges to zero
+
+
+***** And given time, so does the fitness improvement rate
+
+It's still possible, of course, that the stray populations will share the same
+fate, and that the superior (even if eventually stagnant) fitness levels of
+/qatjaq/ and /megkek/ -- a distance measure of 0.04 and 0.02 from the target
+array, respectively -- represent a barrier that would be difficult for /either/
+genus to cross. 
+
+# present graphs
+
+***** Genome size in the EDI populations grew orders of magnitude slower than in the strays
+
+On the face of it, this isn't surprising, and is a well-known consequence of
+introducing explicitly defined introns into a population. It is interesting,
+though, that not just the /effective/ length, but the /entire/ length of the
+genome, introns and all, appears to have plateaued early on in the EDI populations. 
+
+***** The stray populations had the greatest execution ratio for effective gadgets
+
+This was entirely unexpected. 
+
+
+
+
+#+BEGIN_FIGURE
+#+CAPTION: Results of a trial in which glspl:edi have been introduced into the gene pool
+#+NAME: fig:puhjag
+[[file:../images/plots/puhjag.pdf]]
+#+END_FIGURE
+
+#+BEGIN_FIGURE
+#+CAPTION: Heatmap montage of a run with parameters identical to that shown in figure [[fig:fimjek-heatmap]], but with the introduction of glspl:edi into the gene pool, at an initial rate of 10%, and a 1% mutation (toggle) rate. The fitness profile of this population is shown in [[fig:puhjag]]. The underlying blue-tinted gadget map is, again, the same binary shown in [[fig:tomato-gadgets]].
+#+NAME: puhjag-heatmap
+[[file:../images/plots/puhjag_heatmap_montage.pdf]]
+#+END_FIGURE
+* TODO Future Work
+<<sec:future>>
+
+** TODO Current Limitations and Open Problems
+
+gls:roper I faces at three serious limitations in its design:
+
+1. the programming interface that it exposes to the evolutionary
+   algorithm is brittle and uneven, and in no way optimized for evolvability;
+
+2. the evolutionary process has little means of gaining traction
+   on the genotypes' program semantics -- in themselves, the genotypes are
+   little more than vectors of integers, and there is no way of acquiring any
+   information of how those vectors will behave, except for executing them --
+   and this is something at which each individual only ever gets a single
+   attempt;
+
+3. the reproduction algorithms are fixed, and, as we have seen,
+   most frequently destructive. There is nothing inherent in crossover, or in
+   our mutation operations, that makes them well suited to the problem of
+   recombining ROP chains, or exploring the uneven, and largely uncharted,
+   semantic space that the execution of those chains represents. We may not
+   /know/ a better algorithm, but perhaps we could at least let gls:roper
+   explore other possibilities, itself, and expose the reproduction algorithms
+   themselves to evolutionary pressure.
+# tie in with earlier virus discussion...
+
+# Number 2 is a difficult intuition to cash out. Isn't evolution
+# always "blind"? In what sense does a push program offer more
+# or richer information to the selective process?
+
+** TODO A More Robust and Evolvable Intermediate Language (Push)
+
+The design for the second iteration of gls:roper owes a great deal to Lee
+Spector, who made the suggestion (at GECCO '17) that the issues with semantic
+opacity and brittleness that I was grappling with in gls:roper 1 might become
+more tractable if, instead of having the individuals of my population be more or
+less direct representations of ROP-chain payloads, I instead evolved populations
+of ROP-chain builders -- programs that would compose ROP-chains from the
+available materials, but which may, themselves, have a very different structure.
+
+The ontogenetic map from genotype to phenotype would then consist of two phases,
+rather than just one:
+
+1. a mapping from the builder's code to a constructed payload, implemented
+   by executing the builder,
+
+2. the mapping we're already familiar with, from gls:roper, which maps the
+   constructed payload (ROP chain) to the behaviour of the attack in the
+   emulated host.
+
+The language in which the builders are defined could then be tailored to fit the
+situation as well as possible -- pursuing a strategy similar to the one that
+SPTH used in the design of Evolis and Evoris.
+
+I decided to experiment with style of language that Spector had, himself,
+introduced into genetic programming, and write a dialect of PUSH for this
+purpose.
+
+
+# brittleness?
+
+# introspection
+
+
+*** TODO Raising the Level of Abstraction with PUSH
+
+**** TODO The PUSH Idiom
+
+PUSH is a statically typed FORTH-like language that is designed with an eye
+towards evolutionary methods rather than use by human programmers. Unhandled
+exceptions, for instance, are effectively absent from the language, optimizing
+it for mutational robustness rather than debugging and predictability.
+
+**** TODO BNF Grammar for ROPUSH
+
+
+*** TODO Autoconstructive Reproduction
+
+** TODO Semantic Analysis and Synthesis (Q)
+
+** TODO Utility in the Wild with Blind ROP (Braille)
+
+<<sec:conclusion>>
+
+
+
+
+# FOOTNOTES #
+
+
+[fn:prog_env] Of course, many programming language environments, usually in hopes
+of improving the security of the code developers write with them, /do/ seek to
+constrain the freedom and power of the programmer, in ways that, according to
+taste, range from elegant to irritating.
+
+[fn:thanks_langsec] The ideas developed in this section are enormously indebted
+to the LangSec community, and the hacker scene behind /PoC||GTFO/, including
+Andrea Shepard, Meredith Patterson, Sergey Bratus, Travis Goodspeed, and the
+late Len Sassaman.
+
+[fn:ifsm] "Any computing device that accepts input and reacts to this input
+by executing a different program path can be viewed as a computing device where
+the /inputs/ are the program" ([[bib:flake16]]).
+
+[fn:pc] Also called the "instruction pointer", the program counter is
+a special register various implementations of the Von Neumann machine, which
+directs the gls:cpu to the next instruction to fetch from memory and execute. On
+x86 machines, it is instantiated by the EIP register; on x64_64, by RIP; on MIPS
+and gls:arm, it is called "gls:pc".
+
+[fn:register_notation] Notational convention: When referring to the abstract register types, I will
+use *bold print*. When referring to their concrete implementations on various
+architectures, I will use =monotype=.
+
+[fn:kantian_schematism] If the source code is the concept, and the behaviour of
+the architecture is the empirical, then the abstract machine is the schematism
+of the imagination, if we were to translate this discussion into Kantian
+terminology.
+
+[fn:ropc_llvm] \url{https://github.com/pakt/ropc}
+
+[fn:windows_dep_release] When Microsoft first introduced DEP into their products,
+with Windows XP Service Pack 2
+(\url{https://support.microsoft.com/en-us/kb/889741}), they advertised it as
+"Protecting against Buffer Overflows", confusing a mitigation of the /payload/
+of the classical buffer-overflow-shellcode-attack (which they delivered) with a
+mitigation of its /pivot/ (which they did not). This was before ROP attacks
+became well-known. Sergey Bratus points to this confusion as an illustration of
+the following principle: we never really understand a security feature until we
+understand how to exploit and subvert it [[bib:bratus16]].
+
+
+
+
+
+[fn:autoconstruction] [ add footnote ]
+
+[fn:tomato]
+Available at \url{https://advancedtomato.com/downloads/router/rt-n18u}.
+
+[fn:unicorn_url]
+See \url{http://www.unicorn-engine.org}.
+
+
+#+LATEX: \input{footer}
+

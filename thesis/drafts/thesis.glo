@@ -1,0 +1,178 @@
+\glossaryentry{ROPER?\glossentry{roper}|glsseeformat[\seename ]{roper}}{Z}
+\glossaryentry{IP?\glossentry{ip}|glsseeformat[\seename ]{pc,arm}}{Z}
+\glossaryentry{PC?\glossentry{pc}|glsseeformat[\seename ]{ip,arm}}{Z}
+\glossaryentry{SP?\glossentry{sp}|glsseeformat[\seename ]{arm}}{Z}
+\glossaryentry{LR?\glossentry{lr}|glsseeformat[\seename ]{arm}}{Z}
+\glossaryentry{FP?\glossentry{fp}|glsseeformat[\seename ]{arm}}{Z}
+\glossaryentry{\ensuremath {w \oplus x}?\glossentry{w+x}|glsseeformat[\seename ]{dep}}{Z}
+\glossaryentry{DEP?\glossentry{dep}|glsseeformat[\seename ]{w+x}}{Z}
+\glossaryentry{SQLi?\glossentry{sqli}|glsseeformat[\seename ]{sql}}{Z}
+\glossaryentry{GP?\glossentry{gp}|glsseeformat[\seename ]{genetic-programming}}{Z}
+\glossaryentry{GPL?\glossentry{gpl}|glsseeformat[\seename ]{gnu}}{Z}
+\glossaryentry{GNU?\glossentry{gnu}|glsseeformat[\seename ]{gnu}}{Z}
+\glossaryentry{weird machine?\glossentry{weird-machine}|glsseeformat[\seename ]{rop}}{Z}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{vii}
+\glossaryentry{ROP?\glossentry{rop}|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{GP?\glossentry{gp}|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{ROP?\glossentry{rop}|setentrycounter[]{page}\glsnumberformat}{1}
+\glossaryentry{IDS?\glossentry{ids}|setentrycounter[]{page}\glsnumberformat}{2}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{2}
+\glossaryentry{GPL?\glossentry{gpl}|setentrycounter[]{page}\glsnumberformat}{3}
+\glossaryentry{ROP?\glossentry{rop}|setentrycounter[]{page}\glsnumberformat}{4}
+\glossaryentry{GP?\glossentry{gp}|setentrycounter[]{page}\glsnumberformat}{4}
+\glossaryentry{ROP?\glossentry{rop}|setentrycounter[]{page}\glsnumberformat}{4}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{4}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{4}
+\glossaryentry{SQL?\glossentry{sql}|setentrycounter[]{page}\glsnumberformat}{6}
+\glossaryentry{SQL?\glossentry{sql}|setentrycounter[]{page}\glsnumberformat}{6}
+\glossaryentry{SQL?\glossentry{sql}|setentrycounter[]{page}\glsnumberformat}{6}
+\glossaryentry{CPU?\glossentry{cpu}|setentrycounter[]{page}\glsnumberformat}{6}
+\glossaryentry{SQL?\glossentry{sql}|setentrycounter[]{page}\glsnumberformat}{7}
+\glossaryentry{SQL?\glossentry{sql}|setentrycounter[]{page}\glsnumberformat}{7}
+\glossaryentry{SQL?\glossentry{sql}|setentrycounter[]{page}\glsnumberformat}{7}
+\glossaryentry{CPU?\glossentry{cpu}|setentrycounter[]{page}\glsnumberformat}{7}
+\glossaryentry{CPU?\glossentry{cpu}|setentrycounter[]{page}\glsnumberformat}{7}
+\glossaryentry{ARM?\glossentry{arm}|setentrycounter[]{page}\glsnumberformat}{7}
+\glossaryentry{PC?\glossentry{pc}|setentrycounter[]{page}\glsnumberformat}{7}
+\glossaryentry{DEP?\glossentry{dep}|setentrycounter[]{page}\glsnumberformat}{8}
+\glossaryentry{\ensuremath {w \oplus x}?\glossentry{w+x}|setentrycounter[]{page}\glsnumberformat}{8}
+\glossaryentry{IFSM?\glossentry{ifsm}|setentrycounter[]{page}\glsnumberformat}{9}
+\glossaryentry{IFSM?\glossentry{ifsm}|setentrycounter[]{page}\glsnumberformat}{9}
+\glossaryentry{IFSM?\glossentry{ifsm}|setentrycounter[]{page}\glsnumberformat}{9}
+\glossaryentry{IFSM?\glossentry{ifsm}|setentrycounter[]{page}\glsnumberformat}{9}
+\glossaryentry{IFSM?\glossentry{ifsm}|setentrycounter[]{page}\glsnumberformat}{9}
+\glossaryentry{IFSM?\glossentry{ifsm}|setentrycounter[]{page}\glsnumberformat}{9}
+\glossaryentry{CPU?\glossentry{cpu}|setentrycounter[]{page}\glsnumberformat}{9}
+\glossaryentry{weird machine?\glossentry{weird-machine}|setentrycounter[]{page}\glsnumberformat}{9}
+\glossaryentry{IFSM?\glossentry{ifsm}|setentrycounter[]{page}\glsnumberformat}{9}
+\glossaryentry{IFSM?\glossentry{ifsm}|setentrycounter[]{page}\glsnumberformat}{9}
+\glossaryentry{CPU?\glossentry{cpu}|setentrycounter[]{page}\glsnumberformat}{10}
+\glossaryentry{PC?\glossentry{pc}|setentrycounter[]{page}\glsnumberformat}{10}
+\glossaryentry{ARM?\glossentry{arm}|setentrycounter[]{page}\glsnumberformat}{10}
+\glossaryentry{IP?\glossentry{ip}|setentrycounter[]{page}\glsnumberformat}{10}
+\glossaryentry{SP?\glossentry{sp}|setentrycounter[]{page}\glsnumberformat}{10}
+\glossaryentry{FP?\glossentry{fp}|setentrycounter[]{page}\glsnumberformat}{10}
+\glossaryentry{IP?\glossentry{ip}|setentrycounter[]{page}\glsnumberformat}{10}
+\glossaryentry{ARM?\glossentry{arm}|setentrycounter[]{page}\glsnumberformat}{10}
+\glossaryentry{LR?\glossentry{lr}|setentrycounter[]{page}\glsnumberformat}{11}
+\glossaryentry{ARM?\glossentry{arm}|setentrycounter[]{page}\glsnumberformat}{11}
+\glossaryentry{FP?\glossentry{fp}|setentrycounter[]{page}\glsnumberformat}{11}
+\glossaryentry{FP?\glossentry{fp}|setentrycounter[]{page}\glsnumberformat}{11}
+\glossaryentry{ARM?\glossentry{arm}|setentrycounter[]{page}\glsnumberformat}{11}
+\glossaryentry{ROP?\glossentry{rop}|setentrycounter[]{page}\glsnumberformat}{11}
+\glossaryentry{ROVM?\glossentry{rovm}|setentrycounter[]{page}\glsnumberformat}{11}
+\glossaryentry{ROVM?\glossentry{rovm}|setentrycounter[]{page}\glsnumberformat}{11}
+\glossaryentry{CPU?\glossentry{cpu}|setentrycounter[]{page}\glsnumberformat}{11}
+\glossaryentry{CPU?\glossentry{cpu}|setentrycounter[]{page}\glsnumberformat}{12}
+\glossaryentry{ROP?\glossentry{rop}|setentrycounter[]{page}\glsnumberformat}{12}
+\glossaryentry{ROP?\glossentry{rop}|setentrycounter[]{page}\glsnumberformat}{12}
+\glossaryentry{ROVM?\glossentry{rovm}|setentrycounter[]{page}\glsnumberformat}{12}
+\glossaryentry{ROP?\glossentry{rop}|setentrycounter[]{page}\glsnumberformat}{12}
+\glossaryentry{\ensuremath {w \oplus x}?\glossentry{w+x}|setentrycounter[]{page}\glsnumberformat}{12}
+\glossaryentry{\ensuremath {w \oplus x}?\glossentry{w+x}|setentrycounter[]{page}\glsnumberformat}{12}
+\glossaryentry{ROVM?\glossentry{rovm}|setentrycounter[]{page}\glsnumberformat}{12}
+\glossaryentry{\ensuremath {w \oplus x}?\glossentry{w+x}|setentrycounter[]{page}\glsnumberformat}{12}
+\glossaryentry{SPMM?\glossentry{spmm}|setentrycounter[]{page}\glsnumberformat}{12}
+\glossaryentry{ROVM?\glossentry{rovm}|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{SPMM?\glossentry{spmm}|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{SPMM?\glossentry{spmm}|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{SPMM?\glossentry{spmm}|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{SPMM?\glossentry{spmm}|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{ROVM?\glossentry{rovm}|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{SPMM?\glossentry{spmm}|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{CPU?\glossentry{cpu}|setentrycounter[]{page}\glsnumberformat}{13}
+\glossaryentry{VX?\glossentry{vx}|setentrycounter[]{page}\glsnumberformat}{18}
+\glossaryentry{VXer?\glossentry{vxer}|setentrycounter[]{page}\glsnumberformat}{18}
+\glossaryentry{VXer?\glossentry{vxer}|setentrycounter[]{page}\glsnumberformat}{18}
+\glossaryentry{VXer?\glossentry{vxer}|setentrycounter[]{page}\glsnumberformat}{18}
+\glossaryentry{VXer?\glossentry{vxer}|setentrycounter[]{page}\glsnumberformat}{21}
+\glossaryentry{VX?\glossentry{vx}|setentrycounter[]{page}\glsnumberformat}{25}
+\glossaryentry{CPU?\glossentry{cpu}|setentrycounter[]{page}\glsnumberformat}{29}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{29}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{29}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{29}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{29}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{30}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{30}
+\glossaryentry{ARMv7?\glossentry{armv7}|setentrycounter[]{page}\glsnumberformat}{30}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{30}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{30}
+\glossaryentry{ARMv7?\glossentry{armv7}|setentrycounter[]{page}\glsnumberformat}{33}
+\glossaryentry{CPU?\glossentry{cpu}|setentrycounter[]{page}\glsnumberformat}{33}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{33}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{34}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{34}
+\glossaryentry{ARMv7?\glossentry{armv7}|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{ARM?\glossentry{arm}|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{CPU?\glossentry{cpu}|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{ARM?\glossentry{arm}|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{ARMv7?\glossentry{armv7}|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{CPU?\glossentry{cpu}|setentrycounter[]{page}\glsnumberformat}{35}
+\glossaryentry{ARMv7?\glossentry{armv7}|setentrycounter[]{page}\glsnumberformat}{37}
+\glossaryentry{CPU?\glossentry{cpu}|setentrycounter[]{page}\glsnumberformat}{37}
+\glossaryentry{ARM?\glossentry{arm}|setentrycounter[]{page}\glsnumberformat}{38}
+\glossaryentry{PC?\glossentry{pc}|setentrycounter[]{page}\glsnumberformat}{38}
+\glossaryentry{PC?\glossentry{pc}|setentrycounter[]{page}\glsnumberformat}{38}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{39}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{41}
+\glossaryentry{CPU?\glossentry{cpu}|setentrycounter[]{page}\glsnumberformat}{42}
+\glossaryentry{ARM?\glossentry{arm}|setentrycounter[]{page}\glsnumberformat}{42}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{42}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{42}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{42}
+\glossaryentry{CPU?\glossentry{cpu}|setentrycounter[]{page}\glsnumberformat}{44}
+\glossaryentry{CPU?\glossentry{cpu}|setentrycounter[]{page}\glsnumberformat}{44}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{45}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{46}
+\glossaryentry{CPU?\glossentry{cpu}|setentrycounter[]{page}\glsnumberformat}{47}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{47}
+\glossaryentry{CPU?\glossentry{cpu}|setentrycounter[]{page}\glsnumberformat}{47}
+\glossaryentry{CPU?\glossentry{cpu}|setentrycounter[]{page}\glsnumberformat}{47}
+\glossaryentry{CPU?\glossentry{cpu}|setentrycounter[]{page}\glsnumberformat}{48}
+\glossaryentry{CPU?\glossentry{cpu}|setentrycounter[]{page}\glsnumberformat}{48}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{49}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{51}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{52}
+\glossaryentry{ROP?\glossentry{rop}|setentrycounter[]{page}\glsnumberformat}{54}
+\glossaryentry{QEMU?\glossentry{qemu}|setentrycounter[]{page}\glsnumberformat}{54}
+\glossaryentry{VM?\glossentry{vm}|setentrycounter[]{page}\glsnumberformat}{54}
+\glossaryentry{CPU?\glossentry{cpu}|setentrycounter[]{page}\glsnumberformat}{54}
+\glossaryentry{CPU?\glossentry{cpu}|setentrycounter[]{page}\glsnumberformat}{54}
+\glossaryentry{QEMU?\glossentry{qemu}|setentrycounter[]{page}\glsnumberformat}{54}
+\glossaryentry{I/O?\glossentry{io}|setentrycounter[]{page}\glsnumberformat}{54}
+\glossaryentry{ROP?\glossentry{rop}|setentrycounter[]{page}\glsnumberformat}{54}
+\glossaryentry{CPU?\glossentry{cpu}|setentrycounter[]{page}\glsnumberformat}{54}
+\glossaryentry{CPU?\glossentry{cpu}|setentrycounter[]{page}\glsnumberformat}{54}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{54}
+\glossaryentry{ROP?\glossentry{rop}|setentrycounter[]{page}\glsnumberformat}{54}
+\glossaryentry{BAP?\glossentry{bap}|setentrycounter[]{page}\glsnumberformat}{54}
+\glossaryentry{ISA?\glossentry{isa}|setentrycounter[]{page}\glsnumberformat}{54}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{54}
+\glossaryentry{ROP?\glossentry{rop}|setentrycounter[]{page}\glsnumberformat}{54}
+\glossaryentry{CPU?\glossentry{cpu}|setentrycounter[]{page}\glsnumberformat}{55}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{56}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{56}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{56}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{56}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{56}
+\glossaryentry{CPU?\glossentry{cpu}|setentrycounter[]{page}\glsnumberformat}{56}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{56}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{56}
+\glossaryentry{ARM?\glossentry{arm}|setentrycounter[]{page}\glsnumberformat}{57}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{57}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{57}
+\glossaryentry{ARM?\glossentry{arm}|setentrycounter[]{page}\glsnumberformat}{61}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{62}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{62}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{63}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{63}
+\glossaryentry{CPU?\glossentry{cpu}|setentrycounter[]{page}\glsnumberformat}{63}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{63}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{64}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{64}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{66}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{67}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{67}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{67}
+\glossaryentry{ROPER?\glossentry{roper}|setentrycounter[]{page}\glsnumberformat}{67}

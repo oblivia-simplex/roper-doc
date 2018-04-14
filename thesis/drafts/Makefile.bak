@@ -1,0 +1,32 @@
+# Sample Makefile
+# $Id: Makefile 387 2012-11-12 15:11:48Z vlado $
+
+THESIS_NAME=thesis
+FLAGS=-interaction=nonstopmode
+
+.PHONY: all
+
+all: body glossary bibliography
+	pdflatex $(FLAGS) $(THESIS_NAME)
+	pdflatex $(FLAGS) $(THESIS_NAME)
+
+body:
+	pdflatex $(FLAGS) $(THESIS_NAME).tex
+
+glossary:
+	pdflatex $(FLAGS) $(THESIS_NAME).tex
+	makeglossaries $(THESIS_NAME)
+
+bibliography:
+	pdflatex $(FLAGS) $(THESIS_NAME).tex
+	pdflatex $(FLAGS) $(THESIS_NAME).tex
+	bibtex $(THESIS_NAME)
+
+clean:
+	rm -f *.dvi *.aux *.bbl *.blg *.log *.toc *.lof *.lot *.glo *.gls *.ist *.ilg \#* *.ps nohup.out 
+
+spotless: clean
+	-rm *.pdf
+
+show: all
+	zathura --fork ~/Projects/thesis/draft/thesis.pdf
