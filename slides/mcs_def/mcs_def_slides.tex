@@ -1,4 +1,4 @@
-% Created 2018-04-16 Mon 14:14
+% Created 2018-04-16 Mon 15:49
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -32,16 +32,16 @@
 
 
 \section*{Introductory Remarks}
-\label{sec:org345a0d6}
+\label{sec:org7763563}
 \section*{The Concept of Return-Oriented Programming}
-\label{sec:orgd00557a}
+\label{sec:org3444df2}
 \subsection*{The Fundamental Problem of Cybersecurity}
-\label{sec:org426128d}
+\label{sec:org7132b97}
 At bottom, there is no essential distinction between data and code.
 
 "Data" is just information your system trusts. 
 \subsection*{Consider the Stack}
-\label{sec:org45d7f87}
+\label{sec:orgd954e18}
 \begin{center}
 \includegraphics[width=.9\linewidth]{../images/stack_frame.png}
 \end{center}
@@ -53,7 +53,7 @@ At bottom, there is no essential distinction between data and code.
 \end{itemize}
 
 \subsection*{Consider the Stack, Smashed}
-\label{sec:orgc27af39}
+\label{sec:org0fe998e}
 
 \begin{center}
 \includegraphics[width=.9\linewidth]{../images/stack_frame_attack.png}
@@ -66,7 +66,7 @@ At bottom, there is no essential distinction between data and code.
 \end{itemize}
 
 \subsection*{DEP / \(W \oplus X\)}
-\label{sec:org686123a}
+\label{sec:org5f1abc9}
 \begin{center}
 \includegraphics[width=.9\linewidth]{../images/stack_frame_attack_w^x.png}
 \end{center}
@@ -78,11 +78,11 @@ At bottom, there is no essential distinction between data and code.
 
 
 \subsection*{So, is code "wherever the program counter's pointing"?}
-\label{sec:orgeade6a5}
+\label{sec:org1a05b6a}
 \subsection*{No. It's far worse than that.}
-\label{sec:org0b48e1a}
+\label{sec:org65eb059}
 \subsection*{Subverting \(W\oplus X\)}
-\label{sec:org74c23d3}
+\label{sec:org7aedc64}
 \begin{itemize}
 \item \(W\oplus X\) may prevent the \emph{execution} of input data, but it doesn't prevent attempts to \emph{return} to that data.
 \item Why should the hacker need to supply their own machine code?
@@ -90,17 +90,17 @@ At bottom, there is no essential distinction between data and code.
 \item Why not just build a payload with whatever's handy?
 \end{itemize}
 \subsection*{It's what MacGyver would do}
-\label{sec:orgb688c48}
+\label{sec:orgb0feb5f}
 But how?
 \subsection*{\(W\oplus X\) is a Leaky Abstraction}
-\label{sec:orgc11bf26}
+\label{sec:orgdde5d2f}
 \begin{itemize}
 \item It rests on all-too-narrow concepts of "instruction" and "execution".
 \item The payload's \emph{instructions} don't need to be bytes of machine code.
 \item They just need to influence control flow, in a controllable way.
 \end{itemize}
 \subsection*{So is the \emph{Structured Programming Machine Model}}
-\label{sec:orgba02378}
+\label{sec:org3afd5eb}
 \begin{itemize}
 \item The machine model structure programming is based already carves up an executable into chunks that \textbf{return} control after being dispatched.
 \item To the programmer, these are "functions", but this is too granular a viewpoint.
@@ -109,7 +109,7 @@ But how?
 \end{itemize}
 
 \subsection*{The ROVM supervenes on the SPMM}
-\label{sec:org9fec18c}
+\label{sec:orgd8c247a}
 \begin{itemize}
 \item Chunks of code that allow the attacker to maintain control after dispatching are called "gadgets".
 \item They can be seen as the instruction set for another virtual machine.
@@ -120,23 +120,23 @@ But how?
 \end{itemize}
 
 \subsection*{\ldots{}and so can natural selection.}
-\label{sec:org525b05a}
+\label{sec:org0e0c836}
 
 \section*{Design and Implementation of ROPER}
-\label{sec:orgabc95b0}
+\label{sec:org3b6cbfe}
 
 \section*{Experimental Studies}
-\label{sec:orgc24a74d}
+\label{sec:org2295ab7}
 
 \subsection*{The Environment}
-\label{sec:org11e3ab8}
+\label{sec:orgefa59b3}
 \begin{center}
 \includegraphics[width=.9\linewidth]{../../thesis/images/tomato-RT-N18U-httpd_heatmap.png}
 \end{center}
 
 
 \subsection*{Tasks and Fitness Functions}
-\label{sec:org6f52b98}
+\label{sec:org4eb9837}
 \begin{itemize}
 \item An arbitrary and inscrutable fitness function
 \item System call preparation
@@ -151,7 +151,7 @@ But how?
 
 
 \subsubsection*{Kafka function with Crash Penalty}
-\label{sec:org8776c3f}
+\label{sec:org3d8ad83}
 
 The address visitation heatmap shows no evident loss of diversity,
 even after 212 seasons, suggesting a robustly ergodic system. 
@@ -161,7 +161,7 @@ even after 212 seasons, suggesting a robustly ergodic system.
 
 
 \subsubsection*{System Call Preparation}
-\label{sec:org1ccef9c}
+\label{sec:org3738fe2}
 
 Champion of the \emph{wiwzuh} population:
 \lstset{language=asm,label= ,caption= ,captionpos=b,numbers=none}
@@ -189,28 +189,31 @@ Champion of the \emph{wiwzuh} population:
 
 
 \subsubsection*{Fitness landscape traversed by the \emph{wiwzuh} population}
-\label{sec:org30ad8fa}
+\label{sec:org71da498}
+\begin{center}
+\includegraphics[width=.9\linewidth]{../../thesis/images/plots/wiwzuh_syscall_gaussian_3.png}
+\end{center}
 
 
 
 \subsubsection*{A simple classification task}
-\label{sec:org8428642}
+\label{sec:org46ec6f1}
 
 \url{../images/plots/}
 
 \subsubsection*{The Snake Game}
-\label{sec:orgc32b1b6}
+\label{sec:org893b262}
 
 \url{../../videos/roper-snek-misjax-35000.mp4}
 
 \section*{Recent and Future Work}
-\label{sec:org56f2630}
+\label{sec:org58722da}
 
 \subsection*{Recent}
-\label{sec:orgdc18fc9}
+\label{sec:org0fe1263}
 
 \subsubsection*{Bit-masks over Bid-bins}
-\label{sec:org8ed8c63}
+\label{sec:org9f1ee71}
 
 The uneven distribution of register usage puts a skew on any
 classification task using the register bid-bin method. 
@@ -219,12 +222,12 @@ classification task using the register bid-bin method.
 \end{center}
 
 \subsubsection*{Bitmask technique for classification tasks}
-\label{sec:org17ccc65}
+\label{sec:org15f1c3b}
 
 
 
 \subsubsection*{Specimens found when using the bitmask technique instead}
-\label{sec:org176ea4e}
+\label{sec:orgec575c4}
 
 \begin{verbatim}
 IN:  a3 fffffd6f
@@ -291,11 +294,11 @@ R0 (bin): 00000000000000000000000011101010
 \end{verbatim}
 
 \subsubsection*{TTL fields on Clumps}
-\label{sec:orgb3118ac}
+\label{sec:org2407370}
 
 \subsubsection*{Quasi-Homologous Crossover}
-\label{sec:orgbf88092}
+\label{sec:org78a9005}
 
 \subsection*{}
-\label{sec:org71c6635}
+\label{sec:org5bcb2dc}
 \end{document}

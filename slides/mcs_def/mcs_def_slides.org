@@ -1,5 +1,5 @@
 #+TITLE: Urschleim in Silicon: The Slideshow
-#+OPTIONS: reveal_single_file:t toc:1 num:nil
+#+OPTIONS: toc:1 num:nil
 
 * Introductory Remarks
 :PROPERTIES:
@@ -140,9 +140,7 @@ Champion of the /wiwzuh/ population:
 
 
 *** Fitness landscape traversed by the /wiwzuh/ population
-:PROPERTIES:
-:reveal_background: ../../thesis/images/plots/wiwzuh_syscall_gaussian_3.png
-:END:
+[[../../thesis/images/plots/wiwzuh_syscall_gaussian_3.png]]
 
 
 
