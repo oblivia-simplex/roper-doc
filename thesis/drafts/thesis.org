@@ -57,7 +57,7 @@ possibilities harboured there.
 The techniques developed here can quite viably be put to work in the field of
 offensive cybersecurity, and be used to generate swarms of attack payloads whose
 diversity is, for all intents and purposes, unbounded. The technology developed
-here could, with minor adaptations,[fn:: Discussed in Section [[sec:future]].] used
+here could, with minor adaptations,[fn:: Discussed in \S [[sec:future]].] used
 to test and train glspl:ids, or provide one more instrument in the penetration
 tester's toolbox.
 
@@ -1328,6 +1328,11 @@ the fitness function, mapping vectors of integers to floats
 \end{algorithmic}
 \end{algorithm}
 
+#+CAPTION: High-level overview of the tournament selection algorithm
+#+NAME: fig:tournament
+file:../images/tournament.png
+
+
 Algorithms \ref{alg:initpop}, \ref{alg:evalgen}, and \ref{alg:evolve}
 furnish a bird's eye view of gls:roper, abstracting away from questions of
 implementation, and streamlining away various bits of functionality
@@ -1372,27 +1377,29 @@ system's algorithmic structure is concerned). The length of the
 initial individuals is left parameterizable, but is upper-bounded by
 the amount of stack memory that will be available in the target
 process for our attacks to write to. We will complicate this structure
-somewhat, in Section [[sec:clumps]], but it remains a useful
+somewhat, in \S [[sec:clumps]], but it remains a useful
 simplification.
 
-The main loop, outlined in Algorithm \ref{alg:evolve}, is built around a
-well-known and widely used genetic programming algorithm called "tournament
-selection". On each iteration of the loop, $n$ (typically 4) distinct candidate
-genotypes are chosen from the population, with equal probability. Each is then
-mapped to its phenotype (its behavioural profile in the emulated gls:cpu), and its
-fitness evaluated (by applying the fitness function to that profile). The $m$ 
-(typically 2) candidates with the best fitness are selected for reproduction,
-while the least-fit $k$ candidates are culled from the population. 
+The main loop, outlined in Algorithm \ref{alg:evolve} and figure [[fig:tournament]],
+is built around a well-known and widely used genetic programming algorithm
+called "tournament selection". On each iteration of the loop, $n$ (typically 4)
+distinct candidate genotypes are chosen from the population, with equal
+probability. Each is then mapped to its phenotype (its behavioural profile in
+the emulated gls:cpu), and its fitness evaluated (by applying the fitness
+function to that profile). The $m$ (typically 2) candidates with the best
+fitness are selected for reproduction, while the least-fit $k$ candidates are
+culled from the population.
 
-The genotypes selected for reproduction are then passed to our genetic operators,
-which will return $k$ offspring, who will replace the least-fit $k$ candidates
-in the tournament. In the genetic programming literature, these operators are
-often referred to as the "search operators", as they "define the manner in which
-the system moves through the space of possible solutions" ([[bib:banzhaf98]], 144).
-In gls:roper, our genetic operators comprise a single-point crossover function,
-which maps a pair of parents into a pair of offspring, and a mutation operator,
-which maps a single genotype into a variant thereof. The internals of these
-operators are detailed in Section [[sec:genetic_operators]].
+The genotypes selected for reproduction are then passed to our genetic
+operators, which will return $k$ offspring, who will replace the least-fit $k$
+candidates in the tournament. In the genetic programming literature, these
+operators are often referred to as the "search operators", as they "define the
+manner in which the system moves through the space of possible solutions"
+([[bib:banzhaf98]], 144). In gls:roper, our genetic operators comprise a
+single-point crossover function, which maps a pair of parents into a pair of
+offspring, and a mutation operator, which maps a single genotype into a variant
+thereof. The internals of these operators are detailed in \S
+[[sec:genetic_operators]].
 
 This loop continues until the halting conditions are satisfied. These are most
 often set either to a maximum number of iterations, or the attainment of a set
@@ -1413,7 +1420,7 @@ we need
 :END:
 
 In the following sections, I will unfold and justify the decisions that went into
-implementing the algorithms surveyed in Section [[sec:algorithmic-overview]].
+implementing the algorithms surveyed in \S [[sec:algorithmic-overview]].
 We can begin with the representation of the genotypes constructed by
 the *spawn-individual()* algorithm, called on line
 \ref{alg:initpop:line:spawn-individual} of Algorithm \ref{alg:initpop}.
@@ -1424,7 +1431,7 @@ the *spawn-individual()* algorithm, called on line
 Since the aim of gls:roper is to foster the evolution of ROP chains, we 
 must begin by supplying the engine with a sufficient pool of gadgets, 
 harvested from the target executable. 
-  [fn::See Section [[sec:rop]] for a sustained explanation of how return-oriented
+  [fn::See \S [[sec:rop]] for a sustained explanation of how return-oriented
   programming works, and an explanation of the concept of 'gadget'.]
 
 There are several ways that this can be done, but the simplest is just to
@@ -1511,7 +1518,7 @@ initial spawning algorithm, exposes slightly more structural complexity,
 which is introduced in response to the following problem:
 
 # Aside from of a handful of metadata tags that are used to provide a clues to the
-# genetic operators (and which we will detail in Section [[sec:genetic-operators]]),
+# genetic operators (and which we will detail in \S [[sec:genetic-operators]]),
 
 # NB: Carefully check all the uses of biological terms. Try
 # to find reasonably tight-fitting analogies.
@@ -1643,7 +1650,7 @@ next clump in the sequence that makes up the genotype.
   distinct. But this is a complication that we don't need to dwell on
   here.]
 
-As explained in Section [[sec:rovm]], it is often helpful to think of
+As explained in \S [[sec:rovm]], it is often helpful to think of
 each gadget as an instruction in a virtual machine -- an emergent machine,
 supervening on the host's native instruction set architecture. What we're
 calling a clump here maps onto this concept of "instruction", but with a
@@ -1654,7 +1661,7 @@ the instruction whose opcode is represented by their own clump's gadget
 pointer.
 
 When the initial population is generated, we take a pool of gadget pointers, 
-harvested from the target binary (see Section [[sec:gadget-extraction]]), and a
+harvested from the target binary (see \S [[sec:gadget-extraction]]), and a
 pool of integers and data pointers, supplied by the user as part of the problem
 specification. We then form clumps, as described above, using randomly chosen
 elements of these two pools, as needed. The clumps are then assembled into 
@@ -1836,7 +1843,7 @@ are taken from the beginning of $\mu$, and whose remaining genes are taken from
 the end of $\varphi_{\mu_i\dots}$, and another child using the complementary
 choice of genes. The only modification I make to this well-known algorithm, in
 gls:roper, is to weight the choices of $\mu_i$ and $\varphi_i$, using a
-parameter we call "fragility", whose calculation I explain in Section
+parameter we call "fragility", whose calculation I explain in \S
 [[sec:fragility]]. The details of the algorithm itself can be found in
 \ref{alg:crossover}.
 
@@ -2071,7 +2078,7 @@ zeroing out its instruction pointer, with something like
 for example. 
 
 The second and, to a lesser extent, the third outcome both result in a variable
-penalty to fitness, the details of which will be discussed in Section [[sec:fitness]].
+penalty to fitness, the details of which will be discussed in \S [[sec:fitness]].
 
 The execution of the ROP chain payload is, in the context of gls:roper, our
 ontogenesis function: it gives us the phenotype, the behavioural, semantic
@@ -2199,7 +2206,7 @@ he fitness landscape, as a whole, becomes elastic.
  to wait.
 
  When the problem set we are dealing with is plural -- as it is in the second and third types
- of fitness function, listed in Section [[sec:fitness]] -- one way that diversity depletion often
+ of fitness function, listed in \S [[sec:fitness]] -- one way that diversity depletion often
  occurs is through /hypertelia/, or an adaptive fixation on low-hanging fruit.[fn::
    The notion of hypertelia used here has been borrowed from Gilbert Simondon. See,
    for example, the discussion in Chapter II, Section I, of 
@@ -2469,15 +2476,15 @@ In the following subsections ([[sec:null-spec]], [[sec:syscall-spec]],
 gls:roper was given to perform, and specify the way in which each was
 incorporated into \gls{roper}'s fitness function.
 
-In Section [[sec:findings]], I will walk through some of the more interesting results
-gleaned from each experiment, and in Section [[sec:introns]], I will lay out certain
+In \S [[sec:findings]], I will walk through some of the more interesting results
+gleaned from each experiment, and in \S [[sec:introns]], I will lay out certain
 conjectures that address an enigma in the observed results, and set out another
 series of experiments to test it. 
 
 *** The null task
 <<sec:null-spec>>
 
-As discussed in Sections [[sec:mutation]] and [[sec:crossover]], when designing a genetic
+As discussed in \S\S [[sec:mutation]] and [[sec:crossover]], when designing a genetic
 system, a question that naturally arises as to what constraints are brought into
 play by the shape of the system itself, in its genotypic and phenotypic topography,
 independent of any particular fitness function that could be applied to it. In the
@@ -2499,7 +2506,7 @@ this is how gls:roper implements its null task.[fn::
 ] 
 
 And since, in each of the other experiments, I enforce some form of crash penalty
-as a component of the fitness function (see Section [[sec:fitness]] for details),
+as a component of the fitness function (see \S [[sec:fitness]] for details),
 it would make sense to study what effects this pressure alone, abstracted from
 the others, has on the population dynamics. For this reason, I will introduce
 a second series of null task runs, in which the only non-random variable used
@@ -2759,7 +2766,7 @@ random letters, following the pattern "=consonant vowel consonant consonant vowe
   to "stars" in /Urbit/, but is a bit less constrained: their namespace has room
   for $2^{16}-1$ names, ours accommodates $(20 * 6 * 20)^2 \approx 2^{11.2}$. 
 ]. Using these labels over the course of this chapter lets me avoid circumlocutions
-like "as seen in the second population discussed in Section $N", and has the
+like "as seen in the second population discussed in \S $N", and has the
 further advantage of setting up a self-documenting correspondence between the
 analyses in this chapter and my system of log files. 
 
@@ -2780,11 +2787,11 @@ by the crash penalty.
 **** Arbitrary selection with no crash penalty
 <<sec:null-no-crash-penalty>>
 
-#+CAPTION: Performance metrics over /kurlig/ population of 2048, evolving under the absurd fitness function. Crash rate and stray address rate map to left vertical axis, while mean genome length and mean instructions executed map to the right.
+#+CAPTION: Performance metrics over /Kurlig/ population of 2048, evolving under the absurd fitness function. Crash rate and stray address rate map to left vertical axis, while mean genome length and mean instructions executed map to the right.
 #+NAME: fig:kurlig-kakfa
 file:../images/plots/kurlig_kafka_performance.pdf
     
-#+CAPTION: Address visitation heatmap over the =tomato-RT-N18U= process memory, by the /kurlig/ population, evolving under the absurd fitness function with no crash penalty. Season 4 heatmap displayed on the left, season 212 on the right. 
+#+CAPTION: Address visitation heatmap over the =tomato-RT-N18U= process memory, by the /Kurlig/ population, evolving under the absurd fitness function with no crash penalty. Season 4 heatmap displayed on the left, season 212 on the right. 
 #+NAME: fig:kurlig-heatmap
 file:../images/plots/kurlig_heatmap_4_212_montage.pdf
 
@@ -2797,7 +2804,7 @@ course of the run, sampled seasonally. Though not a precise or statistically
 significant representation of behaviour, it does, at least, serve to convey a
 general impression, at let the eye pick out the more obvious skews in distribution. 
 
-In figure [[fig:xeqcyv-heatmap]], we see heatmaps of the the /xeqcyv/ population's
+In figure [[fig:xeqcyv-heatmap]], we see heatmaps of the the /Xeqcyv/ population's
 phenotypic distribution sampled at seasons 4 and 212. Qualitatively speaking, the
 two maps appear almost identical. There has been no collapse of phenotypic diversity,
 and the system even gives the impression of being ergodic. Acting freely, with
@@ -2808,7 +2815,7 @@ counteracting the pull of genetic drift.
 **** Arbitrary selection with crash penalty
 <<sec:null-with-crash-penalty>>
 
-#+CAPTION: Performance metrics over /xeqcyv/ population, evolving under absurd fitness function with crash penalty. Crash rate and stray address rate map to the left vertical axis, while mean genome length and mean instructions executed map to the right. 
+#+CAPTION: Performance metrics over /Xeqcyv/ population, evolving under absurd fitness function with crash penalty. Crash rate and stray address rate map to the left vertical axis, while mean genome length and mean instructions executed map to the right. 
 #+NAME: fig:xeqcyv-kafka-crash
 file:../images/plots/xeqcyv_kafka_performance.pdf
 
@@ -2820,7 +2827,7 @@ and again at Season 212, showed such little difference that I had to check caref
 to make sure that I had not placed them in the wrong order, in figure
 [[fig:xeqcyv-heatmap]]. 
 
-#+CAPTION: Address-visitation heatmap over the =tomato-RT-N18U-httpd= process memory, by the /xeqcyv/ population, under the "Kafkaesque" fitness function: Season 4 on the left, Season 212 on the right. Blue swaths indicate where the harvested gadgets lie, red and magenta swaths indicate addresses visited by creatures in the population in execution.  
+#+CAPTION: Address-visitation heatmap over the =tomato-RT-N18U-httpd= process memory, by the /Xeqcyv/ population, under the "Kafkaesque" fitness function: Season 4 on the left, Season 212 on the right. Blue swaths indicate where the harvested gadgets lie, red and magenta swaths indicate addresses visited by creatures in the population in execution.  
 #+NAME: fig:xeqcyv-heatmap
 file:../images/plots/xeqcyv_kafka_heatmap_beginning_end.pdf
 
@@ -2835,7 +2842,7 @@ running code on the gls:cpu. There is no "task" to be completed in this setup,
 after all. Computation, for the creatures of /xeqcyv/ and /kurlig/, it essentially
 vestigal, and rapidly atrophies. And so execution times contracted to as little
 as 4 instructions on average, with much less variation than seen in the
-/kurlig/ population.
+/Kurlig/ population.
 
 *** Preparing an execv() system call in the Tomato web server
 <<sec:syscall-experiment>>
@@ -2868,14 +2875,14 @@ Each comma-separated cell in the string represents a register. The commas indica
 registers that we don't care about for the purpose of this task, and they will be
 ignored by the fitness function. The ampersand is the indirection operator, as in C, 
 and it tells gls:roper that =R1= should contain a /pointer/ to the address of the
-string, "/tmp/flashXXXX", which, for its part, is known to reside at =0x1f62f=. 
+string, "/tmp/flashXXXXXX", which, for its part, is known to reside at =0x1f62f=. 
 
 A satisfactory gls:cpu pattern was soon produced by an individual in the /wiwzuh/ 
 population, seventeen genealogical steps from the initial population. This specimen
 isn't particularly complex, once you factor out a few of the detours it takes. The
 It essentially works by just popping the necessary values from the stack to the
 registers -- all evolution needed to do here was to find the values that 
-hadn't been provided in the initial integer pool (such as the pointer\texttt{ 0xfff8} to the
+hadn't been provided in the initial integer pool (such as the pointer\texttt{0xfff8} to the
 value \texttt{0x1f62f}) and to place them in the necessary order. All that's needed in order
 to actually launch this syscall is to place a single =SVC= instruction pointer
 at the end of the packed chain shown in table \label{fig:wiwzuh}. The Tomato binary
@@ -2888,7 +2895,7 @@ a surprising degree of ruggedness, as we can see in figure [[fig:wiwzuh-landscap
 # to the distribution of gadgets that interact with the registers and memory
 # regions of interest. 
 
-#+CAPTION: Gaussian approximation of the fitness landscape across the population and over evolutionary time, for the /wiwzuh/ population, evolving =execv("/tmp/flashXXXXXX", ["/tmp/flashXXXXXX"], NULL)= syscall gls:rop chains in =tomato-RT-N18U-httpd=, yielding a specimen with perfect (0.0) fitness.
+#+CAPTION: Gaussian approximation of the fitness landscape across the population and over evolutionary time, for the /Wiwzuh/ population, evolving =execv("/tmp/flashXXXXXX", ["/tmp/flashXXXXXX"], NULL)= syscall gls:rop chains in =tomato-RT-N18U-httpd=, yielding a specimen with perfect (0.0) fitness.
 #+NAME: fig:wiwzuh-landscape
 [[file:../images/plots/wiwzuh_syscall_gaussian_3.pdf]]
 
@@ -2936,6 +2943,7 @@ R7:  b->746e692e      PC:  0->68732e00
 \end{lstlisting}
 \caption{A perfected \texttt{execv()} payload on \texttt{tomato-RT-N18U-httpd}, from the \emph{wiwzuh} population, generation 17.}
 \end{table}
+
 
 <<note:correction>>
 I must make a correction to a report stemming from this series of 
@@ -3033,7 +3041,7 @@ file:../images/plots/tomato-register-histogram.png
 
 At the present time, no explicit adjustment is made to the fitness functions
 to account for this uneveness, though the /difficulty/ mechanism and its use in
-fitness sharing (see Section [[sec:sharing]]) provides a means for the evolutionary
+fitness sharing (see \S [[sec:sharing]]) provides a means for the evolutionary
 process to, eventually, gain some traction on it.
 
 These qualities should be borne in mind when assessing \gls{roper}'s performance
@@ -3072,18 +3080,18 @@ misclassified as red.
 #+NAME: fig:two-simple-blobs
 file:../images/plots/2_simple_blobs.png
 
-#+CAPTION: The classification on the data displayed in figure [[fig:two-simple-blobs]] performed by the best specimen in the /kathot/ population, 35^{th} generation (execution trace inset).
+#+CAPTION: The classification on the data displayed in figure [[fig:two-simple-blobs]] performed by the best specimen in the /Kathot/ population, 35^{th} generation (execution trace inset).
 #+NAME: fig:kathot-two-blobs
 file:../images/plots/kathot_champion_18916_blobs_disas.pdf
 
-#+CAPTION: Performance profile of /kathot/ population, with gadgets in =tomato-RT-N18U-httpd=, on the "two simple blobs" classification problem. 
+#+CAPTION: Performance profile of /Kathot/ population, with gadgets in =tomato-RT-N18U-httpd=, on the "two simple blobs" classification problem. 
 #+NAME: fig:kathot-fitness
 file:../images/plots/kathot_fitness.pdf
 
-***** A case study of malignancy in the /fizwej/ population
+***** A case study of malignancy in the /Fizwej/ population
 <<sec:malignant>>
 
-Meanwhile, in the /fizwej/ population, a genetic strain emerged that had found
+Meanwhile, in the /Fizwej/ population, a genetic strain emerged that had found
 a way to classify the simple dataset flawlessly -- or nearly so. Though it 
 had achieved an error rate of 0.0, it terminated its execution, every time, 
 with an instruction that caused the gls:cpu to crash with a write access violation.
@@ -3116,7 +3124,7 @@ from addresses \texttt{0x28000} to \texttt{0x28fff} and from \texttt{0x29000} to
   now, =100= is execute and =001= is read, while =010= is still write. 
 ]
 In the 7289 different specimens recorded
-from the /fizwej/ population, by the time of its 64^{th} season, that had this
+from the /Fizwej/ population, by the time of its 64^{th} season, that had this
 particular gene and that had activated it to achieve a perfect detection rate 
 on "two simple blobs", not a single one had managed to reliably dereference
 =R1= to a writeable address at the time it dispatched that fatal instruction. 
@@ -3141,15 +3149,15 @@ evolutionary dead end.
 |----------------------+----------------------+------------------|
 
 
-#+CAPTION: A genetic union of a harmful phenotypic trait with an advantageous one, in the /fizwej/ population. As before, gadgets are separated by blank lines.
+#+CAPTION: A genetic union of a harmful phenotypic trait with an advantageous one, in the /Fizwej/ population. As before, gadgets are separated by blank lines.
 #+NAME: fig:fizwej-perfect-crash
 file:../images/plots/fizwej_perfect_crash.pdf
 
-#+CAPTION: The evolutionary dead-end of the /fizwej/ population, with the spread of the "=0000ad04 stmib r1, {r3, sl}=" gene.
+#+CAPTION: The evolutionary dead-end of the /Fizwej/ population, with the spread of the "=0000ad04 stmib r1, {r3, sl}=" gene.
 #+NAME: fig:fizwej-badgenes
 file:../images/plots/fizwej-badgenes.pdf
 
-#+CAPTION: Address visitation heatmap of the /fizwej/ population, at season 4 on the left, and season 124, on the right, showing a dramatic decline in phenotypic diversity. Compare with the /xeqcyv/ and /kurlig/ heatmaps in figures [[fig:xeqcyv-heatmap]] and [[fig:kurlig-heatmap]].
+#+CAPTION: Address visitation heatmap of the /Fizwej/ population, at season 4 on the left, and season 124, on the right, showing a dramatic decline in phenotypic diversity. Compare with the /xeqcyv/ and /kurlig/ heatmaps in figures [[fig:xeqcyv-heatmap]] and [[fig:kurlig-heatmap]].
 #+NAME: fig:fizwej-heatmap
 file:../images/plots/fizwej_S124_heatmap.pdf
 
@@ -3171,7 +3179,7 @@ to answer it before a selective epidemic occurs. It may be interesting to
 attempt to incorporate a more sophisticated semantic analysis routine to inspect
 gadgets that trigger a crash, and to determine whether or not they should be
 removed from the gene pool -- an idea we will take up further in the discussion
-of future directions for this project, in Section [[sec:future]]. Incorporating
+of future directions for this project, in \S [[sec:future]]. Incorporating
 a gauge of genetic, or low-level phenotypic, diversity into the fitness function
 -- scaling fitness by the relative frequency of either the individual's
 machine-word composition, or its execution path through process memory -- may
@@ -3187,12 +3195,12 @@ file:../images/plague.png
 This wasn't the first time that I had seen a segfaulting strain rise to
 dominance in one of \gls{roper}'s populations. In one, particularly fascinating
 and unusually pathological trial with the Iris classification problem (which we
-will look at more closely in Section [[sec:iris-experiment]]) , which I stumbled
+will look at more closely in \S [[sec:iris-experiment]]) , which I stumbled
 across early in the experimentation, the crash rate skyrocketed, and the /entire
 population/ fell victim to a congenital plague of segfaults before its
 20,000^{th} tournament iteration (figure [[fig:plague]]). Due to the data that
 was collected at the time being insufficiently coarse-grained, I cannot say
-whether dynamics similar to those described in Section [[sec:malignant]] played
+whether dynamics similar to those described in \S [[sec:malignant]] played
 a role in this occurrence. At least one of the factors leading up to it was
 uncovered, however, by reviewing the mean "ratio run" metric of the population:
 the population had discovered a means of exploiting the sloppy implementation of
@@ -3239,7 +3247,7 @@ for crash rates to oscillate than against it, and allow exploration of more
 dangerous waters so long as it doesn't threaten to risk the long-term well-being
 of the population as a whole. 
 
-In view of the phenomena described in Section [[sec:malignant]], however, this approach to regulating the crash rate may warrant revision. 
+In view of the phenomena described in \S [[sec:malignant]], however, this approach to regulating the crash rate may warrant revision. 
 
 ***** A proposed method for regulating malignant genes with a TTL field
 <<sec:ttl>>
@@ -3301,7 +3309,7 @@ Curiously, the peak in crash rate coincides with a dip in the average length of 
 population, which appears contrary to the supposition that the population was undergoing
 a strong pressure for intron formation at this point -- code bloat is almost certainly
 the /simplest/ means of forming introns. This may be an artefact of the fragility
-mechanic detailed in Section [[sec:fragility]], however: a sufficiently fragile gene
+mechanic detailed in \S [[sec:fragility]], however: a sufficiently fragile gene
 has a strong likelihood of simply being dropped during crossover, and passed to neither
 offspring, and when a crash occurs, the fragility of the last gadget to have been
 executed is automatically maximised. We could, therefore, be seeing a /consequence/
@@ -3367,12 +3375,12 @@ have been expunged by the gene pool in their carriers' fierce competition with
 the "bottom feeders" whose high absolute fitness scores represented only a
 facility for solving relatively /easy/ problems.
 
-#+CAPTION: A trial similar to the one documented in figure [[fig:sharing]], with per-class difficulty recorded, but with the fitness sharing mechanism suspended (/cazmud/ population). The filled curve surrounding each mean difficulty class, here being of visible breadth only in the case of the /iris virginia/, represents the standard deviation of difficulty for each exemplar class. 
+#+CAPTION: A trial similar to the one documented in figure [[fig:sharing]], with per-class difficulty recorded, but with the fitness sharing mechanism suspended (/Cazmud/ population). The filled curve surrounding each mean difficulty class, here being of visible breadth only in the case of the /iris virginia/, represents the standard deviation of difficulty for each exemplar class. 
 #+NAME: fig:nosharing
 [[file:../images/plots/nosharing.pdf]]
 
 For this reason, I introduced into gls:roper the /fitness sharing/ mechanism 
-that I have outlined in Section [[sec:sharing]]. 
+that I have outlined in \S [[sec:sharing]]. 
  The result (after some persistence and plenty fine-tuning) was a superb run --
 achieving 96.6% detection rate (0.034 absolute fitness) on the Iris set in
 27,724 tournaments, 216 seasons of difficulty rotation, and an average
@@ -3381,7 +3389,7 @@ evolution took, with the right-hand panel showing the responding environmental
 pressures -- the =difficulty= scores associated with each class, showing both
 mean and standard deviation.
 
- #+CAPTION: A very good run on the Iris classification task, employing the fitness sharing algorithm documented in Section [[sec:sharing]] (/ragweb/ population). The filled curve surrounding each mean difficulty line again represents the standard deviation of difficulty for that exemplar class.
+ #+CAPTION: A very good run on the Iris classification task, employing the fitness sharing algorithm documented in \S [[sec:sharing]] (/Ragweb/ population). The filled curve surrounding each mean difficulty line again represents the standard deviation of difficulty for that exemplar class.
  #+NAME: fig:sharing
  [[file:../images/plots/sharing.pdf]]
 
@@ -3419,7 +3427,7 @@ mean and standard deviation.
 In the final problem class put to gls:roper, I wrote a simple /Snake/ game
 [[bib:snakefight]] for its populations to play, to see how they may respond to a
 dynamically changing environment, with moderate to high degrees of randomness.
-The specifications of the game are described above, in Section [[sec:snake-spec]].
+The specifications of the game are described above, in \S [[sec:snake-spec]].
 To control the degree of randomness, I set up the game control protocol so that
 the gls:roper engine could pass a random seed to the game in order to initialize
 the placement of "apples" and "cacti" on the game board. Surprisingly, the 
@@ -3429,12 +3437,12 @@ for the duration of the evolutionary run.
 
 Results on this experiment remain largely preliminary and anecdotal in nature,
 but evidence of its basic feasibility can be found in the time-lapse recording
-of the final champion of the /misjax/ population playing a semi-competent game
+of the final champion of the /Misjax/ population playing a semi-competent game
 of Snake in figure [[fig:snek]]. 
 
 # need some graphs and quantitative data for this
 
-#+CAPTION: Time-lapse rendering of one of the fitter specimens encountered in the Snake trials (/misjax/ population). Snake segments: =[]=, apples: =()=, cacti: =##=.
+#+CAPTION: Time-lapse rendering of one of the fitter specimens encountered in the Snake trials (/Misjax/ population). Snake segments: =[]=, apples: =()=, cacti: =##=.
 #+NAME: fig:snek
 file:../images/snek_misjax_montage_on_white.png
 
@@ -3466,7 +3474,7 @@ and appears to be much easier for our populations to accomplish than the specifi
 task-oriented components of the fitness function. And whereas the prospect of
 crashing "in the wild", before having a chance to reproduce, is completely and
 utterly fatal to evolving malware strains (see the discussion of this problem
-in Section [[sec:vx]]), our "in vitro" populations have the advantage of a gently
+in \S [[sec:vx]]), our "in vitro" populations have the advantage of a gently
 gradated crash penalty: the fitness penalty incurred by a crash is inversely
 proportionate to the number of gadgets viably executed before the crash.
 
@@ -3483,7 +3491,7 @@ punctured.
 <<sec:stray>>
 
 Once a secure conduit had been implemented for passing detailed execution
-information from the emulator back to the evolutionary engine (see Section
+information from the emulator back to the evolutionary engine (see \S
 [[sec:plague-of-segfaults]],
 another rich vein of information had opened up, which helped to provide evidence for a
 tendency that, until then, I had only been able to observe by manually
@@ -3638,14 +3646,14 @@ that this bizarre behaviour is not at all uncommon in \gls{roper}'s populations
 Scatter plot of the average amount of execution time that an individual spends straying from its explicit gadget set, relative to its fitness
 :END:
 
-#+CAPTION: A run on the Iris classification task, with a high stray rate, by the /hepfap/ population.
+#+CAPTION: A run on the Iris classification task, with a high stray rate, by the /Hepfap/ population.
 #+NAME: fig:hepfap
 file:../images/plots/hepfap.pdf
 
 # we need some numbers, rough numbers at least, on how frequent
 # this sort of phenomenon is.
 
-#+CAPTION: Heatmap montage over the /fimjek/ population, showing range of addresses executed, in red tint, superimposed on a map of the explicit gadgets that were harvested to form that population's initial gene pool, in blue tint. The intensity of red tint indicates the frequency with which the corresponding address was visited. Magenta and purple cells indicate orthodox gadget traffic, while red swaths with no tint of blue indicate stray activity. From top-left to bottom-right, each cell is a snapshot of the evolving heatmap at intervals of 20 seasons. The underlying gadget map is taken from the =tomato-RT-N18U-httpd= binary that we used in this experiment.
+#+CAPTION: Heatmap montage over the /Fimjek/ population, showing range of addresses executed, in red tint, superimposed on a map of the explicit gadgets that were harvested to form that population's initial gene pool, in blue tint. The intensity of red tint indicates the frequency with which the corresponding address was visited. Magenta and purple cells indicate orthodox gadget traffic, while red swaths with no tint of blue indicate stray activity. From top-left to bottom-right, each cell is a snapshot of the evolving heatmap at intervals of 20 seasons. The underlying gadget map is taken from the =tomato-RT-N18U-httpd= binary that we used in this experiment.
 #+NAME: fig:fimjek-heatmap
 file:../images/plots/fimjek_heatmap_montage.pdf
 
@@ -3830,7 +3838,7 @@ event.
 
 The task component of the fitness function for these trials was to match a
 precisely specified gls:cpu context, similar to the register-matching task
-discussed in Sections [[sec:syscall-spec]] and [[sec:syscall-experiment]], but
+discussed in \S\S [[sec:syscall-spec]] and [[sec:syscall-experiment]], but
 with one key difference, incorporating a recent update to the engine: the
 population would be responsible for matching not just a series of immediate
 register values, but correctly dereferencing pointers as well (but only up to
@@ -3856,10 +3864,10 @@ though not as dramatically as anticipated. One of the four gls:edi populations
 still showed a visible history of stray address visitation, but only one, as
 compared to the four gls:edi free populations, all of which showed signs of
 straying. Though fine-grained genealogical data is not available for these
-populations, the relative continuity of the stray line in the /rofted/ population, 
+populations, the relative continuity of the stray line in the /Rofted/ population, 
 appearing in figure [[fig:edi-stray-montage]], suggest that this /may/ be the
 result of a single bloodline, in contrast to the gls:edi free /surjes/ and 
-/simtyn/ populations, where the incidence of strays appears in fits and starts, 
+/Simtyn/ populations, where the incidence of strays appears in fits and starts, 
 suggesting multiple genealogical origins. It would be interesting to repeat this
 experiment with larger populations, and the collection of genealogical data, 
 as time (and memory space for exponentially accumulating data) allow. 
@@ -3871,7 +3879,7 @@ their absence with an accumulation of "spare" genes. But what's surprising is
 that those same populations appear to be executing the majority of their
 tremendously large genomes -- and doing so with relatively infrequent crashes. 
 The non-\gls{edi} populations have an anomalous member in this respect, too:
-the /xufmoc/ population exhibits a sharp downwards trajectory in its genome
+the /Xufmoc/ population exhibits a sharp downwards trajectory in its genome
 length, following its 2000^{th} season.  
 
 A surprising result is the the non-\gls{edi} populations appear to have a higher
@@ -3881,11 +3889,11 @@ subtle, however, and may be the effect of noise, or overrepresented and idiosync
 bloodlines. 
 
 
-#+CAPTION: Plot of EDI frequency to stray rate, crash rate, and the ratio of gadgets run in the /hyzqyp/, /megkek/, /qatjaq/ and /rofted/ populations, with non-EDI mutation disabled.
+#+CAPTION: Plot of EDI frequency to stray rate, crash rate, and the ratio of gadgets run in the /hyzqyp/, /megkek/, /qatjaq/ and /Rofted/ populations, with non-EDI mutation disabled.
 #+NAME: fig:edi-stray-montage
 file:../images/plots/edi_stray_montage.pdf
 
-#+CAPTION: Plot of stray rate, crash rate, and the ratio of gadgets run in the /mycwil/, /simtyn/, /surjes/ and /xufmoc/ populations, with mutation and EDI toggling disabled, with a base EDI rate of zero.
+#+CAPTION: Plot of stray rate, crash rate, and the ratio of gadgets run in the /mycwil/, /simtyn/, /surjes/ and /Xufmoc/ populations, with mutation and EDI toggling disabled, with a base EDI rate of zero.
 #+NAME: fig:noedi-stray-montage
 file:../images/plots/noedi_stray_montage.pdf
 
@@ -3970,7 +3978,7 @@ with directly in that chapter.
 
 *** Adding a gls:ttl field to clumps to contain malignancy and promote novelty
 
-This was touched on in Section [[sec:ttl]], in response to an interesting case
+This was touched on in \S [[sec:ttl]], in response to an interesting case
 of a malignant gene being aggressively promoted by selection, in virtue of the
 beneficial trait with which its malignancy was indissociably bound. It's the
 sort of problem to which evolution systems whose components are semantically
@@ -4178,160 +4186,360 @@ See \url{http://www.unicorn-engine.org}.
 
 
 #+LATEX: \appendix
-* Appendix: Adjustment to the Classifier Algorithm
-** Disadvantages of the bid-based algorithm in ROPER
-As we can see in figure [[fig:tomato-register-histogram]], the distribution of register use
-in a fairly typical gls:arm gls:elf program is hardly even. This places a tremendous skew
-on the relative likelihood of register use by an arbitrary individual in \gls{roper}'s
-populations. And since the entire set of registers is initialized to the same, constant
-set of values for each one, the ability of an individual to use the distribution of weights
-in each register as a discriminant for a task is hamstrung from the outset. We are already
-cutting the execution environment against the grain when we try to configure our
-fitness functions in this way.
-** Using R0 to decide
-The gls:arm gls:abi [[bib:arm_abi]] already gives us some useful hints here, which we can try to adhere to, to
-make our fitness functions more harmonious with their environment. Like the gls:x86, the gls:arm
-gls:abi designates a particular register for the purposes of carrying a return value:
-#+BEGIN_QUOTE
-The manner in which a result is returned from a function is determined by the type of that
-result [...] A Fundamental Data Type that is smaller than 4 bytes is zero- or sign-extended
-to a word and returned in r0.
-#+END_QUOTE
-Though larger values can enlist other registers as vehicles -- "a 128-bit containerized vector
-is returned in r0-r3", for example -- the sole use of r0 is by far the most common case, which
-explains why we see it being given so great a preference in figure [[fig:tomato-register-histogram]]. 
+* Appendix: Further Adjustments
+** Adjusting the classification task function for better environmental compatibility
+*** Disadvantages of the bid-based algorithm in ROPER
+ As we can see in figure [[fig:tomato-register-histogram]], the distribution of register use
+ in a fairly typical gls:arm gls:elf program is hardly even. This places a tremendous skew
+ on the relative likelihood of register use by an arbitrary individual in \gls{roper}'s
+ populations. And since the entire set of registers is initialized to the same, constant
+ set of values for each one, the ability of an individual to use the distribution of weights
+ in each register as a discriminant for a task is hamstrung from the outset. We are already
+ cutting the execution environment against the grain when we try to configure our
+ fitness functions in this way.
+*** Using R0 to decide
+ The gls:arm gls:abi [[bib:arm_abi]] already gives us some useful hints here, which we can try to adhere to, to
+ make our fitness functions more harmonious with their environment. Like the gls:x86, the gls:arm
+ gls:abi designates a particular register for the purposes of carrying a return value:
+ #+BEGIN_QUOTE
+ The manner in which a result is returned from a function is determined by the type of that
+ result [...] A Fundamental Data Type that is smaller than 4 bytes is zero- or sign-extended
+ to a word and returned in r0.
+ #+END_QUOTE
+ Though larger values can enlist other registers as vehicles -- "a 128-bit containerized vector
+ is returned in r0-r3", for example -- the sole use of r0 is by far the most common case, which
+ explains why we see it being given so great a preference in figure [[fig:tomato-register-histogram]]. 
 
-"Cutting with the grain," here, would mean adjusting our fitness function so that it hews a bit
-closer to the expected behaviour of procedures in its host. We can try, in particular, to base
-an individual's classification decisions (for the purposes of a classification task -- this doesn't
-impact the syscall preparation task at all) on the contents of =R0=, alone. 
+ "Cutting with the grain," here, would mean adjusting our fitness function so that it hews a bit
+ closer to the expected behaviour of procedures in its host. We can try, in particular, to base
+ an individual's classification decisions (for the purposes of a classification task -- this doesn't
+ impact the syscall preparation task at all) on the contents of =R0=, alone. 
 
-There are several ways we might do this: we could assign different integer ranges to each
-class, and then choose the class whose range in which the value in =R0= falls. Deciding on 
-a fair choice of ranges is a nontrivial problem, however, and will largely depend on the
-vicissitudes of the binary under attack. 
+ There are several ways we might do this: we could assign different integer ranges to each
+ class, and then choose the class whose range in which the value in =R0= falls. Deciding on 
+ a fair choice of ranges is a nontrivial problem, however, and will largely depend on the
+ vicissitudes of the binary under attack. 
 
-We could allocate bit mask ranges to each class, and then the class for which =make_mask(class) & R0= 
-has the most high bits. This remains close to the bid-based approach, but uses bit slices of a single
-register to provide the "ballot boxes", rather than separate registers. As before, we could refuse
-to assign points in the event of a tie: =0xffffffff= and =0x00000000=, for example,
-should not designate any particular class, but be seen as a failure to choose -- which helps us
-filter out quite a bit of noise and trivial decisions.  
+ We could allocate bit mask ranges to each class, and then the class for which =make_mask(class) & R0= 
+ has the most high bits. This remains close to the bid-based approach, but uses bit slices of a single
+ register to provide the "ballot boxes", rather than separate registers. As before, we could refuse
+ to assign points in the event of a tie: =0xffffffff= and =0x00000000=, for example,
+ should not designate any particular class, but be seen as a failure to choose -- which helps us
+ filter out quite a bit of noise and trivial decisions.  
 
-Some experimentation showed, however, that slicing the 32-bit range into equal, contiguous
-masks still results in a fairly significant skew in the early results, before selection has
-gone to work: the lower 8 bits, for example, are consistently favoured, as are the top 8, since
-they are set whenever the value in =R0= represents a negative integer. 
+ Some experimentation showed, however, that slicing the 32-bit range into equal, contiguous
+ masks still results in a fairly significant skew in the early results, before selection has
+ gone to work: the lower 8 bits, for example, are consistently favoured, as are the top 8, since
+ they are set whenever the value in =R0= represents a negative integer. 
 
-To balance the playing field, and ensure a bit of variety between runs, I used a simple algorithm
-to allocate non-colliding, randomized masks to each class in the configuration stage of each run
-(it's a crude, trial-and-error based, expensive algorithm, but negligibly so,
-since it only needs to be performed once per run), such that the masks each contain an equal number
-of ones, and have a boolean sum that has $n$ ones, where $n = 32 \mod |\text{classes}|$.
+ To balance the playing field, and ensure a bit of variety between runs, I used a simple algorithm
+ to allocate non-colliding, randomized masks to each class in the configuration stage of each run
+ (it's a crude, trial-and-error based, expensive algorithm, but negligibly so,
+ since it only needs to be performed once per run), such that the masks each contain an equal number
+ of ones, and have a boolean sum that has $n$ ones, where $n = 32 \mod |\text{classes}|$.
 
-This method tends to give a more or less equal probability, it seems, to the base likelihood
-of each class being chose, at least within one order of magnitude -- which is
-sufficient, since we can let the fitness sharing mechanism sort out the
-remaining disparities.
+ This method tends to give a more or less equal probability, it seems, to the base likelihood
+ of each class being chose, at least within one order of magnitude -- which is
+ sufficient, since we can let the fitness sharing mechanism sort out the
+ remaining disparities.
 
-Results so far have been encouraging. A solution to the trivial classification problem, involving
-two linearly separable blobs, was solved within minutes with a perfect detection rate, and a
-more algorithmically interesting solution than we saw when using the register-bid approach
-(which, I believe, encourages relatively trivial solutions that do not generalize well at all, in
-the context of gls:roper, since the only way to properly weight the registers is often by simply
-moving the attribute values back and forth between output registers, with minor tweaking --
-resources for subtly manipulating values in the mid-range registers are just too scarce a resource
-in \gls{roper}'s environment). See tables \ref{tab:xysxim-champ-red} and \ref{tab:xysxim-champ-blue},
-for execution traces of the champion classifier, operating on exemplars of the red and blue classes,
-respectively. What we see here is something we saw only rarely when using the register-bid algorithm,
-and almost never in the champions produced by that algorithm -- even when we try to encourage it
-by incorporating a per-case performance diversity metric into the fitness
-function: a difference in control flow, where \gls{arm}'s own conditional
-operators are used to decide on the course of action, given readings from a
-particular exemplar. The decision point in these specimens is the =popeq=
-instruction at address =0x0000cdd4=, which pops the stack if and only if the
-=zero= flag had been set by the previous flag-setting instruction (here, =subs
-r4, r0, #0=, at =0x0000cdd0=).
+ Results so far have been encouraging. A solution to the trivial classification problem, involving
+ two linearly separable blobs, was solved within minutes with a perfect detection rate, and a
+ more algorithmically interesting solution than we saw when using the register-bid approach
+ (which, I believe, encourages relatively trivial solutions that do not generalize well at all, in
+ the context of gls:roper, since the only way to properly weight the registers is often by simply
+ moving the attribute values back and forth between output registers, with minor tweaking --
+ resources for subtly manipulating values in the mid-range registers are just too scarce a resource
+ in \gls{roper}'s environment). See tables \ref{tab:xysxim-champ-red} and \ref{tab:xysxim-champ-blue},
+ for execution traces of the champion classifier, operating on exemplars of the red and blue classes,
+ respectively. What we see here is something we saw only rarely when using the register-bid algorithm,
+ and almost never in the champions produced by that algorithm -- even when we try to encourage it
+ by incorporating a per-case performance diversity metric into the fitness
+ function: a difference in control flow, where \gls{arm}'s own conditional
+ operators are used to decide on the course of action, given readings from a
+ particular exemplar. The decision point in these specimens is the =popeq=
+ instruction at address =0x0000cdd4=, which pops the stack if and only if the
+ =zero= flag had been set by the previous flag-setting instruction (here, =subs
+ r4, r0, #0=, at =0x0000cdd0=).
 
-:TODO:
-experiment: plot visit_diversity in populations using different classification algos 
-:END:
+ :TODO:
+ experiment: plot visit_diversity in populations using different classification algos 
+ :END:
 
-\begin{table}
-\begin{lstlisting}
-IN:  a3 fffffd6f
-0000b4b4       | pop {r4, r5, r6, r7, r8, pc}
-0000d9a8       | cmp r0, #0
-0000d9ac       | moveq r0, r3
-0000d9b0       | pop {r3, pc}
-0001010c       | rsb r5, r5, r0
-00010110       | cmp r5, #0x40
-00010114       | movgt r0, #0
-00010118       | movle r0, #1
-0001011c       | pop {r4, r5, r6, pc}
-0000cdd0       | subs r4, r0, #0
-0000cdd4       | popeq {r4, r5, r6, pc}
-0000cdd8 stray | ldr r1, [pc, #0x1c]
-0000cddc stray | mov r2, r4
-0000cde0 stray | mov r0, #0
-0000cde4 stray | bl #0x59e0
-000127c4 stray | push {r1, r2, r3}
-000127c8 stray | push {r0, r1, r2, r4, r5, r6, r7, r8, lr}
-000127cc stray | mov r6, r0
-000127d0 stray | mov r5, #0x400
-000127d4 stray | add r7, sp, #0x28
-000127d8 stray | ldr r8, [sp, #0x24]
-000127dc stray | mov r0, r5
-000127e0 stray | bl #4294933396
-0000a374 stray | add ip, pc, #0
-0000a378 stray | add ip, ip, #0x1e000
-0000a37c stray | ldr pc, [ip, #0x5a8]!
-0000a138 stray | str lr, [sp, #-4]!
-0000a13c stray | ldr lr, [pc, #4]
-0000a140 stray | add lr, pc, lr
-0000a144 stray | ldr pc, [lr, #8]!
-OUT: 400->0 1bc01->7365720a 1->7368732e 96106ace 1->7368732e 400->0 0->68732e00 
-.... 2b02b->1 1bc01->7365720a 0->68732e00 0->68732e00 0->68732e00 28924->a138 2afff->127e4 28868->0 0->68732e00 
-R0 (bin): 00000000000000000000010000000000
-\end{lstlisting}
-\caption{Behaviour of the champion of the \emph{xysxim} population, for a member of the red class. Input registers are \texttt{r2} and \texttt{r3}.}
-\label{tab:xysxim-champ-red}
-\end{table}
+ \begin{table}
+ \begin{lstlisting}
+ IN:  a3 fffffd6f
+ 0000b4b4       | pop {r4, r5, r6, r7, r8, pc}
+ 0000d9a8       | cmp r0, #0
+ 0000d9ac       | moveq r0, r3
+ 0000d9b0       | pop {r3, pc}
+ 0001010c       | rsb r5, r5, r0
+ 00010110       | cmp r5, #0x40
+ 00010114       | movgt r0, #0
+ 00010118       | movle r0, #1
+ 0001011c       | pop {r4, r5, r6, pc}
+ 0000cdd0       | subs r4, r0, #0
+ 0000cdd4       | popeq {r4, r5, r6, pc}
+ 0000cdd8 stray | ldr r1, [pc, #0x1c]
+ 0000cddc stray | mov r2, r4
+ 0000cde0 stray | mov r0, #0
+ 0000cde4 stray | bl #0x59e0
+ 000127c4 stray | push {r1, r2, r3}
+ 000127c8 stray | push {r0, r1, r2, r4, r5, r6, r7, r8, lr}
+ 000127cc stray | mov r6, r0
+ 000127d0 stray | mov r5, #0x400
+ 000127d4 stray | add r7, sp, #0x28
+ 000127d8 stray | ldr r8, [sp, #0x24]
+ 000127dc stray | mov r0, r5
+ 000127e0 stray | bl #4294933396
+ 0000a374 stray | add ip, pc, #0
+ 0000a378 stray | add ip, ip, #0x1e000
+ 0000a37c stray | ldr pc, [ip, #0x5a8]!
+ 0000a138 stray | str lr, [sp, #-4]!
+ 0000a13c stray | ldr lr, [pc, #4]
+ 0000a140 stray | add lr, pc, lr
+ 0000a144 stray | ldr pc, [lr, #8]!
+ OUT: 400->0 1bc01->7365720a 1->7368732e 96106ace 1->7368732e 400->0 0->68732e00 
+ .... 2b02b->1 1bc01->7365720a 0->68732e00 0->68732e00 0->68732e00 28924->a138 2afff->127e4 28868->0 0->68732e00 
+ R0 (bin): 00000000000000000000010000000000
+ \end{lstlisting}
+ \caption{Behaviour of the champion of the \emph{xysxim} population, for a member of the red class. Input registers are \texttt{r2} and \texttt{r3}.}
+ \label{tab:xysxim-champ-red}
+ \end{table}
 
-\begin{table}
-\begin{lstlisting}
-IN:  ffffff98 d
-0000b4b4       | pop {r4, r5, r6, r7, r8, pc}
-0000d9a8       | cmp r0, #0
-0000d9ac       | moveq r0, r3
-0000d9b0       | pop {r3, pc}
-0001010c       | rsb r5, r5, r0
-00010110       | cmp r5, #0x40
-00010114       | movgt r0, #0
-00010118       | movle r0, #1
-0001011c       | pop {r4, r5, r6, pc}
-0000cdd0       | subs r4, r0, #0
-0000cdd4       | popeq {r4, r5, r6, pc}
-0000d9ac       | moveq r0, r3
-0000d9b0       | pop {r3, pc}
-00016168       | add r0, r4, r0
-0001616c       | pop {r3, r4, r5, pc}
-0000ad94       | mov r0, r3
-0000ad98       | pop {r4, pc}
-0001228c       | add sp, sp, #0x364
-00012290       | add sp, sp, #0x400
-00012294       | pop {r4, r5, r6, r7, r8, sb, sl, fp, pc}
-OUT: ea->0 0->68732e00 ffffff98 ea->0 0->68732e00 0->68732e00 0->68732e00 
-.... 0->68732e00 0->68732e00 0->68732e00 0->68732e00 0->68732e00 0->68732e00 2b7eb->0 0->68732e00 0->68732e00 
-R0 (bin): 00000000000000000000000011101010
-\end{lstlisting}
-\caption{Behaviour of the champion of the \emph{xysxim} population, for a member of the blue class. Input registers are \texttt{r2} and \texttt{r3}.}
-\label{tab:xysxim-champ-blue}
-\end{table}
+ \begin{table}
+ \begin{lstlisting}
+ IN:  ffffff98 d
+ 0000b4b4       | pop {r4, r5, r6, r7, r8, pc}
+ 0000d9a8       | cmp r0, #0
+ 0000d9ac       | moveq r0, r3
+ 0000d9b0       | pop {r3, pc}
+ 0001010c       | rsb r5, r5, r0
+ 00010110       | cmp r5, #0x40
+ 00010114       | movgt r0, #0
+ 00010118       | movle r0, #1
+ 0001011c       | pop {r4, r5, r6, pc}
+ 0000cdd0       | subs r4, r0, #0
+ 0000cdd4       | popeq {r4, r5, r6, pc}
+ 0000d9ac       | moveq r0, r3
+ 0000d9b0       | pop {r3, pc}
+ 00016168       | add r0, r4, r0
+ 0001616c       | pop {r3, r4, r5, pc}
+ 0000ad94       | mov r0, r3
+ 0000ad98       | pop {r4, pc}
+ 0001228c       | add sp, sp, #0x364
+ 00012290       | add sp, sp, #0x400
+ 00012294       | pop {r4, r5, r6, r7, r8, sb, sl, fp, pc}
+ OUT: ea->0 0->68732e00 ffffff98 ea->0 0->68732e00 0->68732e00 0->68732e00 
+ .... 0->68732e00 0->68732e00 0->68732e00 0->68732e00 0->68732e00 0->68732e00 2b7eb->0 0->68732e00 0->68732e00 
+ R0 (bin): 00000000000000000000000011101010
+ \end{lstlisting}
+ \caption{Behaviour of the champion of the \emph{xysxim} population, for a member of the blue class. Input registers are \texttt{r2} and \texttt{r3}.}
+ \label{tab:xysxim-champ-blue}
+ \end{table}
 
-This still leaves the matter of input registers, however. One mitigation of the uneven use of
-input registers that has already been implemented in gls:roper is the possible use of the
-stack to pass input parameters for each problem. This is done by associating with each
-clump an =input_slots= field, which tells the execution procedure to replace the values at
-certain, specified stack indexes in the gls:rop payload with the available input values, which
-offers much more flexibility, and adaptability, to the way the population handles input. 
+ This still leaves the matter of input registers, however. One mitigation of the uneven use of
+ input registers that has already been implemented in gls:roper is the possible use of the
+ stack to pass input parameters for each problem. This is done by associating with each
+ clump an =input_slots= field, which tells the execution procedure to replace the values at
+ certain, specified stack indexes in the gls:rop payload with the available input values, which
+ offers much more flexibility, and adaptability, to the way the population handles input. 
+** Homologous crossover
+*** The trouble with crossover
+The trouble with crossover as it is currently implemented in gls:roper, and with
+the way it is canonically specified in most standard forms of gls:gp,
+is that it is, as Nordin and others put it [[bib:nordin99]], "too /brutal/", and
+insensitive to genomic context. The genome can be sliced more or less at random --
+in gls:roper, tempered only slightly by the gentle weighting of splice-point probabilities
+through the /fragility/ mechanism discussed in [[sec:fragility]] -- combining and substituting
+genes without any regard to their form or function.
+
+#+CAPTION: Unconstrained crossover in action
+#+NAME: fig:carboat
+file:../images/carboat-montage.png
+
+*** One way of implementing (quasi-)homologous crossover in ROPER
+In natural organisms, crossover is a highly constrained and sophisticated mechanism. 
+Under ordinary circumstances, only those genes sharing the same loci in their respective
+chromosomes are candidates for sexual recombination. This particular notion of "loci", 
+however, has no genuine parallel in a canonical gls:gp system. It would be a mistake to
+translate it, simply, as "index", since the ordering of a genome, at least at the beginning
+of a run, has little structural significance with respect to function. A semantically richer
+notion of structural position is desirable, here. Perhaps something like the /return address/
+of the gadget correlated with a clump can provide an indirect proxy for loci. This should at
+least correlate, noisily, with phenotypic behaviour patterns, and can be
+assessed in unit time (since it is already stored in the clump's metadata)
+adding no further overhead to our crossover algorithm. 
+
+
+
+
+Semantically meaningful organic structure tends to be extraordinarily scarce at the
+beginning of a run, and there's no reason why we should trust a poorly
+performing genome on having gotten anything "right" in the order of its genes.
+We don't want to /prematurely/ constrain the possibilities of crossover, by enforcing
+quasi-homological gene alignment on chains that may have very little interesting
+organization in the first place. A sensible course of action would be to apply quasi-homological
+constraints /probabilistically/, where the probability of application is proportionate to
+at least one parent's fitness. Algorithm \ref{alg:crossover-homo} shows one way
+this could be done. 
+
+\begin{algorithm}
+\caption{Quasi-homologous Crossver, using Return Address Alignment}
+\label{alg:crossover-homo}
+\begin{algorithmic}[1]
+
+\REQUIRE $(\vec{\mu}, \vec{\varphi})$: ([\![ \textbf{clump} ]\!], [\![\textbf{clump} ]\!]), the parental genotypes 
+\REQUIRE \emph{fragility}: [\![\textbf{clump} ]\!] $\times$ [\![ \textbf{clump} ]\!] $\times$ lineage $\to \mathbb{F}$ 
+\REQUIRE $(\mathfrak{R}, s)$: a PRNG and seed 
+\REQUIRE $n$: $\mathbb{N}$, brood size
+
+
+\STATE {$\mathfrak{R} \gets \textit{seed}(\mathfrak{R}, s)$} 
+
+\STATE
+{$t \gets \sum_{\mu \in \vec{\mu}} 1.0 - \text{fragilty}(\mu)$}
+
+\STATE {$p, \mathfrak{R} \gets \text{random-float}(\mathfrak{R}, t)$} \COMMENT
+{$p$ is more likely to fall on a highly fragile link} 
+\STATE {$x \gets 0$}
+
+\STATE {$\mu_i \gets 0$} 
+\WHILE {$x < p$} 
+  \STATE {$x \gets x + \text{fragility}(\mu_i)$} 
+  \STATE {$\mu_i \gets \mu_i + 1$} 
+\ENDWHILE 
+
+\COMMENT {We now have the "mother's" splice point, $\mu_i$. With a probability proportionate to her fitness, look for a homolog in the "father".}
+\STATE {$x, \mathfrak{R} \gets \text{random-float}(\mathfrak{R},1.0)$}
+\IF {$x > \mu_{\text{fitness}}$ \AND $(n,\mu_{i_{\text{ret}}}) \in \{(c_{\text{index}}, c_\text{ret}) | c \in \phi\}$}
+
+   \STATE {$\phi_i \gets n$}
+\ELSE 
+   \STATE {$\phi_i \gets $ a random index, using the algorithm above}
+\ENDIF
+
+\STATE {$\mu^a, \mu^b \gets $ split $\mu$ at $\mu_i$}
+\STATE {$\phi^a, \phi^b \gets $ split $\phi$ at $\phi_i$}
+\STATE {$\chi^a \gets \mu^a \cup \varphi^a$} \COMMENT {with metadata reinitialized and updated}
+\STATE {\textbf{For $\chi^b$, repeat with sexes reversed}}
+\RETURN {$\chi^a, \chi^b$} \COMMENT {the offspring}
+\end{algorithmic} 
+\end{algorithm}
+
+*** Experimental results of implementing quasi-homologous crossover in ROPER
+
+Early experimental trials using this form of quasi-homologous crossover appear
+to show a greater variance in the difference between the fitness of the spawn
+of a crossover event, and the fitness of its parents, and a much greater
+frequency at which crossover-span exhibit a fitness /superior/ to the average
+of their parents'. 
+
+*** Alternative approaches to the problem
+
+A more nuanced approach may be possible, using runtime information
+gleaned from the execution of the parents -- we could attempt to align 
+clumps on the basis of a fuzzy match of their register states at the moment of
+execution of their return instructions, perhaps. This would capture the intuition
+of letting the paternal segment of the offspring /pick up where the maternal segment
+left off/, semantically speaking.
+
+- TODO insert graphs
+
+** Selecting for behavioural diversity
+
+
+
+Fitness sharing, as currently implemented in gls:roper, skews the selective process
+so as to favour diversity, on a problem-by-problem basis. I explain the algorithm
+used in \S [[sec:sharing]], and demonstrate its impact on classification tasks in 
+Section [[sec:fitness-sharing-experiment]]. Its applicability, as we have seen, relies
+on a discretely decomposable and repeating problem space, which is a serious limitation
+when it comes to problem spaces where the variation is fine-grained or nonexistent:
+neither the syscall preparation task (cf. \S [[sec:syscall-experiment]]), which uses a
+singleton problem set, nor the
+Snake experiment (cf. \S [[sec:snake-experiment]]), which uses a continuously
+varying problem set, currently benefit from this approach. We might also wonder if
+a more fine-grained favouring of diversity might be useful, even in problem spaces
+where fitness sharing can be made to apply -- a metric that would reward diversity
+even /before/ a problem is solved, and which would nudge the population towards
+evolving a diversity of solutions to each problem, given that some approaches may
+generalize better than others, in unforeseen ways. A more robust selection for
+diversity in behaviour may also strengthen \gls{roper}'s potential to evolve 
+obfuscated and "heuristic-breaking" payloads -- though, at this point, this remains
+a speculative consideration, since we haven't yet built an apparatus that could
+put this to the test. 
+
+Gls:roper already has a wealth of generated data at is disposal, that could be
+pressed into service, in this capacity: we are already tracking the execution
+paths that each individual traces through the host process, for instance, but,
+until now, we have only used this data for analytical purposes -- as seen,
+throughout Chapter [[sec:experimental]], in the analysis of heatmap data. 
+
+I recently modified gls:roper so that the heatmap data collected can be threaded
+through to the function responsible for fitness evaluation. This function now
+scans the heatmap and normalizes the number of hits each address has received
+into a float between 0.0 and 1.0 -- 1.0 indicating that the address is among
+the most frequently visited, and 0.0 (or, rather, the absence of a value) 
+indicating that it hasn't been visited at all. I then scan through the map of
+addresses visited by a particular chain, on its most recent evaluation, and 
+transform each into a weight by looking it up in the hashtable that represents
+the normalized heatmap. These values are reduced to a mean, which indicates 
+just how well-trodden that chain's path through the host is: a low value 
+indicates that the chain took a path less travelled by, intersecting fewer
+addresses visited before the
+current tournament (or any running parallel to it), while a high value (closer
+to 1.0) indicates that the chain took a more well-trodden path. This value
+is then multiplied by a constant parameter $v$ (which is tuneable, and currently
+set to 0.2, on a whim), and summed with the existing fitness value times the
+complement of $v$: 
+$$ \text{fitness} \gets (\text{novelty} * v) + (\text{fitness} * (1.0 - v))$$
+
+*** Preliminary results of visitation novelty pressure
+
+** The clump TTL mechanism and the ecological role of extinction events
+
+*** Combining visitation novelty pressure with a TTL field
+
+At the cost of an unusually slow convergence -- which may, perhaps, be
+ameliorated by tuning some of our newly-introduced parameters -- the combination
+of placing an expiration date on the last clump to execute in a crashing chain,
+and introducing a selective incentive for behavioural diversity appears to yield
+quite good results, so far as maintaining diversity is concerned. One such outcome
+shows a distribution of address visitations that has no precedent in the populations
+studied so far in this thesis: a run that terminated with /greater/ address visitation
+diversity than it began with, while nevertheless, eventually, converging on a perfect
+absolute fitness score. This occurred in the /Soghuf/ population, in the course of
+completing the syscall preparation task, outlined in \S [[sec:syscall-spec]].
+
+#+CAPTION: The effects of visitation novelty pressure on the /Soghuf/ population, with the additional influence of a gls:ttl field set to 4 and decremented on crash-prone clumps during crossover. The homologous crossover mechanism was not used for this run. 
+#+NAME: fig:soghuf-heatmap
+file:../images/plots/soghuf_heatmap_4_608.png
+
+#+CAPTION: Performance metrics over the /Soghuf/ population. Note mass extinction events around seasons 190, 300, and 400-500. 
+#+NAME: fig:soghuf
+file:../images/plots/soghuf.pdf
+
+Another interesting phenomenon emerged here, as a consequence of the current 
+implementation of the gls:ttl mechanism, which proved to be far more disruptive
+to \gls{roper}'s ecology than I had expected. The relatively low but nevertheless
+steady rate of crashes in the population, which had settled into an equilibrium between
+0.002 and 0.01 for most of the run, resulted in a sawtooth oscillation in the
+mean gls:ttl rate, correlated, naturally, with massive, simultaneous clump die-offs at
+repeating intervals. This had a strong impact on the fitness delta measurements for
+the crossover operations, and a surprisingly large impact, it seems, on the stray
+rate. To the extent that the gls:ttl mechanism serves an ecological function in
+gls:roper, it appears to do so in a fashion comparable to forest fires, in the wild:
+a periodic catastrophe, which keeps tendencies towards /premature/ convergence and
+stagnation in check, but which nevertheless menaces even the fitter bloodlines in
+the population with extinction. This is likely due, in part, to the heritability
+of the gls:ttl field: it is passed intact by the crossover operator bet from parents to 
+offspring, so that the crashes that decrement it need not be genealogically
+contiguous. A modification could be made that lets a clump's gls:ttl be reset when
+it appears in a non-crashing vehicle, and this may mitigate its ecological
+impact somewhat. As currently implemented, the gls:ttl mechanic appears to be of
+minor utility in problem spaces like those determined by the syscall preparation
+task, but may be more useful when it comes to spaces in which premature
+convergence is a problem that needs to be kept actively in check.
+
+ 

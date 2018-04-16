@@ -15,8 +15,8 @@ Sperl~Thomas (aka Second Part~to Hell).
 
 \bibitem{arm_abi}
 ARM\textregistered.
-\newblock Procedure call standard for the arm\textregistered architecture,
-  2015.
+\newblock Procedure call standard for the \textsc{ARM}\textregistered{}
+  architecture, 2015.
 \newblock Document number: ARM IHI 0042F, current through ABI release 2.0.
 
 \bibitem{bittau14}
@@ -156,6 +156,11 @@ Aleph One.
 Frank~Francone Peter~Nordin and Wolfgang Banzhaf.
 \newblock Explicitly defined introns and destructive crossover in genetic
   programming, 1995.
+
+\bibitem{nordin99}
+Wolfgang~Banzhaf Peter~Nordin and Frank~D. Francone.
+\newblock Efficient evolution of machine code for \textsc{cisc} architectures
+  using instruction blocks and homologous crossover, 1999.
 
 \bibitem{nguyen15}
 Nguyen~Anh Quynh and Dang~Hoang Vu.
