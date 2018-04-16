@@ -1330,7 +1330,7 @@ the fitness function, mapping vectors of integers to floats
 
 #+CAPTION: High-level overview of the tournament selection algorithm
 #+NAME: fig:tournament
-file:../images/tournament.png
+file:../images/tournament_black.png
 
 
 Algorithms \ref{alg:initpop}, \ref{alg:evalgen}, and \ref{alg:evolve}
