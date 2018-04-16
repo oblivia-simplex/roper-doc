@@ -63,7 +63,7 @@ At bottom, there is no essential distinction between data and code.
 :END:
 #+ATTR_REVEAL: :frag (highlight-red)
 But how?
-** $W\oplus X$ is a Leaky Abstraction
+** $W\oplus X~~$ is a Leaky Abstraction
 #+ATTR_REVEAL: :frag (appear appear appear)
 - It rests on all-too-narrow concepts of "instruction" and "execution".
 - The payload's /instructions/ don't need to be bytes of machine code.
