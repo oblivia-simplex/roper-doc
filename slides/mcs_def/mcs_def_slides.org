@@ -50,7 +50,7 @@ At bottom, there is no essential distinction between data and code.
 
 ** So, is code "wherever the program counter's pointing"?
 ** No. It's far worse than that. 
-** Subverting $W\oplus X$
+** Subverting $~W\oplus X$
 #+ATTR_REVEAL: :frag (appear appear appear appear)
 - $W\oplus X$ may prevent the /execution/ of input data, but it doesn't prevent attempts to /return/ to that data.
 - Why should the hacker need to supply their own machine code?
