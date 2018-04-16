@@ -1842,36 +1842,36 @@ body {
 <body>
 <div class="reveal">
 <div class="slides">
-<section id="sec-title-slide"><h1 class="title">Urschleim in Silicon: The Slideshow</h1><p class="date">Created: 2018-04-16 Mon 14:14</p>
+<section id="sec-title-slide"><h1 class="title">Urschleim in Silicon: The Slideshow</h1><p class="date">Created: 2018-04-16 Mon 14:38</p>
 </section>
 <section id="table-of-contents">
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#/slide-orgdd8527a">Introductory Remarks</a></li>
-<li><a href="#/slide-orgbe5eeb1">The Concept of Return-Oriented Programming</a></li>
-<li><a href="#/slide-orgfd59e2f">Design and Implementation of ROPER</a></li>
-<li><a href="#/slide-orga288432">Experimental Studies</a></li>
-<li><a href="#/slide-org6f576e5">Recent and Future Work</a></li>
+<li><a href="#/slide-org76037ba">Introductory Remarks</a></li>
+<li><a href="#/slide-org549e6fd">The Concept of Return-Oriented Programming</a></li>
+<li><a href="#/slide-org9b736e5">Design and Implementation of ROPER</a></li>
+<li><a href="#/slide-org5600845">Experimental Studies</a></li>
+<li><a href="#/slide-org9a0c551">Recent and Future Work</a></li>
 </ul>
 </div>
 </div>
 </section>
 
 <section>
-<section id="slide-orgdd8527a" data-background="../images/roper.png" data-background-transition="fade">
-<h2 id="orgdd8527a">Introductory Remarks</h2>
+<section id="slide-org76037ba" data-background="../images/roper.png" data-background-transition="fade">
+<h2 id="org76037ba">Introductory Remarks</h2>
 </section>
 </section>
 <section>
-<section id="slide-orgbe5eeb1">
-<h2 id="orgbe5eeb1">The Concept of Return-Oriented Programming</h2>
-<div class="outline-text-2" id="text-orgbe5eeb1">
+<section id="slide-org549e6fd">
+<h2 id="org549e6fd">The Concept of Return-Oriented Programming</h2>
+<div class="outline-text-2" id="text-org549e6fd">
 </div>
 </section>
-<section id="slide-orga0c7f58">
-<h3 id="orga0c7f58">The Fundamental Problem of Cybersecurity</h3>
+<section id="slide-org40f37ca">
+<h3 id="org40f37ca">The Fundamental Problem of Cybersecurity</h3>
 <p>
 At bottom, there is no essential distinction between data and code.
 </p>
@@ -1880,8 +1880,8 @@ At bottom, there is no essential distinction between data and code.
 "Data" is just information your system trusts. 
 </p>
 </section>
-<section id="slide-org5d2cba5">
-<h3 id="org5d2cba5">Consider the Stack</h3>
+<section id="slide-orgc97ce72">
+<h3 id="orgc97ce72">Consider the Stack</h3>
 <div class="column" style="float:left; width: 50%">
 
 <div class="figure">
@@ -2279,8 +2279,8 @@ zZx+sv0mzDzbEWICAGhLMSkPbCge8gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzJf/B9KmkryY
 </div>
 
 </section>
-<section id="slide-org0b0c1b9">
-<h3 id="org0b0c1b9">Consider the Stack, Smashed</h3>
+<section id="slide-org403b5ae">
+<h3 id="org403b5ae">Consider the Stack, Smashed</h3>
 <div class="column" style="float:left; width: 50%">
 
 <div class="figure">
@@ -2755,8 +2755,8 @@ YII=" />
 </div>
 
 </section>
-<section id="slide-orgb1a92a6">
-<h3 id="orgb1a92a6">DEP / \(W \oplus X\)</h3>
+<section id="slide-org59c2958">
+<h3 id="org59c2958">DEP / \(W \oplus X\)</h3>
 <div class="column" style="float:left; width: 50%">
 
 <div class="figure">
@@ -3314,14 +3314,14 @@ gkZMVz4AAAAASUVORK5CYII=" />
 
 
 </section>
-<section id="slide-org2b55ad2">
-<h3 id="org2b55ad2">So, is code "wherever the program counter's pointing"?</h3>
+<section id="slide-orgd0ae9b7">
+<h3 id="orgd0ae9b7">So, is code "wherever the program counter's pointing"?</h3>
 </section>
-<section id="slide-orge31dbe9">
-<h3 id="orge31dbe9">No. It's far worse than that.</h3>
+<section id="slide-org32db356">
+<h3 id="org32db356">No. It's far worse than that.</h3>
 </section>
-<section id="slide-orgd4941d6">
-<h3 id="orgd4941d6">Subverting \(W\oplus X\)</h3>
+<section id="slide-org34acdc4">
+<h3 id="org34acdc4">Subverting \(W\oplus X\)</h3>
 <ul>
 <li class="fragment appear">\(W\oplus X\) may prevent the <i>execution</i> of input data, but it doesn't prevent attempts to <i>return</i> to that data.</li>
 <li class="fragment appear">Why should the hacker need to supply their own machine code?</li>
@@ -3330,14 +3330,14 @@ gkZMVz4AAAAASUVORK5CYII=" />
 
 </ul>
 </section>
-<section id="slide-orgd51c65b" data-background="../images/macgyver2-transparent.png" data-background-transition="Zoom">
-<h3 id="orgd51c65b">It's what MacGyver would do</h3>
+<section id="slide-org6fad9e5" data-background="../images/macgyver2-transparent.png" data-background-transition="Zoom">
+<h3 id="org6fad9e5">It's what MacGyver would do</h3>
 <p class="fragment (highlight-red)">
 But how?
 </p>
 </section>
-<section id="slide-org1988d6a">
-<h3 id="org1988d6a">\(W\oplus X\) is a Leaky Abstraction</h3>
+<section id="slide-org7b919d0">
+<h3 id="org7b919d0">\(W\oplus X\) is a Leaky Abstraction</h3>
 <ul>
 <li class="fragment appear">It rests on all-too-narrow concepts of "instruction" and "execution".</li>
 <li class="fragment appear">The payload's <i>instructions</i> don't need to be bytes of machine code.</li>
@@ -3345,8 +3345,8 @@ But how?
 
 </ul>
 </section>
-<section id="slide-orgabc142b">
-<h3 id="orgabc142b">So is the <i>Structured Programming Machine Model</i></h3>
+<section id="slide-org466f547">
+<h3 id="org466f547">So is the <i>Structured Programming Machine Model</i></h3>
 <ul>
 <li class="fragment appear">The machine model structure programming is based already carves up an executable into chunks that <b>return</b> control after being dispatched.</li>
 <li class="fragment appear">To the programmer, these are "functions", but this is too granular a viewpoint.</li>
@@ -3356,8 +3356,8 @@ But how?
 </ul>
 
 </section>
-<section id="slide-orgb15a81d">
-<h3 id="orgb15a81d">The ROVM supervenes on the SPMM</h3>
+<section id="slide-org404a53c">
+<h3 id="org404a53c">The ROVM supervenes on the SPMM</h3>
 <ul>
 <li class="fragment appear">Chunks of code that allow the attacker to maintain control after dispatching are called "gadgets".</li>
 <li class="fragment appear">They can be seen as the instruction set for another virtual machine.</li>
@@ -3369,25 +3369,25 @@ But how?
 </ul>
 
 </section>
-<section id="slide-orgacba2d7">
-<h3 id="orgacba2d7">&#x2026;and so can natural selection.</h3>
+<section id="slide-org4bfabc1">
+<h3 id="org4bfabc1">&#x2026;and so can natural selection.</h3>
 
 </section>
 </section>
 <section>
-<section id="slide-orgfd59e2f">
-<h2 id="orgfd59e2f">Design and Implementation of ROPER</h2>
+<section id="slide-org9b736e5">
+<h2 id="org9b736e5">Design and Implementation of ROPER</h2>
 
 </section>
 </section>
 <section>
-<section id="slide-orga288432">
-<h2 id="orga288432">Experimental Studies</h2>
-<div class="outline-text-2" id="text-orga288432">
+<section id="slide-org5600845">
+<h2 id="org5600845">Experimental Studies</h2>
+<div class="outline-text-2" id="text-org5600845">
 </div>
 </section>
-<section id="slide-org5956c42">
-<h3 id="org5956c42">The Environment</h3>
+<section id="slide-org143d63a">
+<h3 id="org143d63a">The Environment</h3>
 
 <div class="figure">
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAdQAAAHGAgMAAACwV5JvAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
@@ -3413,8 +3413,8 @@ Nzo0MDoxOCswMDowMO5A0tEAAAAASUVORK5CYII=" />
 
 
 </section>
-<section id="slide-org8b0b2e6">
-<h3 id="org8b0b2e6">Tasks and Fitness Functions</h3>
+<section id="slide-orga067062">
+<h3 id="orga067062">Tasks and Fitness Functions</h3>
 <ul>
 <li>An arbitrary and inscrutable fitness function</li>
 <li>System call preparation</li>
@@ -3431,8 +3431,8 @@ Nzo0MDoxOCswMDowMO5A0tEAAAAASUVORK5CYII=" />
 
 
 </section>
-<section id="slide-org244185a">
-<h4 id="org244185a">Kafka function with Crash Penalty</h4>
+<section id="slide-org2e81453">
+<h4 id="org2e81453">Kafka function with Crash Penalty</h4>
 <p>
 The address visitation heatmap shows no evident loss of diversity,
 even after 212 seasons, suggesting a robustly ergodic system. 
@@ -3991,8 +3991,8 @@ SUVORK5CYII=" />
 
 
 </section>
-<section id="slide-org33b0e1c">
-<h4 id="org33b0e1c">System Call Preparation</h4>
+<section id="slide-org261818a">
+<h4 id="org261818a">System Call Preparation</h4>
 <p>
 Champion of the <i>wiwzuh</i> population:
 </p>
@@ -4022,21 +4022,21 @@ Champion of the <i>wiwzuh</i> population:
 
 
 </section>
-<section id="slide-org6acd335" data-background="../../thesis/images/plots/wiwzuh_syscall_gaussian_3.png">
-<h4 id="org6acd335">Fitness landscape traversed by the <i>wiwzuh</i> population</h4>
+<section id="slide-org11f4f2d" data-background="../../thesis/images/plots/wiwzuh_syscall_gaussian_3.png">
+<h4 id="org11f4f2d">Fitness landscape traversed by the <i>wiwzuh</i> population</h4>
 
 
 
 </section>
-<section id="slide-orge13e190">
-<h4 id="orge13e190">A simple classification task</h4>
+<section id="slide-orgcbb7f18">
+<h4 id="orgcbb7f18">A simple classification task</h4>
 <p>
 <a href="../images/plots/">../images/plots/</a>
 </p>
 
 </section>
-<section id="slide-org292a73b">
-<h4 id="org292a73b">The Snake Game</h4>
+<section id="slide-org9a0853b">
+<h4 id="org9a0853b">The Snake Game</h4>
 <p>
 <a href="../../videos/roper-snek-misjax-35000.mp4">../../videos/roper-snek-misjax-35000.mp4</a>
 </p>
@@ -4044,18 +4044,18 @@ Champion of the <i>wiwzuh</i> population:
 </section>
 </section>
 <section>
-<section id="slide-org6f576e5">
-<h2 id="org6f576e5">Recent and Future Work</h2>
-<div class="outline-text-2" id="text-org6f576e5">
+<section id="slide-org9a0c551">
+<h2 id="org9a0c551">Recent and Future Work</h2>
+<div class="outline-text-2" id="text-org9a0c551">
 </div>
 </section>
-<section id="slide-orgd43c351">
-<h3 id="orgd43c351">Recent</h3>
-<div class="outline-text-3" id="text-orgd43c351">
+<section id="slide-org148ee0e">
+<h3 id="org148ee0e">Recent</h3>
+<div class="outline-text-3" id="text-org148ee0e">
 </div>
 </section>
-<section id="slide-orgc8b1451">
-<h4 id="orgc8b1451">Bit-masks over Bid-bins</h4>
+<section id="slide-org5d44cd4">
+<h4 id="org5d44cd4">Bit-masks over Bid-bins</h4>
 <p>
 The uneven distribution of register usage puts a skew on any
 classification task using the register bid-bin method. 
@@ -4173,14 +4173,14 @@ u5qNtvIAAAAASUVORK5CYII=" />
 </p>
 
 </section>
-<section id="slide-org6be1151">
-<h4 id="org6be1151">Bitmask technique for classification tasks</h4>
+<section id="slide-org77f785d">
+<h4 id="org77f785d">Bitmask technique for classification tasks</h4>
 
 
 
 </section>
-<section id="slide-org8953fa5">
-<h4 id="org8953fa5">Specimens found when using the bitmask technique instead</h4>
+<section id="slide-org7fbca1e">
+<h4 id="org7fbca1e">Specimens found when using the bitmask technique instead</h4>
 <pre class="example">
 IN:  a3 fffffd6f
 0000b4b4       | pop {r4, r5, r6, r7, r8, pc}
@@ -4249,16 +4249,16 @@ R0 (bin): 00000000000000000000000011101010
 </pre>
 
 </section>
-<section id="slide-org1e085c4">
-<h4 id="org1e085c4">TTL fields on Clumps</h4>
+<section id="slide-org69f81f8">
+<h4 id="org69f81f8">TTL fields on Clumps</h4>
 
 </section>
-<section id="slide-orgf9081fd">
-<h4 id="orgf9081fd">Quasi-Homologous Crossover</h4>
+<section id="slide-org94ccc68">
+<h4 id="org94ccc68">Quasi-Homologous Crossover</h4>
 
 </section>
-<section id="slide-org371c58b">
-<h3 id="org371c58b"></h3>
+<section id="slide-org160492d">
+<h3 id="org160492d"></h3>
 </section>
 </section>
 </div>
