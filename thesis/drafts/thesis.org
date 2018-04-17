@@ -2473,7 +2473,7 @@ not be vulnerable to being exploited by the populations.
 * Experimental Studies
 <<sec:experimental>>
 
-#+CAPTION: Bitmap representation of the gadget distribution in the =tomato-RT-N18U-httpd= gls:elf binary
+#+CAPTION: Bitmap representation of the gadget distribution in the tomato-RT-N18U-httpd gls:elf binary
 #+NAME: fig:tomato-gadgets
 file:../images/tomato-RT-N18U-httpd_heatmap.png
 
@@ -2810,7 +2810,7 @@ by the crash penalty.
 #+NAME: fig:kurlig-kakfa
 file:../images/plots/kurlig_kafka_performance.pdf
     
-#+CAPTION: Address visitation heatmap over the =tomato-RT-N18U= process memory, by the /Kurlig/ population, evolving under the absurd fitness function with no crash penalty. Season 4 heatmap displayed on the left, season 212 on the right. 
+#+CAPTION: Address visitation heatmap over the tomato-RT-N18U process memory, by the /Kurlig/ population, evolving under the absurd fitness function with no crash penalty. Season 4 heatmap displayed on the left, season 212 on the right. 
 #+NAME: fig:kurlig-heatmap
 file:../images/plots/kurlig_heatmap_4_212_montage.pdf
 
@@ -2848,7 +2848,7 @@ and again at Season 212, showed such little difference that I had to check caref
 to make sure that I had not placed them in the wrong order, in figure
 [[fig:xeqcyv-heatmap]]. 
 
-#+CAPTION: Address-visitation heatmap over the =tomato-RT-N18U-httpd= process memory, by the /Xeqcyv/ population, under the "Kafkaesque" fitness function: Season 4 on the left, Season 212 on the right. Blue swaths indicate where the harvested gadgets lie, red and magenta swaths indicate addresses visited by creatures in the population in execution.  
+#+CAPTION: Address-visitation heatmap over the tomato-RT-N18U-httpd process memory, by the /Xeqcyv/ population, under the "Kafkaesque" fitness function: Season 4 on the left, Season 212 on the right. Blue swaths indicate where the harvested gadgets lie, red and magenta swaths indicate addresses visited by creatures in the population in execution.  
 #+NAME: fig:xeqcyv-heatmap
 file:../images/plots/xeqcyv_kafka_heatmap_beginning_end.pdf
 
@@ -2916,7 +2916,7 @@ a surprising degree of ruggedness, as we can see in figure [[fig:wiwzuh-landscap
 # to the distribution of gadgets that interact with the registers and memory
 # regions of interest. 
 
-#+CAPTION: Gaussian approximation of the fitness landscape across the population and over evolutionary time, for the /Wiwzuh/ population, evolving =execv("/tmp/flashXXXXXX", ["/tmp/flashXXXXXX"], NULL)= syscall gls:rop chains in =tomato-RT-N18U-httpd=, yielding a specimen with perfect (0.0) fitness.
+#+CAPTION: Gaussian approximation of the fitness landscape across the population and over evolutionary time, for the /Wiwzuh/ population, evolving ~execv("/tmp/flashXXXXXX", ["/tmp/flashXXXXXX"], NULL)~ syscall gls:rop chains in tomato-RT-N18U-httpd, yielding a specimen with perfect (0.0) fitness.
 #+NAME: fig:wiwzuh-landscape
 [[file:../images/plots/wiwzuh_syscall_gaussian_3.pdf]]
 
@@ -2962,7 +2962,7 @@ R5:  0->68732e00      SP:  2b053->0
 R6:  0->68732e00      LR:  0->68732e00
 R7:  b->746e692e      PC:  0->68732e00
 \end{lstlisting}
-\caption{A perfected \texttt{execv()} payload on \texttt{tomato-RT-N18U-httpd}, from the \emph{wiwzuh} population, generation 17.}
+\caption{A perfected \texttt{execv()} payload on \texttt{tomato-RT-N18U-httpd}, from the \emph{Wiwzuh} population, generation 17.}
 \end{table}
 
 
@@ -3056,7 +3056,7 @@ more attention, until the population calibrates itself.[fn::
   be simple enough to implement.
 ]
 
-#+CAPTION: Register use histogram for the =tomato-RT-N18U-httpd= gls:arm gls:elf binary, used in many of the experiments documented here. The general shape of this distribution is representative of all of the gls:gcc compiled gls:arm glspl:elf I have looked at. The height of each bar represents the frequency with which the register, indexed on the X-axis, appears in pop-type instructions, in returns, and in the source and destination of data manipulation instructions.
+#+CAPTION: Register use histogram for the tomato-RT-N18U-httpd gls:arm gls:elf binary, used in many of the experiments documented here. The general shape of this distribution is representative of all of the gls:gcc compiled gls:arm glspl:elf I have looked at. The height of each bar represents the frequency with which the register, indexed on the X-axis, appears in pop-type instructions, in returns, and in the source and destination of data manipulation instructions.
 #+NAME: fig:tomato-register-histogram
 file:../images/plots/tomato-register-histogram.png
 
@@ -3105,7 +3105,7 @@ file:../images/plots/2_simple_blobs.png
 #+NAME: fig:kathot-two-blobs
 file:../images/plots/kathot_champion_18916_blobs_disas.pdf
 
-#+CAPTION: Performance profile of /Kathot/ population, with gadgets in =tomato-RT-N18U-httpd=, on the "two simple blobs" classification problem. 
+#+CAPTION: Performance profile of /Kathot/ population, with gadgets in tomato-RT-N18U-httpd, on the "two simple blobs" classification problem. 
 #+NAME: fig:kathot-fitness
 file:../images/plots/kathot_fitness.pdf
 
@@ -3158,7 +3158,7 @@ The crash rate of this population rapidly reached 100%, driving itself into an
 evolutionary dead end. 
 
 
-#+CAPTION: Memory protections in =tomato-RT-N18U-httpd=, the binary used in many of the experiments discussed in this chapter.
+#+CAPTION: Memory protections in tomato-RT-N18U-httpd, the binary used in many of the experiments discussed in this chapter.
 #+NAME: tab:tomato-memory
 #+LATEX_ATTR: :mode verbatim :font ttfamily :float t
 | Start Address        | End Address          | Protections      |
@@ -3639,7 +3639,7 @@ exploited process.[fn::
 000168c4         blx r2
 \end{lstlisting}
 \end{multicols}
-\caption{Execution trace of a chain that generates the register pattern required for a call to \texttt{execv("/bin/sh", ["/bin/sh"], NULL)} in \texttt{tomato-RT-N18U-httpd}, by modifying its own call stack and executing numerous "stray" or "extended" gadgets, in the \emph{poclux} population. Modifications to the gadget stack are in red, jumps are in violet, and completion of target \gls{cpu} pattern is in blue. Free branches are separated by blank lines. The final instruction jumps to the designated stop address, \texttt{0x00000000}.}
+\caption{Execution trace of a chain that generates the register pattern required for a call to \texttt{execv("/bin/sh", ["/bin/sh"], NULL)} in \texttt{tomato-RT-N18U-httpd}, by modifying its own call stack and executing numerous "stray" or "extended" gadgets, in the \emph{Poclux} population. Modifications to the gadget stack are in red, jumps are in violet, and completion of target \gls{cpu} pattern is in blue. Free branches are separated by blank lines. The final instruction jumps to the designated stop address, \texttt{0x00000000}.}
 \end{table} 
 
 It's an extaordinarily labyrinthine chain, by human standards, and there's
@@ -3674,7 +3674,7 @@ file:../images/plots/hepfap.pdf
 # we need some numbers, rough numbers at least, on how frequent
 # this sort of phenomenon is.
 
-#+CAPTION: Heatmap montage over the /Fimjek/ population, showing range of addresses executed, in red tint, superimposed on a map of the explicit gadgets that were harvested to form that population's initial gene pool, in blue tint. The intensity of red tint indicates the frequency with which the corresponding address was visited. Magenta and purple cells indicate orthodox gadget traffic, while red swaths with no tint of blue indicate stray activity. From top-left to bottom-right, each cell is a snapshot of the evolving heatmap at intervals of 20 seasons. The underlying gadget map is taken from the =tomato-RT-N18U-httpd= binary that we used in this experiment.
+#+CAPTION: Heatmap montage over the /Fimjek/ population, showing range of addresses executed, in red tint, superimposed on a map of the explicit gadgets that were harvested to form that population's initial gene pool, in blue tint. The intensity of red tint indicates the frequency with which the corresponding address was visited. Magenta and purple cells indicate orthodox gadget traffic, while red swaths with no tint of blue indicate stray activity. From top-left to bottom-right, each cell is a snapshot of the evolving heatmap at intervals of 20 seasons. The underlying gadget map is taken from the tomato-RT-N18U-httpd binary that we used in this experiment.
 #+NAME: fig:fimjek-heatmap
 file:../images/plots/fimjek_heatmap_montage.pdf
 
@@ -4108,7 +4108,7 @@ rather than just one:
 
 2. the mapping we're already familiar with, from gls:roper, which maps the
    constructed payload (ROP chain) to the behaviour of the attack in the
-   emulated host.
+   emulated host.names
 
 The language in which the builders are defined could then be tailored to fit the
 situation as well as possible -- pursuing a strategy similar to the one that
@@ -4323,7 +4323,7 @@ See \url{http://www.unicorn-engine.org}.
 
  R0 (bin): 00000000000000000000010000000000
  \end{lstlisting}
- \caption{Behaviour of the champion of the \emph{xysxim} population, for a member of the red class. Input registers are \texttt{r2} and \texttt{r3}.}
+ \caption{Behaviour of the champion of the \emph{Xysxim} population, for a member of the red class. Input registers are \texttt{r2} and \texttt{r3}.}
  \label{tab:xysxim-champ-red}
  \end{table}
 
@@ -4353,7 +4353,7 @@ See \url{http://www.unicorn-engine.org}.
 
  R0 (bin): 00000000000000000000000011101010
  \end{lstlisting}
- \caption{Behaviour of the champion of the \emph{xysxim} population, for a member of the blue class. Input registers are \texttt{r2} and \texttt{r3}.}
+ \caption{Behaviour of the champion of the \emph{Xysxim} population, for a member of the blue class. Input registers are \texttt{r2} and \texttt{r3}.}
  \label{tab:xysxim-champ-blue}
  \end{table}
 
