@@ -344,4 +344,9 @@ Greater complexity in control flow, perfect classification results, no crashing.
 *** The Snake Game
 #+REVEAL_HTML: <video controls> <source src="../../videos/roper-snek-misjax-35000.webm" type="video/webm"> </video>
 
+* Concluding Remarks
+:PROPERTIES:
+:reveal_background: ../images/roper.png
+:reveal_background_trans: fade
+:END:
 
