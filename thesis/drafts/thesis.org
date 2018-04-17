@@ -4599,3 +4599,29 @@ file:../images/plots/soghuf.pdf
 
 
 #+LATEX: \input{footer}
+
+** Iris, Revisited
+Simple though it may be for systems engineered with no other task but classification in mind, the Iris dataset has 
+proved to be a continual source of challenges for gls:roper. The superb run plotted in
+[[fig:sharing]] was never equaled in subsequent trials. 
+
+I recently revisited the dataset after implementing the modifications above, and, with
+the exception of the gls:ttl mechanism, enabled them for a run on the Iris set. There
+has not yet been time to complete a trial as lengthy as the one that gave us figure
+[[fig:sharing]], but the results so far have shown an extraordinary improvement over
+their predecessors. The performance curves for this run are shown in figure [[fig:luxxyn]]. 
+
+
+
+#+CAPTION: Performance of the /Luxxyn/ population of 4096, over time. 
+#+NAME: fig:luxxyn
+file:../images/plots/luxxyn.pdf
+
+#+CAPTION: Comparison of the Iris dataset map with the classification performed by the /Luxxyn/ population's champion, after only 30 seasons. 
+#+NAME: fig:iris_with_luxxyn
+file:../images/plots/iris_with_luxxyn.pdf
+
+As we can see in figure [[fig:iris_with_luxxyn]], /even the linearly inseparable/ 
+regions of the Iris set were handled intelligently by the champion of this population
+(the /Luxxyn/ population, the last we'll be considering in this thesis). 
+
