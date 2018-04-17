@@ -403,9 +403,12 @@ On this basis is implemented the /procedural/ layer of abstraction, which the
 underlying architecture is largely designed to accommodate. According to this
 layer, a program is typically broken up into a collection of /subroutines/ (or
 "functions"). A subroutine is characterized by two essential properties:
+
   1. it has a local variable scope, and
   2. it can be run, or "called", as a cohesive unit, with execution
-     /returning/ to the place it is run from once it completes Abstractly, both
+     /returning/ to the place it is run from once it completes 
+
+Abstractly, both
 of these properties rely on the /stack/ data structure. Both the scopes, and the
 execution flow, of subroutines, is organized in a first-in-last-out fashion.
 
@@ -487,12 +490,15 @@ instruction set used for this machine is /not/ the instruction set targetted by
 its host. It is an emergent instruction set, peculiar to the state of
 conventionally executable memory at the time of the pivot. These instructions
 are called "gadgets", and are composed of chunks of data that is:
+
   1. already mapped to executable memory -- on Unix systems, this
      generally means the =.text= section of the binary;
   2. performs some mutation of gls:cpu context when conventionally
      executed, and
   3. returns control of execution flow to the attacker-supplied data
-     after executing. Trait #3 is typically satisfied by chosing gadgets that
+     after executing. 
+
+Trait #3 is typically satisfied by chosing gadgets that
 end with a *return* instruction, or some semantic equivalent -- any combination
 of instructions that results in a value from the stack being loaded into the
 instruction pointer. This can also be accomplished by means of a combination of
@@ -860,7 +866,7 @@ antiviral software will select for strains of the virus that have evolved in
 such a way as to favour transformations that evade detection, and shun
 transformations that give the virus away. (Descendants of the virus, for
 instance, may adapt in such a way as to never use decryption, if that should
-turn out to the a tactic that attracts the scanners' attention, in a given
+turn out to a tactic that attracts the scanners' attention, in a given
 ecosystem. Or they may evolve to be less aggressive in infecting files on the
 same host, or filter their targets more carefully according to filename.
 
@@ -919,7 +925,7 @@ starburst design in the cluster, with no interesting progressions away from the
 centre. Take a look at the Eigenvirus thesis to see if there's any corroboration
 there.)
 
-ValleZ suggests the use of genetic search operators -- mutation, and, perhaps,
+ValleZ suggests the use of genetic variation operators -- mutation, and, perhaps,
 in situations where viruses sharing a genetic protocol encounter one another in
 the same host, crossover -- in virus replication. They would take over the work
 that is usually assigned to polymorphic engine, with the added, interesting
@@ -1237,7 +1243,7 @@ specified, spontaneously coalescing in the cracks of our abstractions.
 update diagram, make new diagram
 label the arrows with reference to the algorithms
 :END:
-#+CAPTION: A bird's eye view of gls:roper
+#+CAPTION: A bird's eye view of gls:roper. Algorithm \ref{alg:rop-sweep} takes us from (1) to (2); algorithm \ref{alg:initpop} takes us from (2) to (4); algorithms \ref{alg:evolve} and \ref{alg:evalgen} cycles us between (4) and (5), and fairly standard loading and parsing algorithms join (3) up with (4) and (1) with (5). 
 #+LABEL: fig:birdseye
 [[file:../images/birdseye.png]]
 
@@ -1393,7 +1399,7 @@ culled from the population.
 The genotypes selected for reproduction are then passed to our genetic
 operators, which will return $k$ offspring, who will replace the least-fit $k$
 candidates in the tournament. In the genetic programming literature, these
-operators are often referred to as the "search operators", as they "define the
+operators are often referred to as the "variation operators", as they "define the
 manner in which the system moves through the space of possible solutions"
 ([[bib:banzhaf98]], 144). In gls:roper, our genetic operators comprise a
 single-point crossover function, which maps a pair of parents into a pair of
@@ -1613,7 +1619,7 @@ to the problem set at hand.
 This suggests a potentially useful structural constraint that we can
 impose on the genotypes, to increase the likelihood that they will be found
 useful for the problem space at hand, and greatly increase the probability that
-=.text= pointers will be popped into gls:pc, while other integers
+=.text= pointers will be popped into gls:pc, while other 
 integers land predominantly in general-purpose registers.
 To do this, we calculate the distance the stack pointer will shift
 when each gadget executes, the \gls{spd} of $g$ or $\gls{spd}(g)$, and then clump together
@@ -1646,8 +1652,8 @@ $\gls{spd}(g)$ values from the process stack. The first $\gls{spd}-1$ of
 these will populate the general purpose registers of the machine, and the
 ${\gls{spd}}^{\textit{th}}$ will pop the entry point of the /next/ gadget,
 $g'$, into =pc=. That entry point, $\addr{g'}$ will be found at the top of the
-next clump in the sequence that makes up the genotype.
-  [fn::gls:roper also handles gadgets that end in a different form of
+next clump in the sequence that makes up the genotype.[fn::
+  gls:roper also handles gadgets that end in a different form of
   return: a pair of instructions that populates a series of registers
   from the stack, followed by an instruction that copies that address
   from one of those registers to =pc=. In these instances,
@@ -1835,7 +1841,7 @@ This means that adjacent gadgets are more likely to achieve a combined,
 fitness-relevant effect, than non-adjacent gadgets. Lacking any reason to
 complicate things further, we restricted the number of parents involved in each
 mating event to two. [fn::One of the limitations of gls:roper is that the mating
-algorithm, and the genetic search operators in general, are assumed fixed. In
+algorithm, and the genetic variation operators in general, are assumed fixed. In
 gls:roper II, we will experiment with a technique for opening this, too, to
 genetic exploration and selective pressure, which Lee Spector calls
 "autoconstructive evolution".]
@@ -2141,11 +2147,11 @@ We have at least two alternative possibilities:
 2. make the crash penalty proportionate to the ratio of
    the chain that executed prior to the exception, measured in gadgets
 
-We decided to implement follow the second tactic, which we implemented by
-trapping the return instructions in the Unicorn emulator. The lets us smooth an
+Gls:roper takes the second approach, and implements it by
+trapping the return instructions in the Unicorn emulator. This lets us smooth an
 abrupt cliff in the fitness landscape down to a gentle slope, incentivizing
 adaptations that minimize the likelihood of crashing while at the same time
-leaving room to reward specimens that do a failure good job of solving the
+leaving room to reward specimens that do a good job of solving the
 problems posed to them, even if they botch the landing. This prevents us from
 sacrificing a number of useful genes, and gives them a chance to decouple from
 their pathological counterparts, through crossover, or to be repaired through
@@ -2279,13 +2285,15 @@ he fitness landscape, as a whole, becomes elastic.
     of a season is defined as
     $$N \gets \frac{\texttt{population\_size}}{\texttt{tournament\_size} * (1 - x)}$$
     where $x$ is the probability of "headless chicken crossover" (cf. Algorithm
-    \ref{alg:headless}), we iterate through the problem set. The
+    \ref{alg:headless}), we iterate through the problem set[fn:: 
+  The exemplars in the dataset being classified, for instance -- though this approach /should/ be extendable to other types of problem sets as well.
+]. The
     problem $e$'s =difficulty= field is set to the mean of the predifficulty
     vector. More difficult problems, at this point, are associated with a higher
     difficulty score, which is always a float between 0.0 and 1.0. 
 
  4. once difficulty scores are available for each problem, the relative fitness of
-    each creature responding to it can be assessed: it is just the base, or "absolute",
+    each individual responding to it can be assessed: it is just the base, or "absolute",
     fitness score, multiplied by the inverse of the difficulty. If, for instance, 
     $X$ receives 0.75 on a problem for which the average performance has been
     0.1, then $X$'s relative fitness is $0.75 * (1.0 - 0.1) = 0.75 * 0.90 = 0.675$.
@@ -3528,7 +3536,7 @@ execv("/bin/sh", ["/bin/sh"], 0)
 system call -- the sort of task that manually crafted gls:rop chains are often
 designed for, so that the attacker can spawn a shell with the privileges of the
 exploited process.[fn::
-  See the semantic correction noted above, which 
+  See the semantic correction noted in \S [[sec:syscall-experiment]], which 
   spoils the real-world usability of this /particular/ chain, but which
   does not logically impact the analysis and conjectures formed here,
   in relation to it.
@@ -4124,7 +4132,7 @@ to see this through to completion, when time allows.
 I've also become increasingly interested, lately, with the domain of semantic
 binary analysis, and have been giving some though to switching from Unicorn
 to gls:bap as my gls:rop chain evaluation framework. Here, I would be following
-in the footsteps of /Q/ [[bib:schartz11]], one of the projects that had first
+in the footsteps of /Q/ [[bib:schwartz11]], one of the projects that had first
 inspired me to work in this problem space. I'm interested in seeing where a 
 marriage between /Q/'s semantic-analysis driven compiler of programs for the
 gls:rovm, and \gls{roper}'s evolutionary approach could take things. Having a

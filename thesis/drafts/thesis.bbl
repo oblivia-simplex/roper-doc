@@ -1,67 +1,14 @@
 \begin{thebibliography}{10}
 
-\bibitem{tomato-RT-N18U}
-tomato-rt-n18u binary firmware blob.
-\newblock Version 3.5-140.
-
-\bibitem{pocorgtfo}
-International journal of proof-of-concept or get the fuck out (poc||gtfo), 2013
-  -- 2017.
-
-\bibitem{spth10a}
-Sperl~Thomas (aka Second Part~to Hell).
-\newblock Artificial evolution in native x86 systems.
-\newblock Retrieved from the author's website., 2010.
-
-\bibitem{arm_abi}
-ARM\textregistered.
-\newblock Procedure call standard for the \textsc{ARM}\textregistered{}
-  architecture, 2015.
-\newblock Document number: ARM IHI 0042F, current through ABI release 2.0.
-
-\bibitem{bittau14}
-A.~Bittau, A.~Belay, A.~Mashtizadah, D.~Mazieres, and D.~Boneh.
-\newblock Hacking blind.
-\newblock In {\em IEEE Security and Privacy}, pages 277--242, 2014.
-
-\bibitem{brameier07}
-M.~Brameier and W.~Banzhaf.
-\newblock {\em Linear Genetic Programming}.
-\newblock Springer, 2007.
-
-\bibitem{bratus_homepage}
-Sergey Bratus.
-\newblock What are weird machines?
+\bibitem{aleph96}
+Aleph One.
+\newblock Smashing the stack for fun and profit.
+\newblock {\em Phrack}, 7(49), November 1996.
 
 \bibitem{bratus16}
 Sergey Bratus.
 \newblock Offense and defense: Notes on the shape of the beast.
 \newblock presented at BSides Knoxville, June 2016.
-
-\bibitem{snakefight}
-Luke Burns.
-\newblock Faq: The "snake fight" portion of your thesis defense.
-
-\bibitem{cohen85}
-Fred Cohen.
-\newblock {\em Computer Viruses}.
-\newblock PhD thesis, University of Southern California, 1985.
-
-\bibitem{dawkins99}
-R.~Dawkins.
-\newblock {\em The Extended Phenotype: The Long Reach of the Gene}.
-\newblock Oxford University Press, 1999.
-
-\bibitem{deb89}
-K.~Deb and D.E. Goldberg.
-\newblock An investigation of niche and species formation in genetic function
-  optimization.
-\newblock In {\em Proceedings of the 3rd International Conference on Genetic
-  Algorithms}, pages 42,50, 1989.
-
-\bibitem{iris}
-R.A. Fisher.
-\newblock Iris plants database.
 
 \bibitem{flake16}
 Halvar Flake.
@@ -70,10 +17,146 @@ Halvar Flake.
 \newblock presented as the keynote talk at the Cyber Security Alliance,
   September 2016.
 
-\bibitem{fraser17_atlseccon}
-Olivia~Lucca Fraser.
-\newblock Return oriented programme evolution with roper.
-\newblock Atlantic Security Conference (AtlSecCon), 2017.
+\bibitem{bratus_homepage}
+Sergey Bratus.
+\newblock What are weird machines?
+
+\bibitem{patterson_2012}
+Sergey~Bratus Meredith~Patterson and Len Sassaman.
+\newblock A patch for postel's robustness principle.
+\newblock {\em Secure Systems}, (March/April), 2012.
+
+\bibitem{kornau09}
+Tim Kornau.
+\newblock {\em Return Oriented Programming for the ARM Architecture}.
+\newblock PhD thesis, 2009.
+
+\bibitem{schwartz11}
+E.~J. Schwartz, T.~Avgerinos, and D.~Brumley.
+\newblock Q: exploit hardening made easy.
+\newblock In {\em USENIX Security Symposium}, 2011.
+
+\bibitem{bittau14}
+A.~Bittau, A.~Belay, A.~Mashtizadah, D.~Mazieres, and D.~Boneh.
+\newblock Hacking blind.
+\newblock In {\em IEEE Security and Privacy}, pages 277--242, 2014.
+
+\bibitem{cohen85}
+Fred Cohen.
+\newblock {\em Computer Viruses}.
+\newblock PhD thesis, University of Southern California, 1985.
+
+\bibitem{spector01}
+Lee Spector.
+\newblock Autoconstructive evolution: Push, pushgp, and pushpop.
+\newblock In A.~Wu W.B. Langdon H.-M. Voigt M. Gen S. Sen M. Dorigo S. Pezeshk
+  M.~Garzon L.~Spector, E.~Goodman and E.~Burke, editors, {\em GECCO-2001:
+  Proceedings of the Genetic and Evolutionary Computation Conference}. Morgan
+  Kaufmann Publishers, 2001.
+
+\bibitem{rice53}
+H.G. Rice.
+\newblock Classes of recursively enumerable sets and their decision problems.
+\newblock {\em Transactions of the American Mathematical Society}, 74, 1953.
+
+\bibitem{szor05}
+P\'eter Sz\"or.
+\newblock {\em The Art of Computer Virus Research and Defense}.
+\newblock Addison-Wesley, 2005.
+
+\bibitem{whale90}
+unknown.
+\newblock The whale virus.
+\newblock {\em 40Hex}, 1(2.2).
+
+\bibitem{spth08}
+Second~Part to~Hell.
+\newblock Chomsky hierarchy and the word problem in code mutation.
+\newblock Retrieved from the author's website., 2008.
+
+\bibitem{spth10a}
+Sperl~Thomas (aka Second Part~to Hell).
+\newblock Artificial evolution in native x86 systems.
+\newblock Retrieved from the author's website., 2010.
+
+\bibitem{xfiles-killswitch}
+William Gibson and Tom Maddox.
+\newblock Kill switch, Feb 1998.
+
+\bibitem{iliopoulos11}
+D.~Iliopoulos, C.~Adami, and P.~Szor.
+\newblock Darwin inside the machines: Malware evolution and the consequences
+  for computer security.
+\newblock 2011.
+
+\bibitem{kayacik06}
+H.G. Kayac\i{}k, M.~Heywood, and N.~Zincir-Heywood.
+\newblock On evolving buffer overflow attacks using genetic programming.
+\newblock In {\em ACM Genetic and Evolutionary Computation Conference}, pages
+  1667--1674, 2006.
+
+\bibitem{kayacik10}
+H.G. Kayac\i{}k, N.~Zincir-Heywood, and M.~Heywood.
+\newblock Can a good offense be a good defense? vulnerability testing of
+  anomaly detectors through an artificial arms race.
+\newblock {\em Applied Soft Computing}, 2010.
+
+\bibitem{kayacik11}
+H.G. Kayac\i{}k, M.~Heywood, and N.~Zincir-Heywood.
+\newblock On evolving buffer overflow attacks using genetic programming.
+\newblock {\em Applied Soft Computing}, 11:4366--4383, 2011.
+
+\bibitem{banzhaf98}
+W.~Banzhaf, Peter Nordin, Robert~E. Keller, and Frank~D. Francone.
+\newblock {\em Genetic Programming: An Introduction}.
+\newblock Morgan Kaufmann, 1998.
+
+\bibitem{schmitt01}
+Lothar~M. Schmitt.
+\newblock Theory of genetic algorithms.
+\newblock {\em Theoretical Computer Science}, 259(1-2), 2001.
+
+\bibitem{deb89}
+K.~Deb and D.E. Goldberg.
+\newblock An investigation of niche and species formation in genetic function
+  optimization.
+\newblock In {\em Proceedings of the 3rd International Conference on Genetic
+  Algorithms}, pages 42,50, 1989.
+
+\bibitem{smith92}
+R.E Smith, S.~Forrest, and A.S. Perelson.
+\newblock Searching for diverse, cooperative populations with genetic
+  algorithms.
+\newblock {\em Evolutionary Computation}, 1:127--149, 1992.
+
+\bibitem{mckay00}
+R.~I. McKay.
+\newblock Fitness sharing in genetic programming.
+\newblock In {\em Proceedings of the Genetic and Evolutionary Computation
+  Conference}, pages 435--442. Morgan Kaufmann, 2000.
+
+\bibitem{unicorn}
+Nguyen~Anh Quynh and Dang~Hoang Vu.
+\newblock Unicorn cpu emulator framework.
+\newblock http//www.unicorn-engine.org/, 2015--2018.
+
+\bibitem{nguyen15}
+Nguyen~Anh Quynh and Dang~Hoang Vu.
+\newblock Unicorn: Next generation cpu emulator framework.
+\newblock http//www.unicorn-engine.org/BHUSA2015-unicorn.pdf, 2015.
+
+\bibitem{wu08}
+Hongjun Wu.
+\newblock {\em The Stream Cipher HC-128}.
+\newblock Lecture Notes in Computer Science. Springer Berlin Heidelberg, 2008.
+
+\bibitem{tomato-RT-N18U}
+tomato-rt-n18u binary firmware blob.
+\newblock Version 3.5-140.
+
+\bibitem{iris}
+R.A. Fisher.
+\newblock Iris plants database.
 
 \bibitem{fraser17_gecco}
 Olivia~Lucca Fraser, Nur Zincir-Heywood, Malcolm Heywood, and John~T. Jacobs.
@@ -82,42 +165,15 @@ Olivia~Lucca Fraser, Nur Zincir-Heywood, Malcolm Heywood, and John~T. Jacobs.
   Conference Companion}, GECCO '17, pages 1447--1454, New York, NY, USA, 2017.
   ACM.
 
-\bibitem{xfiles-killswitch}
-William Gibson and Tom Maddox.
-\newblock Kill switch, Feb 1998.
+\bibitem{fraser17_atlseccon}
+Olivia~Lucca Fraser.
+\newblock Return oriented programme evolution with roper.
+\newblock Atlantic Security Conference (AtlSecCon), 2017.
 
 \bibitem{haldane49}
 J.B.S. Haldane.
 \newblock Disease and evolution.
 \newblock {\em La ricerca scientifica Suppl.}, 19(68).
-
-\bibitem{kayacik10}
-M.~Heywood H.G.~Kayac\i{}k, N. Zincir-Heywood.
-\newblock Can a good offense be a good defense? vulnerability testing of
-  anomaly detectors through an artificial arms race.
-\newblock {\em Applied Soft Computing}, 2010.
-
-\bibitem{kayacik06}
-N.~Zincir-Heywood H.G.~Kayac\i{}k, M.~Heywood.
-\newblock On evolving buffer overflow attacks using genetic programming.
-\newblock In {\em ACM Genetic and Evolutionary Computation Conference}, pages
-  1667--1674, 2006.
-
-\bibitem{kayacik11}
-N.~Zincir-Heywood H.G.~Kayac\i{}k, M.~Heywood.
-\newblock On evolving buffer overflow attacks using genetic programming.
-\newblock {\em Applied Soft Computing}, 11:4366--4383, 2011.
-
-\bibitem{iliopoulos11}
-D.~Iliopoulos, C.~Adami, and P.~Szor.
-\newblock Darwin inside the machines: Malware evolution and the consequences
-  for computer security.
-\newblock 2011.
-
-\bibitem{kornau09}
-Tim Kornau.
-\newblock {\em Return Oriented Programming for the ARM Architecture}.
-\newblock PhD thesis, 2009.
 
 \bibitem{lehman18}
 Joel Lehman, Jeff Clune, Dusan Misevic, Christoph Adami, Julie Beaulieu,
@@ -136,94 +192,38 @@ Joel Lehman, Jeff Clune, Dusan Misevic, Christoph Adami, Julie Beaulieu,
   communities.
 \newblock {\em CoRR}, 2018.
 
-\bibitem{mckay00}
-R.~I. McKay.
-\newblock Fitness sharing in genetic programming.
-\newblock In {\em Proceedings of the Genetic and Evolutionary Computation
-  Conference}, pages 435--442. Morgan Kaufmann, 2000.
+\bibitem{snakefight}
+Luke Burns.
+\newblock Faq: The "snake fight" portion of your thesis defense.
 
-\bibitem{patterson_2012}
-Sergey~Bratus Meredith~Patterson and Len Sassaman.
-\newblock A patch for postel's robustness principle.
-\newblock {\em Secure Systems}, (March/April), 2012.
-
-\bibitem{aleph96}
-Aleph One.
-\newblock Smashing the stack for fun and profit.
-\newblock {\em Phrack}, 7(49), November 1996.
+\bibitem{dawkins99}
+R.~Dawkins.
+\newblock {\em The Extended Phenotype: The Long Reach of the Gene}.
+\newblock Oxford University Press, 1999.
 
 \bibitem{nordin95}
 Frank~Francone Peter~Nordin and Wolfgang Banzhaf.
 \newblock Explicitly defined introns and destructive crossover in genetic
   programming, 1995.
 
+\bibitem{brameier07}
+M.~Brameier and W.~Banzhaf.
+\newblock {\em Linear Genetic Programming}.
+\newblock Springer, 2007.
+
+\bibitem{pocorgtfo}
+International journal of proof-of-concept or get the fuck out (poc||gtfo), 2013
+  -- 2017.
+
+\bibitem{arm_abi}
+ARM\textregistered.
+\newblock Procedure call standard for the \textsc{ARM}\textregistered{}
+  architecture, 2015.
+\newblock Document number: ARM IHI 0042F, current through ABI release 2.0.
+
 \bibitem{nordin99}
 Wolfgang~Banzhaf Peter~Nordin and Frank~D. Francone.
 \newblock Efficient evolution of machine code for \textsc{cisc} architectures
   using instruction blocks and homologous crossover, 1999.
-
-\bibitem{nguyen15}
-Nguyen~Anh Quynh and Dang~Hoang Vu.
-\newblock Unicorn: Next generation cpu emulator framework.
-\newblock http//www.unicorn-engine.org/BHUSA2015-unicorn.pdf, 2015.
-
-\bibitem{unicorn}
-Nguyen~Anh Quynh and Dang~Hoang Vu.
-\newblock Unicorn cpu emulator framework.
-\newblock http//www.unicorn-engine.org/, 2015--2018.
-
-\bibitem{rice53}
-H.G. Rice.
-\newblock Classes of recursively enumerable sets and their decision problems.
-\newblock {\em Transactions of the American Mathematical Society}, 74, 1953.
-
-\bibitem{schmitt01}
-Lothar~M. Schmitt.
-\newblock Theory of genetic algorithms.
-\newblock {\em Theoretical Computer Science}, 259(1-2), 2001.
-
-\bibitem{schwartz11}
-E.~J. Schwartz, T.~Avgerinos, and D.~Brumley.
-\newblock Q: exploit hardening made easy.
-\newblock In {\em USENIX Security Symposium}, 2011.
-
-\bibitem{smith92}
-R.E Smith, S.~Forrest, and A.S. Perelson.
-\newblock Searching for diverse, cooperative populations with genetic
-  algorithms.
-\newblock {\em Evolutionary Computation}, 1:127--149, 1992.
-
-\bibitem{spector01}
-Lee Spector.
-\newblock Autoconstructive evolution: Push, pushgp, and pushpop.
-\newblock In A.~Wu-W.B. Langdon H.-M. Voigt M. Gen S. Sen M. Dorigo S. Pezeshk
-  M.~Garzon L.~Spector, E.~Goodman and E.~Burke, editors, {\em GECCO-2001:
-  Proceedings of the Genetic and Evolutionary Computation Conference}. Morgan
-  Kaufmann Publishers, 2001.
-
-\bibitem{szor05}
-P\'eter Sz\"or.
-\newblock {\em The Art of Computer Virus Research and Defense}.
-\newblock Addison-Wesley, 2005.
-
-\bibitem{spth08}
-Second~Part to~Hell.
-\newblock Chomsky hierarchy and the word problem in code mutation.
-\newblock Retrieved from the author's website., 2008.
-
-\bibitem{whale90}
-unknown.
-\newblock The whale virus.
-\newblock {\em 40Hex}, 1(2.2).
-
-\bibitem{banzhaf98}
-Robert E.~Keller W.~Banzhaf, Peter~Nordin and Frank~D. Francone.
-\newblock {\em Genetic Programming: An Introduction}.
-\newblock Morgan Kaufmann, 1998.
-
-\bibitem{wu08}
-Hongjun Wu.
-\newblock {\em The Stream Cipher HC-128}.
-\newblock Lecture Notes in Computer Science. Springer Berlin Heidelberg, 2008.
 
 \end{thebibliography}
