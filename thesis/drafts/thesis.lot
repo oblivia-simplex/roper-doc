@@ -3,11 +3,11 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {4.1}{\ignorespaces Program Headers of a Typical ELF Executable}}{40}{table.4.1}
+\contentsline {table}{\numberline {4.1}{\ignorespaces Program Headers of a Typical ELF Executable}}{41}{table.4.1}
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces A perfected \texttt {execv()} payload on \texttt {tomato-RT-N18U-httpd}, from the \emph {wiwzuh} population, generation 17.}}{77}{table.5.1}
-\contentsline {table}{\numberline {5.2}{\ignorespaces Execution trace of a chain that generates the register pattern required for a call to \texttt {execv("/bin/sh", ["/bin/sh"], NULL)} in \texttt {tomato-RT-N18U-httpd}, by modifying its own call stack and executing numerous "stray" or "extended" gadgets, in the \emph {poclux} population. Modifications to the gadget stack are in red, jumps are in violet, and completion of target \gls {cpu} pattern is in blue. Free branches are separated by blank lines. The final instruction jumps to the designated stop address, \texttt {0x00000000}.}}{100}{table.5.2}
+\contentsline {table}{\numberline {5.1}{\ignorespaces A perfected \texttt {execv()} payload on \texttt {tomato-RT-N18U-httpd}, from the \emph {wiwzuh} population, generation 17.}}{78}{table.5.1}
+\contentsline {table}{\numberline {5.2}{\ignorespaces Execution trace of a chain that generates the register pattern required for a call to \texttt {execv("/bin/sh", ["/bin/sh"], NULL)} in \texttt {tomato-RT-N18U-httpd}, by modifying its own call stack and executing numerous "stray" or "extended" gadgets, in the \emph {poclux} population. Modifications to the gadget stack are in red, jumps are in violet, and completion of target \gls {cpu} pattern is in blue. Free branches are separated by blank lines. The final instruction jumps to the designated stop address, \texttt {0x00000000}.}}{101}{table.5.2}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {A.1}{\ignorespaces Behaviour of the champion of the \emph {xysxim} population, for a member of the red class. Input registers are \texttt {r2} and \texttt {r3}.}}{123}{table.A.1}
-\contentsline {table}{\numberline {A.2}{\ignorespaces Behaviour of the champion of the \emph {xysxim} population, for a member of the blue class. Input registers are \texttt {r2} and \texttt {r3}.}}{124}{table.A.2}
+\contentsline {table}{\numberline {A.1}{\ignorespaces Behaviour of the champion of the \emph {xysxim} population, for a member of the red class. Input registers are \texttt {r2} and \texttt {r3}.}}{120}{table.A.1}
+\contentsline {table}{\numberline {A.2}{\ignorespaces Behaviour of the champion of the \emph {xysxim} population, for a member of the blue class. Input registers are \texttt {r2} and \texttt {r3}.}}{121}{table.A.2}

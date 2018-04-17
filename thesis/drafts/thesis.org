@@ -1428,6 +1428,10 @@ the *spawn-individual()* algorithm, called on line
 ** Gadget Extraction
 <<sec:gadget-extraction>>
 
+#+CAPTION: Harvesting gadgets from a gls:risc executable segment.
+#+NAME: fig:gadget-harvest
+file:../images/gadget-harvest-dark.png
+
 Since the aim of gls:roper is to foster the evolution of ROP chains, we 
 must begin by supplying the engine with a sufficient pool of gadgets, 
 harvested from the target executable. 
@@ -1436,7 +1440,8 @@ harvested from the target executable.
 
 There are several ways that this can be done, but the simplest is just to
 scan the executable for a subset of easily recognizable 'gadgets' using a
-linear sweep algorithm, shown in Algorithm \ref{alg:rop-sweep}. Since we are
+linear sweep algorithm, shown in Algorithm \ref{alg:rop-sweep} and diagrammed 
+in figure [[fig:gadget-harvest]]. Since we are
 dealing only with a RISC instruction set architecture here, we can avoid 
 several complexities in our gadget search that we would need to grapple with
 were we adapting gls:roper to handle CISC instruction sets (such as the x86 and
@@ -1933,7 +1938,9 @@ finite path of genetic operations, from any point in that system's evolution -- 
 it does at least establish the plausibility of ergodicity. In practice, however,
 convergence and evolutionary deadends may remain commonplace, and it is only a very
 slight reassurance to know that such states of affairs are not irreversible or 
-eternal, in principle. 
+eternal, in principle.[fn::
+  For a rigorous discussion of ergodicity in genetic algorithms, as a consequence of the algebraic structure of the genetic operators -- and, in particular, of the commutativity of mutation and crossover -- see [[bib:schmitt01]].
+]
 
      
 **** Fragility and Gene Linkage
@@ -1983,6 +1990,10 @@ eternal, in principle.
 
 ** Ontogenesis and Evaluation
 <<sec:ontogenesis-and-evaluation>>
+
+#+CAPTION: High-level overview of the ontogenesis and evaluation process. The "path diversity" component will not be introduced until we reach \S [[sec:visit-novelty]].
+#+NAME: fig:evaluation-process
+file:../images/evaluation_model.png
 
 The algorithms explained above all depend, either directly or in the way they
 hang together, on having a way to evaluate the "fitness" of arbitrary genotypes.
@@ -2807,7 +2818,9 @@ general impression, at let the eye pick out the more obvious skews in distributi
 In figure [[fig:xeqcyv-heatmap]], we see heatmaps of the the /Xeqcyv/ population's
 phenotypic distribution sampled at seasons 4 and 212. Qualitatively speaking, the
 two maps appear almost identical. There has been no collapse of phenotypic diversity,
-and the system even gives the impression of being ergodic. Acting freely, with
+and the system even gives the impression of being ergodic.[fn::
+  See [[bib:schmitt01]] for a detailed discussion of the conditions under which genetic algorithms exhibit ergodicity.
+] Acting freely, with
 no systematic selective constraints, the mutation operators appear to be successfully
 counteracting the pull of genetic drift. 
 
@@ -4182,11 +4195,10 @@ Available at \url{https://advancedtomato.com/downloads/router/rt-n18u}.
 See \url{http://www.unicorn-engine.org}.
 
 
-#+LATEX: \input{footer}
 
 
 #+LATEX: \appendix
-* Appendix: Further Adjustments
+* Appendix: Recent Tweaks and Experiments
 ** Adjusting the classification task function for better environmental compatibility
 *** Disadvantages of the bid-based algorithm in ROPER
  As we can see in figure [[fig:tomato-register-histogram]], the distribution of register use
@@ -4198,8 +4210,9 @@ See \url{http://www.unicorn-engine.org}.
  cutting the execution environment against the grain when we try to configure our
  fitness functions in this way.
 *** Using R0 to decide
+ <<sec:bitmasks>>
  The gls:arm gls:abi [[bib:arm_abi]] already gives us some useful hints here, which we can try to adhere to, to
- make our fitness functions more harmonious with their environment. Like the gls:x86, the gls:arm
+ make our fitness functions more harmonious with their environment. Like the x86, the gls:arm
  gls:abi designates a particular register for the purposes of carrying a return value:
  #+BEGIN_QUOTE
  The manner in which a result is returned from a function is determined by the type of that
@@ -4299,8 +4312,7 @@ See \url{http://www.unicorn-engine.org}.
  0000a13c stray | ldr lr, [pc, #4]
  0000a140 stray | add lr, pc, lr
  0000a144 stray | ldr pc, [lr, #8]!
- OUT: 400->0 1bc01->7365720a 1->7368732e 96106ace 1->7368732e 400->0 0->68732e00 
- .... 2b02b->1 1bc01->7365720a 0->68732e00 0->68732e00 0->68732e00 28924->a138 2afff->127e4 28868->0 0->68732e00 
+
  R0 (bin): 00000000000000000000010000000000
  \end{lstlisting}
  \caption{Behaviour of the champion of the \emph{xysxim} population, for a member of the red class. Input registers are \texttt{r2} and \texttt{r3}.}
@@ -4330,13 +4342,16 @@ See \url{http://www.unicorn-engine.org}.
  0001228c       | add sp, sp, #0x364
  00012290       | add sp, sp, #0x400
  00012294       | pop {r4, r5, r6, r7, r8, sb, sl, fp, pc}
- OUT: ea->0 0->68732e00 ffffff98 ea->0 0->68732e00 0->68732e00 0->68732e00 
- .... 0->68732e00 0->68732e00 0->68732e00 0->68732e00 0->68732e00 0->68732e00 2b7eb->0 0->68732e00 0->68732e00 
+
  R0 (bin): 00000000000000000000000011101010
  \end{lstlisting}
  \caption{Behaviour of the champion of the \emph{xysxim} population, for a member of the blue class. Input registers are \texttt{r2} and \texttt{r3}.}
  \label{tab:xysxim-champ-blue}
  \end{table}
+
+#+CAPTION: Performance of the /Xysxim/ population on the simple, linearly separable dataset first encountered in \S [[sec:simple-blob-experiment]].
+#+NAME: fig:xysxim
+file:../images/plots/xysxim.pdf
 
  This still leaves the matter of input registers, however. One mitigation of the uneven use of
  input registers that has already been implemented in gls:roper is the possible use of the
@@ -4344,7 +4359,9 @@ See \url{http://www.unicorn-engine.org}.
  clump an =input_slots= field, which tells the execution procedure to replace the values at
  certain, specified stack indexes in the gls:rop payload with the available input values, which
  offers much more flexibility, and adaptability, to the way the population handles input. 
+ 
 ** Homologous crossover
+<<sec:homology>>
 *** The trouble with crossover
 The trouble with crossover as it is currently implemented in gls:roper, and with
 the way it is canonically specified in most standard forms of gls:gp,
@@ -4427,28 +4444,20 @@ this could be done.
 \end{algorithmic} 
 \end{algorithm}
 
-*** Experimental results of implementing quasi-homologous crossover in ROPER
-
-Early experimental trials using this form of quasi-homologous crossover appear
-to show a greater variance in the difference between the fitness of the spawn
-of a crossover event, and the fitness of its parents, and a much greater
-frequency at which crossover-span exhibit a fitness /superior/ to the average
-of their parents'. 
+The fecundity of this approach is the subject of ongoing experimental trials. 
 
 *** Alternative approaches to the problem
 
-A more nuanced approach may be possible, using runtime information
-gleaned from the execution of the parents -- we could attempt to align 
-clumps on the basis of a fuzzy match of their register states at the moment of
-execution of their return instructions, perhaps. This would capture the intuition
-of letting the paternal segment of the offspring /pick up where the maternal segment
-left off/, semantically speaking.
+A more nuanced implementation of homologous crossover may be possible, using
+runtime information gleaned from the execution of the parents -- we could
+attempt to align clumps on the basis of a fuzzy match of their register states
+at the moment of execution of their return instructions, perhaps. This would
+capture the intuition of letting the paternal segment of the offspring /pick up
+where the maternal segment left off/, semantically speaking.
 
-- TODO insert graphs
 
 ** Selecting for behavioural diversity
-
-
+<<sec:visit-novelty>>
 
 Fitness sharing, as currently implemented in gls:roper, skews the selective process
 so as to favour diversity, on a problem-by-problem basis. I explain the algorithm
@@ -4495,22 +4504,90 @@ set to 0.2, on a whim), and summed with the existing fitness value times the
 complement of $v$: 
 $$ \text{fitness} \gets (\text{novelty} * v) + (\text{fitness} * (1.0 - v))$$
 
-*** Preliminary results of visitation novelty pressure
 
 ** The clump TTL mechanism and the ecological role of extinction events
 
-*** Combining visitation novelty pressure with a TTL field
+Shortly after writing the conclusion to this thesis and submitting the examination
+draft, I began experimenting with the gls:ttl mechanism on which I had pinned my
+hopes for combating crash-prone but otherwise highly fit genes, which had shown a
+tendency to spread malignantly through the population if left unchecked, under
+the then-current configuration of gls:roper. 
 
+During the initial chain spawning, each clump was assigned a gls:ttl field, set,
+somewhat arbitrarily, to 16 (informed somewhat by observations on the generation
+of well-performing chains, in various tasks -- but this was left tuneable). 
+
+I adjusted the case evaluation algorithm, so that at the end of each chain's emulation,
+it would store not only whether or not the chain had crashed, but the probable indices
+of the clumps responsible for the crash, in one of its metadata fields. Those indices
+were calculated on the basis of the return counter, which increments each time a return
+address explicitly specified in the chain is visited. If the chain crashed with a
+counter of $n$, then it would be /likely/ (but not certain, due to straying) that
+the $n^{th}$ clump had at least a share in responsibility for the crash. 
+
+In the crossover function, clumps with an index matching an entry in the crash log
+would have their gls:ttl shifted one bit to the right. If this resulted in zero, the
+clump would be dropped, and a new one generated on the spot, using the initial pool
+of addresses for its first word, and constants recycled -- potentially repeatedly -- from
+the dead clump. 
+
+The result was far more disruptive to \gls{roper}'s ecologies than I had foreseen. 
+Due to the relatively steadiness of the crash rate in most evolutions, over the
+long term, the average gls:ttl values of each chain would tend to decline 
+linearly, at first, until reaching a crisis point where numerous clumps would begin
+to expire in unison. 
+This is likely due, in part, to the irreversible heritability
+of the gls:ttl field: it is passed intact by the crossover operator from parents to 
+offspring, so that the crashes that decrement it need not be genealogically
+contiguous. This would cause low gls:ttl counts to disseminate through the
+population with surprising breadth, so that the final penalty of clump expiration
+could be visited upon descendants quite distant from the highly crash-prone
+ancestors responsible for diminishing the gls:ttl. 
+This would lead, in turn, to mass extinction events in the population, as indexed in
+the /astronomically poor/ turn taken by the crossover fitness delta metric in 
+figure [[fig:xilvyb]] -- whose evolutionary run bore the same configuration as the population
+in which the malignant gene problem was first diagnosed (see \S [[sec:malignant]]).  
+
+#+CAPTION: Ecologically disruptive effects on the /Xilvyb/ population caused by the gls:ttl mechanism, causing a mass extinction of clump lines during a simple linear classification task, using register bid-bin classification. 
+#+NAME: fig:xilvyb
+file:../images/plots/xilvyb.pdf
+
+
+The next experiment was conducted using the syscall preparation task. 
 At the cost of an unusually slow convergence -- which may, perhaps, be
 ameliorated by tuning some of our newly-introduced parameters -- the combination
 of placing an expiration date on the last clump to execute in a crashing chain,
-and introducing a selective incentive for behavioural diversity appears to yield
+and introducing a selective incentive for behavioural diversity (see \S [[sec:visit-novelty]]) appears to yield
 quite good results, so far as maintaining diversity is concerned. One such outcome
 shows a distribution of address visitations that has no precedent in the populations
 studied so far in this thesis: a run that terminated with /greater/ address visitation
 diversity than it began with, while nevertheless, eventually, converging on a perfect
 absolute fitness score. This occurred in the /Soghuf/ population, in the course of
 completing the syscall preparation task, outlined in \S [[sec:syscall-spec]].
+
+The relatively low but nevertheless
+steady rate of crashes in the population, which had settled into an equilibrium between
+0.002 and 0.01 for most of the run, resulted in a sawtooth oscillation in the
+mean gls:ttl rate, correlated, naturally, with massive, simultaneous clump die-offs at
+repeating intervals. 
+
+This had a strong impact on the fitness delta measurements for
+the crossover operations, and a surprisingly large impact, it seems, on the stray
+rate. To the extent that the gls:ttl mechanism serves an ecological function in
+gls:roper, it appears to do so in a fashion comparable to forest fires, in the wild:
+a periodic catastrophe, which keeps tendencies towards /premature/ convergence and
+stagnation in check, but which nevertheless menaces even the fitter bloodlines in
+the population with extinction. 
+
+A modification could be made that lets a clump's gls:ttl be reset when
+it appears in a non-crashing chain, or a non-crashing chain whose parents, too, were
+free of crashes, and this may mitigate its ecological
+impact somewhat. As currently implemented, the gls:ttl mechanic appears to be of
+minor utility in problem spaces like those determined by the syscall preparation
+task, but may be more useful when it comes to spaces in which premature
+convergence is a problem that needs to be kept actively in check.
+
+ 
 
 #+CAPTION: The effects of visitation novelty pressure on the /Soghuf/ population, with the additional influence of a gls:ttl field set to 4 and decremented on crash-prone clumps during crossover. The homologous crossover mechanism was not used for this run. 
 #+NAME: fig:soghuf-heatmap
@@ -4520,26 +4597,5 @@ file:../images/plots/soghuf_heatmap_4_608.png
 #+NAME: fig:soghuf
 file:../images/plots/soghuf.pdf
 
-Another interesting phenomenon emerged here, as a consequence of the current 
-implementation of the gls:ttl mechanism, which proved to be far more disruptive
-to \gls{roper}'s ecology than I had expected. The relatively low but nevertheless
-steady rate of crashes in the population, which had settled into an equilibrium between
-0.002 and 0.01 for most of the run, resulted in a sawtooth oscillation in the
-mean gls:ttl rate, correlated, naturally, with massive, simultaneous clump die-offs at
-repeating intervals. This had a strong impact on the fitness delta measurements for
-the crossover operations, and a surprisingly large impact, it seems, on the stray
-rate. To the extent that the gls:ttl mechanism serves an ecological function in
-gls:roper, it appears to do so in a fashion comparable to forest fires, in the wild:
-a periodic catastrophe, which keeps tendencies towards /premature/ convergence and
-stagnation in check, but which nevertheless menaces even the fitter bloodlines in
-the population with extinction. This is likely due, in part, to the heritability
-of the gls:ttl field: it is passed intact by the crossover operator bet from parents to 
-offspring, so that the crashes that decrement it need not be genealogically
-contiguous. A modification could be made that lets a clump's gls:ttl be reset when
-it appears in a non-crashing vehicle, and this may mitigate its ecological
-impact somewhat. As currently implemented, the gls:ttl mechanic appears to be of
-minor utility in problem spaces like those determined by the syscall preparation
-task, but may be more useful when it comes to spaces in which premature
-convergence is a problem that needs to be kept actively in check.
 
- 
+#+LATEX: \input{footer}

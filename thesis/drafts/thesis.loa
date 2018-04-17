@@ -5,5 +5,5 @@
 \contentsline {algorithm}{\numberline {4}{\ignorespaces Linear sweep algorithm for gadget extraction.}}{39}{algorithm.4}
 \contentsline {algorithm}{\numberline {5}{\ignorespaces Spawning an Initial Individual}}{43}{algorithm.5}
 \contentsline {algorithm}{\numberline {6}{\ignorespaces Single-Point Crossover, with Fragility}}{48}{algorithm.6}
-\contentsline {algorithm}{\numberline {7}{\ignorespaces Headless Chicken Patch}}{59}{algorithm.7}
-\contentsline {algorithm}{\numberline {8}{\ignorespaces Quasi-homologous Crossver, using Return Address Alignment}}{127}{algorithm.8}
+\contentsline {algorithm}{\numberline {7}{\ignorespaces Headless Chicken Patch}}{60}{algorithm.7}
+\contentsline {algorithm}{\numberline {8}{\ignorespaces Quasi-homologous Crossver, using Return Address Alignment}}{125}{algorithm.8}
