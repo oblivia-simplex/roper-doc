@@ -271,6 +271,7 @@ file:../images/plots/fizwej-badgenes.png
  classification task using the register bid-bin method. 
  [[../images/tomato.png]]
 
+ 
 *** Bitmask Classification Specimens
 #+BEGIN_EXAMPLE
  IN:  ffffff98 d
@@ -340,6 +341,16 @@ Greater complexity in control flow, perfect classification results, no crashing.
  R0 (bin): 00000000000000000000010000000000
  CLASS: BLUE
 #+END_EXAMPLE
+
+*** Further Recent Improvements
+    
+*** Homologous Crossover
+[[../images/homologous-crossover.png]]
+
+*** Execution Path Diversity as Fitness Metric
+
+*** Iris, Revisited
+[[../images/plots/iris_with_luxxyn.png]]
 
 *** The Snake Game
 #+REVEAL_HTML: <video controls> <source src="../../videos/roper-snek-misjax-35000.webm" type="video/webm"> </video>

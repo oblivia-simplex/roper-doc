@@ -1,4 +1,4 @@
-% Created 2018-04-17 Tue 12:11
+% Created 2018-04-17 Tue 13:16
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -32,16 +32,16 @@
 
 
 \section*{Introductory Remarks}
-\label{sec:org676fa7a}
+\label{sec:org129b2b2}
 \section*{The Concept of Return-Oriented Programming}
-\label{sec:org3d7dd21}
+\label{sec:org741ce42}
 \subsection*{The Fundamental Problem of Cybersecurity}
-\label{sec:org2204cb8}
+\label{sec:org7692954}
 At bottom, there is no essential distinction between data and code.
 
 "Data" is just information your system trusts. 
 \subsection*{Consider the Stack}
-\label{sec:org41207fe}
+\label{sec:org4262e0d}
 \begin{center}
 \includegraphics[width=.9\linewidth]{../images/stack_frame.png}
 \end{center}
@@ -53,7 +53,7 @@ At bottom, there is no essential distinction between data and code.
 \end{itemize}
 
 \subsection*{Consider the Stack, Smashed}
-\label{sec:orgfb842f7}
+\label{sec:org86a7968}
 
 \begin{center}
 \includegraphics[width=.9\linewidth]{../images/stack_frame_attack.png}
@@ -66,7 +66,7 @@ At bottom, there is no essential distinction between data and code.
 \end{itemize}
 
 \subsection*{\(\textit{DEP}~~/~~W \oplus X\)}
-\label{sec:orgcbe1102}
+\label{sec:org68df840}
 \begin{center}
 \includegraphics[width=.9\linewidth]{../images/stack_frame_attack_w^x.png}
 \end{center}
@@ -78,11 +78,11 @@ At bottom, there is no essential distinction between data and code.
 
 
 \subsection*{So, is code "wherever the program counter's pointing"?}
-\label{sec:org7572833}
+\label{sec:org1891993}
 \subsection*{No. It's far worse than that.}
-\label{sec:org35f607f}
+\label{sec:org6153d9a}
 \subsection*{Subverting \(~~W\oplus X\)}
-\label{sec:orge062217}
+\label{sec:org833f80b}
 \begin{itemize}
 \item \(W\oplus X\) may prevent the \emph{execution} of input data, but it doesn't prevent attempts to \emph{return} to that data.
 \item Why should the hacker need to supply their own machine code?
@@ -90,17 +90,17 @@ At bottom, there is no essential distinction between data and code.
 \item Why not just build a payload with whatever's handy?
 \end{itemize}
 \subsection*{It's what MacGyver would do}
-\label{sec:org049a52b}
+\label{sec:org7758608}
 But how?
 \subsection*{\(W\oplus X~~\) is a Leaky Abstraction}
-\label{sec:orgdb7034d}
+\label{sec:org4ad1c46}
 \begin{itemize}
 \item It rests on all-too-narrow concepts of "instruction" and "execution".
 \item The payload's \emph{instructions} don't need to be bytes of machine code.
 \item They just need to influence control flow, in a controllable way.
 \end{itemize}
 \subsection*{So is the \emph{Structured Programming Machine Model}}
-\label{sec:orgda05ca4}
+\label{sec:org41c4d6f}
 \begin{itemize}
 \item The machine model on which structured programming is based already carves up an executable into chunks that \textbf{return} control after being dispatched.
 \item To the programmer, these are "functions", but this is too granular a viewpoint.
@@ -109,7 +109,7 @@ But how?
 \end{itemize}
 
 \subsection*{The ROVM supervenes on the SPMM}
-\label{sec:orgbfd030e}
+\label{sec:orgdc07e33}
 \begin{center}
 \includegraphics[width=.9\linewidth]{../images/stack_frame_rop.png}
 \end{center}
@@ -120,7 +120,7 @@ But how?
 \end{itemize}
 
 \subsection*{We can program this machine with input data\ldots{}}
-\label{sec:org4830365}
+\label{sec:orgcdb6f68}
 \begin{itemize}
 \item All we need to do is to discover and supply a buffer of instructions.
 \item These are not instructions for the underlying architecture, but for the ROVM.
@@ -128,31 +128,31 @@ But how?
 \end{itemize}
 
 \subsection*{\ldots{}and so can natural selection.}
-\label{sec:orge4173d8}
+\label{sec:org994ecc7}
 
 \section*{Design and Implementation of ROPER}
-\label{sec:org902e5c6}
+\label{sec:orgbcd6419}
 
 \subsection*{Bird's eye view}
-\label{sec:org47b09b6}
+\label{sec:org9c9a48a}
 \begin{center}
 \includegraphics[width=.9\linewidth]{../images/birdseye_white.png}
 \end{center}
 
 \subsection*{Gadget Harvest}
-\label{sec:orge0375ee}
+\label{sec:org4832823}
 \begin{center}
 \includegraphics[width=.9\linewidth]{../images/gadget-harvest.png}
 \end{center}
 
 \subsection*{Tournament Selection}
-\label{sec:orgd197e29}
+\label{sec:orgc2816ef}
 \begin{center}
 \includegraphics[width=.9\linewidth]{../images/tournament.png}
 \end{center}
 
 \subsection*{Genomic Structure}
-\label{sec:orgd176949}
+\label{sec:org6692595}
 \begin{itemize}
 \item Each genome is a one-dimensional \emph{chain} composed of \emph{clumps}.
 \item A \emph{clump} is a gadget address \(a\), followed by \(\texttt{SP}_\Delta(a)-1\) machine words
@@ -161,7 +161,7 @@ But how?
 \end{itemize}
 
 \subsection*{Genetic Operators: Clumpwise Mutation}
-\label{sec:org9c68dee}
+\label{sec:org60c724a}
 \begin{itemize}
 \item address substitution
 \item arithmetical \& logical manipulation of dwords
@@ -170,7 +170,7 @@ But how?
 \end{itemize}
 
 \subsection*{Genetic Operators: Chainwise Crossover}
-\label{sec:orgb7bf510}
+\label{sec:orgd83c29b}
 \begin{itemize}
 \item restricted to single-point crossover
 \item splice point selected by weighted random choice, using the average of each link's previous hosts' fitness scores, to favour adaptive gene linkage
@@ -178,7 +178,7 @@ But how?
 \end{itemize}
 
 \subsection*{Algebraic properties of genetic operators}
-\label{sec:org2872d90}
+\label{sec:org0272985}
 \begin{itemize}
 \item Mutations form a cyclic group under concatenation.
 \item Crossover is associative, forms a cyclic group under concatenation, and commutes with mutation.
@@ -186,7 +186,7 @@ But how?
 \end{itemize}
 
 \subsection*{Ontogenesis}
-\label{sec:orgecd27af}
+\label{sec:org0dbc1fd}
 \begin{itemize}
 \item The genotype is mapped to its phenotype by executing it in an emulated CPU, into which the binary from which it was derived has been loaded.
 \item The chain is serialized into an array of dwords,
@@ -196,7 +196,7 @@ But how?
 \end{itemize}
 
 \subsection*{Ontogenesis}
-\label{sec:orgdabd3a3}
+\label{sec:orga2ccf63}
 \begin{itemize}
 \item This process returns a snapshot of CPU behaviour from the chain's execution:
 \end{itemize}
@@ -208,17 +208,17 @@ But how?
 \end{itemize}
 
 \subsection*{Evaluation Process}
-\label{sec:org2c2eb9a}
+\label{sec:orgcc6d791}
 \begin{center}
 \includegraphics[width=.9\linewidth]{../images/evaluation_model_white.png}
 \end{center}
 
 
 \section*{Experimental Studies}
-\label{sec:org0f659e5}
+\label{sec:org7f7f071}
 
 \subsection*{The Environment}
-\label{sec:orgca90f92}
+\label{sec:org72ab662}
 \begin{center}
 \includegraphics[width=.9\linewidth]{../../thesis/images/tomato-RT-N18U-httpd_heatmap.png}
 \end{center}
@@ -227,7 +227,7 @@ Distribution of gadgets in \texttt{tomato-RT-N18U-httpd}.
 
 
 \subsection*{Tasks and Fitness Functions}
-\label{sec:orge6232b0}
+\label{sec:orgb54fa93}
 \begin{itemize}
 \item An arbitrary and inscrutable fitness function
 \item System call preparation
@@ -242,7 +242,7 @@ Distribution of gadgets in \texttt{tomato-RT-N18U-httpd}.
 
 
 \subsubsection*{Kafka function with Crash Penalty}
-\label{sec:orgbdd19c1}
+\label{sec:orge812295}
 
 The address visitation heatmap shows no evident loss of diversity,
 even after 212 seasons, suggesting a robustly ergodic system. 
@@ -251,7 +251,7 @@ even after 212 seasons, suggesting a robustly ergodic system.
 \end{center}
 
 \subsubsection*{System Call Preparation}
-\label{sec:org77df97e}
+\label{sec:org58529ca}
 
 \begin{itemize}
 \item The goal here is to prepare the CPU for a system call, with the registers containing and pointing to the necessary arguments.
@@ -261,7 +261,7 @@ even after 212 seasons, suggesting a robustly ergodic system.
 
 
 \subsubsection*{System Call Preparation}
-\label{sec:orgc50dfda}
+\label{sec:orgba2d711}
 
 Champion of the \emph{Wiwzuh} population:
 \lstset{language=asm,label= ,caption= ,captionpos=b,numbers=none}
@@ -288,22 +288,22 @@ Champion of the \emph{Wiwzuh} population:
 \end{lstlisting}
 
 \subsubsection*{Fitness landscape traversed by the \emph{wiwzuh} population}
-\label{sec:orgb851e23}
+\label{sec:org7823ca1}
 \begin{center}
 \includegraphics[width=.9\linewidth]{../../thesis/images/plots/wiwzuh_syscall_gaussian_3.png}
 \end{center}
 
 \subsubsection*{The Enigma of Stray Gadgets}
-\label{sec:org406b458}
+\label{sec:orgf7fc28b}
 \begin{itemize}
 \item This task also produced a number of specimens whose traces are too long and complex to display in detail here, but which were especially interesting for their labyrinthine nature, and the degree to which their execution traces strayed from the harvested gadget set.
 \item I will nevertheless \textbf{try} to display one here.
 \end{itemize}
 
 \subsubsection*{}
-\label{sec:orgb879aa5}
+\label{sec:orgf0d6f53}
 \subsubsection*{The Enigma of Stray Gadgets}
-\label{sec:orgebdda3b}
+\label{sec:org26e41bc}
 These were of interest in two respects:
 
 \begin{itemize}
@@ -313,20 +313,20 @@ These were of interest in two respects:
 
 
 \subsubsection*{A simple classification task}
-\label{sec:orge8c6789}
+\label{sec:orgf30e301}
 \begin{itemize}
 \item For the classification tasks, I initially used a common, bid-based algorithm to map behaviour to classification decisions on data samples.
 \item A set of output registers was mapped to the class list, and data was classified according to the register containing the greatest signed value.
 \end{itemize}
 
 \subsubsection*{Fair initial results}
-\label{sec:orgc465b14}
+\label{sec:org648b83c}
 \begin{center}
 \includegraphics[width=.9\linewidth]{../images/plots/kathot_champion.png}
 \end{center}
 
 \subsubsection*{An interesting case of malignancy}
-\label{sec:orga32e9d7}
+\label{sec:orgac97367}
 
 \begin{center}
 \includegraphics[width=.9\linewidth]{../images/plots/fizwej_perfect_crash.png}
@@ -335,38 +335,38 @@ These were of interest in two respects:
 Here, the gene responsible for correct classification of the data was also responsible for crashing the execution. It rapidly took over the population.
 
 \subsubsection*{An interesting case of malignancy}
-\label{sec:orgaca287e}
+\label{sec:org828ab61}
 \begin{center}
 \includegraphics[width=.9\linewidth]{../images/plots/fizwej-badgenes.png}
 \end{center}
 
 \subsubsection*{The Iris Dataset}
-\label{sec:org9ce225f}
+\label{sec:orga37a17e}
 \begin{center}
 \includegraphics[width=.9\linewidth]{../images/plots/iris_plot.png}
 \end{center}
 
 \subsubsection*{ROPER on the Iris Dataset}
-\label{sec:orgde4f25c}
+\label{sec:orge477a57}
 \begin{itemize}
 \item This dataset proved a serious challenge for ROPER, which rarely achieved better than a 66\% detection rate (using the bid-bin method).
 \item Success only came with the introduction of a fitness sharing mechanism.
 \end{itemize}
 
 \subsubsection*{Iris without Fitness Sharing}
-\label{sec:orgb3881c7}
+\label{sec:org1c7ef2e}
 \begin{center}
 \includegraphics[width=.9\linewidth]{../images/plots/nosharing.png}
 \end{center}
 
 \subsubsection*{Iris with Fitness Sharing}
-\label{sec:org12798ba}
+\label{sec:orge864319}
 \begin{center}
 \includegraphics[width=.9\linewidth]{../images/plots/sharing.png}
 \end{center}
 
 \subsubsection*{Bit-masks over Bid-bins}
-\label{sec:org94c9d7d}
+\label{sec:org993ec3e}
 
 The uneven distribution of register usage puts a skew on any
 classification task using the register bid-bin method. 
@@ -374,8 +374,9 @@ classification task using the register bid-bin method.
 \includegraphics[width=.9\linewidth]{../images/tomato.png}
 \end{center}
 
+
 \subsubsection*{Bitmask Classification Specimens}
-\label{sec:orgce98f5d}
+\label{sec:org9a9ebff}
 \begin{verbatim}
 IN:  ffffff98 d
 0000b4b4       | pop {r4, r5, r6, r7, r8, pc}
@@ -442,9 +443,27 @@ R0 (bin): 00000000000000000000010000000000
 CLASS: BLUE
 \end{verbatim}
 
+\subsubsection*{Further Recent Improvements}
+\label{sec:orgb1565c3}
+
+\subsubsection*{Homologous Crossover}
+\label{sec:orged5c1ba}
+\begin{center}
+\includegraphics[width=.9\linewidth]{../images/homologous-crossover.png}
+\end{center}
+
+\subsubsection*{Execution Path Diversity as Fitness Metric}
+\label{sec:org3a5e1a4}
+
+\subsubsection*{Iris, Revisited}
+\label{sec:org38a07a3}
+\begin{center}
+\includegraphics[width=.9\linewidth]{../images/plots/iris_with_luxxyn.png}
+\end{center}
+
 \subsubsection*{The Snake Game}
-\label{sec:org19e58e3}
+\label{sec:org400cfb2}
 
 \section*{Concluding Remarks}
-\label{sec:orgb8f9945}
+\label{sec:org9e6531d}
 \end{document}
