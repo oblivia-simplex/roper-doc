@@ -345,6 +345,7 @@ Greater complexity in control flow, perfect classification results, no crashing.
 *** Further Recent Improvements
     
 *** Homologous Crossover
+#+ATTR_HTML: :height 600px
 [[../images/homologous-crossover.png]]
 
 *** Execution Path Diversity as Fitness Metric
