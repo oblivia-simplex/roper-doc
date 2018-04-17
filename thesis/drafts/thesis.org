@@ -4598,7 +4598,6 @@ file:../images/plots/soghuf_heatmap_4_608.png
 file:../images/plots/soghuf.pdf
 
 
-#+LATEX: \input{footer}
 
 ** Iris, Revisited
 Simple though it may be for systems engineered with no other task but classification in mind, the Iris dataset has 
@@ -4625,3 +4624,5 @@ As we can see in figure [[fig:iris_with_luxxyn]], /even the linearly inseparable
 regions of the Iris set were handled intelligently by the champion of this population
 (the /Luxxyn/ population, the last we'll be considering in this thesis). 
 
+
+#+LATEX: \input{footer}
