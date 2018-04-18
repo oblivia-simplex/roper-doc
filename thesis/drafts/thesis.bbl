@@ -1,229 +1,198 @@
 \begin{thebibliography}{10}
 
 \bibitem{aleph96}
-Aleph One.
-\newblock Smashing the stack for fun and profit.
-\newblock {\em Phrack}, 7(49), November 1996.
+A.~One, ``Smashing the stack for fun and profit,'' {\em Phrack}, vol.~7,
+  November 1996.
 
 \bibitem{bratus16}
-Sergey Bratus.
-\newblock Offense and defense: Notes on the shape of the beast.
-\newblock presented at BSides Knoxville, June 2016.
+S.~Bratus, ``Offense and defense: Notes on the shape of the beast.'' presented
+  at BSides Knoxville, June 2016.
 
 \bibitem{flake16}
-Halvar Flake.
-\newblock Understanding the fundamentals of attacks: What is happening when
-  someone writes an exploit?
-\newblock presented as the keynote talk at the Cyber Security Alliance,
-  September 2016.
+H.~Flake, ``Understanding the fundamentals of attacks: What is happening when
+  someone writes an exploit?.'' presented as the keynote talk at the Cyber
+  Security Alliance, September 2016.
 
 \bibitem{bratus_homepage}
-Sergey Bratus.
-\newblock What are weird machines?
+S.~Bratus, ``What are weird machines?.''
 
 \bibitem{patterson_2012}
-Sergey~Bratus Meredith~Patterson and Len Sassaman.
-\newblock A patch for postel's robustness principle.
-\newblock {\em Secure Systems}, (March/April), 2012.
+S.~B. Meredith~Patterson and L.~Sassaman, ``A patch for postel's robustness
+  principle,'' {\em Secure Systems}, no.~March/April, 2012.
 
 \bibitem{kornau09}
-Tim Kornau.
-\newblock {\em Return Oriented Programming for the ARM Architecture}.
+T.~Kornau, {\em Return Oriented Programming for the ARM Architecture}.
 \newblock PhD thesis, 2009.
 
 \bibitem{schwartz11}
-E.~J. Schwartz, T.~Avgerinos, and D.~Brumley.
-\newblock Q: exploit hardening made easy.
-\newblock In {\em USENIX Security Symposium}, 2011.
+E.~J. Schwartz, T.~Avgerinos, and D.~Brumley, ``Q: exploit hardening made
+  easy,'' in {\em USENIX Security Symposium}, 2011.
 
 \bibitem{bittau14}
-A.~Bittau, A.~Belay, A.~Mashtizadah, D.~Mazieres, and D.~Boneh.
-\newblock Hacking blind.
-\newblock In {\em IEEE Security and Privacy}, pages 277--242, 2014.
+A.~Bittau, A.~Belay, A.~Mashtizadah, D.~Mazieres, and D.~Boneh, ``Hacking
+  blind,'' in {\em IEEE Security and Privacy}, pp.~277--242, 2014.
+
+\bibitem{follner17}
+A.~Follner, {\em On Generating Gadget Chains for Return-Oriented Programming}.
+\newblock PhD thesis, Technischen Universit\"at Darmstadt, 2017.
+
+\bibitem{kayacik10}
+H.~Kayac\i{}k, N.~Zincir-Heywood, and M.~Heywood, ``Can a good offense be a
+  good defense? vulnerability testing of anomaly detectors through an
+  artificial arms race,'' {\em Applied Soft Computing}, 2010.
 
 \bibitem{cohen85}
-Fred Cohen.
-\newblock {\em Computer Viruses}.
+F.~Cohen, {\em Computer Viruses}.
 \newblock PhD thesis, University of Southern California, 1985.
 
 \bibitem{spector01}
-Lee Spector.
-\newblock Autoconstructive evolution: Push, pushgp, and pushpop.
-\newblock In A.~Wu W.B. Langdon H.-M. Voigt M. Gen S. Sen M. Dorigo S. Pezeshk
-  M.~Garzon L.~Spector, E.~Goodman and E.~Burke, editors, {\em GECCO-2001:
-  Proceedings of the Genetic and Evolutionary Computation Conference}. Morgan
-  Kaufmann Publishers, 2001.
+L.~Spector, ``Autoconstructive evolution: Push, pushgp, and pushpop,'' in {\em
+  GECCO-2001: Proceedings of the Genetic and Evolutionary Computation
+  Conference} (A.~W. W. L. H.-M. V. M. G. S. S. M. D. S. P. M.~G. L.~Spector,
+  E.~Goodman and E.~Burke, eds.), Morgan Kaufmann Publishers, 2001.
 
 \bibitem{rice53}
-H.G. Rice.
-\newblock Classes of recursively enumerable sets and their decision problems.
-\newblock {\em Transactions of the American Mathematical Society}, 74, 1953.
+H.~Rice, ``Classes of recursively enumerable sets and their decision
+  problems,'' {\em Transactions of the American Mathematical Society}, vol.~74,
+  1953.
 
 \bibitem{szor05}
-P\'eter Sz\"or.
-\newblock {\em The Art of Computer Virus Research and Defense}.
+P.~Sz\"or, {\em The Art of Computer Virus Research and Defense}.
 \newblock Addison-Wesley, 2005.
 
 \bibitem{whale90}
-unknown.
-\newblock The whale virus.
-\newblock {\em 40Hex}, 1(2.2).
+unknown, ``The whale virus,'' {\em 40Hex}, vol.~1, no.~2.2.
 
 \bibitem{spth08}
-Second~Part to~Hell.
-\newblock Chomsky hierarchy and the word problem in code mutation.
-\newblock Retrieved from the author's website., 2008.
+S.~P. to~Hell, ``Chomsky hierarchy and the word problem in code mutation.''
+  Retrieved from the author's website., 2008.
 
 \bibitem{spth10a}
-Sperl~Thomas (aka Second Part~to Hell).
-\newblock Artificial evolution in native x86 systems.
-\newblock Retrieved from the author's website., 2010.
+S.~T. (aka Second Part~to Hell), ``Artificial evolution in native x86
+  systems.'' Retrieved from the author's website., 2010.
 
 \bibitem{xfiles-killswitch}
-William Gibson and Tom Maddox.
-\newblock Kill switch, Feb 1998.
+W.~Gibson and T.~Maddox, ``Kill switch,'' Feb 1998.
 
 \bibitem{iliopoulos11}
-D.~Iliopoulos, C.~Adami, and P.~Szor.
-\newblock Darwin inside the machines: Malware evolution and the consequences
-  for computer security.
-\newblock 2011.
+D.~Iliopoulos, C.~Adami, and P.~Szor, ``Darwin inside the machines: Malware
+  evolution and the consequences for computer security,'' 2011.
 
 \bibitem{kayacik06}
-H.G. Kayac\i{}k, M.~Heywood, and N.~Zincir-Heywood.
-\newblock On evolving buffer overflow attacks using genetic programming.
-\newblock In {\em ACM Genetic and Evolutionary Computation Conference}, pages
-  1667--1674, 2006.
-
-\bibitem{kayacik10}
-H.G. Kayac\i{}k, N.~Zincir-Heywood, and M.~Heywood.
-\newblock Can a good offense be a good defense? vulnerability testing of
-  anomaly detectors through an artificial arms race.
-\newblock {\em Applied Soft Computing}, 2010.
+H.~Kayac\i{}k, M.~Heywood, and N.~Zincir-Heywood, ``On evolving buffer overflow
+  attacks using genetic programming,'' in {\em ACM Genetic and Evolutionary
+  Computation Conference}, pp.~1667--1674, 2006.
 
 \bibitem{kayacik11}
-H.G. Kayac\i{}k, M.~Heywood, and N.~Zincir-Heywood.
-\newblock On evolving buffer overflow attacks using genetic programming.
-\newblock {\em Applied Soft Computing}, 11:4366--4383, 2011.
+H.~Kayac\i{}k, M.~Heywood, and N.~Zincir-Heywood, ``On evolving buffer overflow
+  attacks using genetic programming,'' {\em Applied Soft Computing}, vol.~11,
+  pp.~4366--4383, 2011.
 
 \bibitem{banzhaf98}
-W.~Banzhaf, Peter Nordin, Robert~E. Keller, and Frank~D. Francone.
-\newblock {\em Genetic Programming: An Introduction}.
+W.~Banzhaf, P.~Nordin, R.~E. Keller, and F.~D. Francone, {\em Genetic
+  Programming: An Introduction}.
 \newblock Morgan Kaufmann, 1998.
 
+\bibitem{gbaguy}
+G.~Guy, ``Gba guy's lair - asm tutorial.''
+\newblock mirrored by Patater.
+
+\bibitem{coranac}
+J.~Vijn, ``Tonc v1.4.2 documentation and tutorials.''
+\newblock Tutorials on GBA hardware and ARM assembly.
+
 \bibitem{schmitt01}
-Lothar~M. Schmitt.
-\newblock Theory of genetic algorithms.
-\newblock {\em Theoretical Computer Science}, 259(1-2), 2001.
+L.~M. Schmitt, ``Theory of genetic algorithms,'' {\em Theoretical Computer
+  Science}, vol.~259, no.~1-2, 2001.
 
 \bibitem{deb89}
-K.~Deb and D.E. Goldberg.
-\newblock An investigation of niche and species formation in genetic function
-  optimization.
-\newblock In {\em Proceedings of the 3rd International Conference on Genetic
-  Algorithms}, pages 42,50, 1989.
+K.~Deb and D.~Goldberg, ``An investigation of niche and species formation in
+  genetic function optimization,'' in {\em Proceedings of the 3rd International
+  Conference on Genetic Algorithms}, pp.~42,50, 1989.
 
 \bibitem{smith92}
-R.E Smith, S.~Forrest, and A.S. Perelson.
-\newblock Searching for diverse, cooperative populations with genetic
-  algorithms.
-\newblock {\em Evolutionary Computation}, 1:127--149, 1992.
+R.~Smith, S.~Forrest, and A.~Perelson, ``Searching for diverse, cooperative
+  populations with genetic algorithms,'' {\em Evolutionary Computation},
+  vol.~1, pp.~127--149, 1992.
 
 \bibitem{mckay00}
-R.~I. McKay.
-\newblock Fitness sharing in genetic programming.
-\newblock In {\em Proceedings of the Genetic and Evolutionary Computation
-  Conference}, pages 435--442. Morgan Kaufmann, 2000.
+R.~I. McKay, ``Fitness sharing in genetic programming,'' in {\em Proceedings of
+  the Genetic and Evolutionary Computation Conference}, pp.~435--442, Morgan
+  Kaufmann, 2000.
 
 \bibitem{unicorn}
-Nguyen~Anh Quynh and Dang~Hoang Vu.
-\newblock Unicorn cpu emulator framework.
-\newblock http//www.unicorn-engine.org/, 2015--2018.
+N.~A. Quynh and D.~H. Vu, ``Unicorn cpu emulator framework.''
+  http//www.unicorn-engine.org/, 2015--2018.
 
 \bibitem{nguyen15}
-Nguyen~Anh Quynh and Dang~Hoang Vu.
-\newblock Unicorn: Next generation cpu emulator framework.
-\newblock http//www.unicorn-engine.org/BHUSA2015-unicorn.pdf, 2015.
+N.~A. Quynh and D.~H. Vu, ``Unicorn: Next generation cpu emulator framework.''
+  http//www.unicorn-engine.org/BHUSA2015-unicorn.pdf, 2015.
 
 \bibitem{wu08}
-Hongjun Wu.
-\newblock {\em The Stream Cipher HC-128}.
-\newblock Lecture Notes in Computer Science. Springer Berlin Heidelberg, 2008.
+H.~Wu, {\em The Stream Cipher HC-128}.
+\newblock Lecture Notes in Computer Science, Springer Berlin Heidelberg, 2008.
 
 \bibitem{tomato-RT-N18U}
-tomato-rt-n18u binary firmware blob.
+``tomato-rt-n18u binary firmware blob.''
 \newblock Version 3.5-140.
 
 \bibitem{iris}
-R.A. Fisher.
-\newblock Iris plants database.
+R.~Fisher, ``Iris plants database.''
 
 \bibitem{fraser17_gecco}
-Olivia~Lucca Fraser, Nur Zincir-Heywood, Malcolm Heywood, and John~T. Jacobs.
-\newblock Return-oriented programme evolution with roper: A proof of concept.
-\newblock In {\em Proceedings of the Genetic and Evolutionary Computation
-  Conference Companion}, GECCO '17, pages 1447--1454, New York, NY, USA, 2017.
-  ACM.
+O.~L. Fraser, N.~Zincir-Heywood, M.~Heywood, and J.~T. Jacobs,
+  ``Return-oriented programme evolution with roper: A proof of concept,'' in
+  {\em Proceedings of the Genetic and Evolutionary Computation Conference
+  Companion}, GECCO '17, (New York, NY, USA), pp.~1447--1454, ACM, 2017.
 
 \bibitem{fraser17_atlseccon}
-Olivia~Lucca Fraser.
-\newblock Return oriented programme evolution with roper.
-\newblock Atlantic Security Conference (AtlSecCon), 2017.
+O.~L. Fraser, ``Return oriented programme evolution with roper.'' Atlantic
+  Security Conference (AtlSecCon), 2017.
 
 \bibitem{haldane49}
-J.B.S. Haldane.
-\newblock Disease and evolution.
-\newblock {\em La ricerca scientifica Suppl.}, 19(68).
+J.~Haldane, ``Disease and evolution,'' {\em La ricerca scientifica Suppl.},
+  vol.~19, no.~68.
 
 \bibitem{lehman18}
-Joel Lehman, Jeff Clune, Dusan Misevic, Christoph Adami, Julie Beaulieu,
-  Peter~J. Bentley, Samuel Bernard, Guillaume Belson, David~M. Bryson, Nick
-  Cheney, Antoine Cully, Stephane Donciuex, Fred~C. Dyer, Kai~Olav Ellefsen,
-  Robert Feldt, Stephan Fischer, Stephanie Forrest, Antoine Fr{\'e}noy,
-  Christian Gagne{\'e}, Leni~Le Goff, Laura~M. Grabowski, Babak Hodjat, Laurent
-  Keller, Carole Knibbe, Peter Krcah, Richard~E. Lenski, Hod Lipson, Robert
-  MacCurdy, Carlos Maestre, Risto Miikkulainen, Sara Mitri, David~E. Moriarty,
-  Jean-Baptiste Mouret, Anh Nguyen, Charles Ofria, Marc Parizeau, David
-  Parsons, Robert~T. Pennock, William~F. Punch, Thomas~S. Ray, Marc Schoenauer,
-  Eric Shulte, Karl Sims, Kenneth~O. Stanley, Fran{\c{c}}ois Taddei, Danesh
-  Tarapore, Simon Thibault, Westley Weimer, Richard Watson, and Jason Yosinksi.
-\newblock The surprising creativity of digital evolution: A collection of
-  anecdotes from the evolutionary computation and artificial life research
-  communities.
-\newblock {\em CoRR}, 2018.
+J.~Lehman, J.~Clune, D.~Misevic, C.~Adami, J.~Beaulieu, P.~J. Bentley,
+  S.~Bernard, G.~Belson, D.~M. Bryson, N.~Cheney, A.~Cully, S.~Donciuex, F.~C.
+  Dyer, K.~O. Ellefsen, R.~Feldt, S.~Fischer, S.~Forrest, A.~Fr{\'e}noy,
+  C.~Gagne{\'e}, L.~L. Goff, L.~M. Grabowski, B.~Hodjat, L.~Keller, C.~Knibbe,
+  P.~Krcah, R.~E. Lenski, H.~Lipson, R.~MacCurdy, C.~Maestre, R.~Miikkulainen,
+  S.~Mitri, D.~E. Moriarty, J.-B. Mouret, A.~Nguyen, C.~Ofria, M.~Parizeau,
+  D.~Parsons, R.~T. Pennock, W.~F. Punch, T.~S. Ray, M.~Schoenauer, E.~Shulte,
+  K.~Sims, K.~O. Stanley, F.~Taddei, D.~Tarapore, S.~Thibault, W.~Weimer,
+  R.~Watson, and J.~Yosinksi, ``The surprising creativity of digital evolution:
+  A collection of anecdotes from the evolutionary computation and artificial
+  life research communities,'' {\em CoRR}, 2018.
 
 \bibitem{snakefight}
-Luke Burns.
-\newblock Faq: The "snake fight" portion of your thesis defense.
+L.~Burns, ``Faq: The "snake fight" portion of your thesis defense.''
 
 \bibitem{dawkins99}
-R.~Dawkins.
-\newblock {\em The Extended Phenotype: The Long Reach of the Gene}.
+R.~Dawkins, {\em The Extended Phenotype: The Long Reach of the Gene}.
 \newblock Oxford University Press, 1999.
 
 \bibitem{nordin95}
-Frank~Francone Peter~Nordin and Wolfgang Banzhaf.
-\newblock Explicitly defined introns and destructive crossover in genetic
-  programming, 1995.
+F.~F. Peter~Nordin and W.~Banzhaf, ``Explicitly defined introns and destructive
+  crossover in genetic programming,'' 1995.
 
 \bibitem{brameier07}
-M.~Brameier and W.~Banzhaf.
-\newblock {\em Linear Genetic Programming}.
+M.~Brameier and W.~Banzhaf, {\em Linear Genetic Programming}.
 \newblock Springer, 2007.
 
 \bibitem{pocorgtfo}
-International journal of proof-of-concept or get the fuck out (poc||gtfo), 2013
-  -- 2017.
+``International journal of proof-of-concept or get the fuck out (poc||gtfo),''
+  2013 -- 2017.
 
 \bibitem{arm_abi}
-ARM\textregistered.
-\newblock Procedure call standard for the \textsc{ARM}\textregistered{}
-  architecture, 2015.
+ARM\textregistered, ``Procedure call standard for the
+  \textsc{ARM}\textregistered{} architecture,'' 2015.
 \newblock Document number: ARM IHI 0042F, current through ABI release 2.0.
 
 \bibitem{nordin99}
-Wolfgang~Banzhaf Peter~Nordin and Frank~D. Francone.
-\newblock Efficient evolution of machine code for \textsc{cisc} architectures
-  using instruction blocks and homologous crossover, 1999.
+W.~B. Peter~Nordin and F.~D. Francone, ``Efficient evolution of machine code
+  for \textsc{cisc} architectures using instruction blocks and homologous
+  crossover,'' 1999.
 
 \end{thebibliography}
