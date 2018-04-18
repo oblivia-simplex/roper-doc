@@ -2281,14 +2281,12 @@ he fitness landscape, as a whole, becomes elastic.
     Every time an individual responds to the problem, its (its fitness assessment
     for that particular problem) score is pushed into its =predifficulty= vector.
 
- 3. after a one "season" of tournaments has elapsed, where the length $N$ 
+ 3. after a one "season" of tournaments has elapsed -- where the length $N$ 
     of a season is defined as
     $$N \gets \frac{\texttt{population\_size}}{\texttt{tournament\_size} * (1 - x)}$$
     where $x$ is the probability of "headless chicken crossover" (cf. Algorithm
-    \ref{alg:headless}), we iterate through the problem set[fn:: 
-  The exemplars in the dataset being classified, for instance -- though this approach /should/ be extendable to other types of problem sets as well.
-]. The
-    problem $e$'s =difficulty= field is set to the mean of the predifficulty
+    \ref{alg:headless}), we iterate through the problem set. 
+    Each problem $e$'s =difficulty= field is set to the mean of the predifficulty
     vector. More difficult problems, at this point, are associated with a higher
     difficulty score, which is always a float between 0.0 and 1.0. 
 
@@ -2326,7 +2324,7 @@ he fitness landscape, as a whole, becomes elastic.
  into "islands" or "demes", with rarefied points of contact, and the occasional use of 
  "headless chicken crossover" as ongoing supply of novelty to the gene pool.
 
-***** Islands in the Bitstream
+***** Islands
  The mechanism used to isolate \gls{roper}'s subpopulation or "demes" is extremely simple:
  when we go to select our candidates for each tournament, we do so by choosing 
  $n$ random indices $\vec{i}$ into the general population array, but each time we
