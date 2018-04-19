@@ -2465,8 +2465,8 @@ would bring with it a prohibitive amount of overhead. I needed something
 that would let me evaluate thousands upon thousands of individuals within
 a reasonable timeframe. 
 
-Unicorn, which its authors describe as, "a lightweight multi-platform,
-multi-architecture gls:cpu emulator framework", exposes the gls:cpu
+Unicorn, which its authors describe as, "a lightweight, multi-platform,
+multi-architecture CPU emulator framework", exposes the gls:cpu
 emulation logic of gls:qemu, while abstracting away from gls:io devices and any
 interface with the operating system, along with all their associated overhead.
 The machine state of the emulator remains transparent, and is easily
@@ -2495,7 +2495,7 @@ the evolutionary process occurs. Setting up this environment is the first
 task of the engine, and it proceeds as follows.
 
 It begins by parsing and analysing the target binary -- either a standalone
-executable, or a shared library file. [fn:: Or, in principle, any region of
+executable, or a shared library file.[fn:: Or, in principle, any region of
 executable memory. I am planning to have ROPER handle core dumps, for instance]   Gls:roper is currently 
 only prepared to handle gls:elf binaries targetting 32-bit, little-endian
 gls:arm architectures, and though there's no /essential/ reason for any of these
