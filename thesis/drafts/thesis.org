@@ -4,6 +4,7 @@
 
 #+LATEX_CLASS: dalthesis
 #+LATEX_CLASS_OPTIONS: [12pt,glossary]
+# add options: twosided,openright for twosided publication version
 #+LATEX_HEADER: \input{header}
 #+LATEX: \input{frontmatter}
 
@@ -624,7 +625,7 @@ the one developed by PSHAPE's author, ROPocop.[fn::
   breaking as an explicit fitness goal, gls:roper deftly subverts the most
   common gls:rop detection heuristics -- /long sequences of short basic blocks/
   are relatively uncommon amongst \gls{roper}'s champions -- and it does this
-  as a sheer evolutionary spandrel effect, without any explicit adaptive advantage.
+  as a sheer evolutionary spandrel effect [[bib:gould79]], without any explicit adaptive advantage.
 ]
 
 ** Prospects for Genetic ROP-chain Crafting
@@ -4723,6 +4724,434 @@ file:../images/plots/iris_with_luxxyn.pdf
 As we can see in figure [[fig:iris_with_luxxyn]], /even the linearly inseparable/ 
 regions of the Iris set were handled intelligently by the champion of this population
 (the /Luxxyn/ population, the last we'll be considering in this thesis). 
+
+
+
+* Appendix: Population Parameters
+
+** Note
+Here, the reader can find a series of tables documenting the critical parameters
+used for each of the populations referred to by name in this thesis. The best source of
+information on how, exactly, these parameters were implemented is the project's
+(admittedly rather hairy) source code, at
+\url{https://github.com/oblivia-simplex/roper}. The mutation rate, in each case,
+is just the complement of "crossover rate", since each reproduction event
+consisted in /either/ mating with crossover, or cloning with mutation. (This
+does not hold for the 2017 populations, /Poclux/, /Cazmud/ and /Ragweb/,
+however. In those runs, crossover was used in every reproduction event, and
+mutation was applied with the probability specified in "mutation rate". Numerous
+differences in implementation also separate those experiments from the ones
+conducted more recently. For details, please consult the git repository.)
+
+The MD5 hash of the =tomato-RT-N18U-httpd= binary used in this series of
+experiments is =16d38a233b45bab5b57476c11b066cfa=.
+
+** Parameter Tables
+#+CAPTION: Parameters of the /Cazmud/ population, 2017/03/26.
+#+ATTR_LATEX: :float t
+| binary                | tomato-RT-N18U-httpd |
+| brood size            |                    2 |
+| fitness goal          |                  0.1 |
+| fitness sharing       |                false |
+| headless chicken rate |                 0.15 |
+| input registers       |         [0, 1, 2, 3] |
+| maximum length        |                  256 |
+| maximum start length  |                   32 |
+| migration             |                 0.05 |
+| minimum start length  |                    2 |
+| mutation rate         |                  0.9 |
+| number of demes       |                    4 |
+| output registers      |            [4, 5, 6] |
+| population size       |                 2048 |
+| threads               |                    8 |
+| tournament size       |                    4 |
+| use fragility         |                false |
+| use return counter    |                false |
+
+#+CAPTION: Parameters of the /Fimjek/ population, 2018/04/02.
+#+ATTR_LATEX: :float t
+| binary                    | tomato-RT-N18U-httpd |
+| brood size                |                    2 |
+| crossover rate            |                  0.2 |
+| edi toggle rate           |                    0 |
+| fitness goal                  |                  0.1 |
+| fitness sharing           |                 true |
+| headless chicken rate     |                 0.15 |
+| initial edi rate          |                    0 |
+| input registers           |         [0, 1, 2, 3] |
+| maximum length            |                  256 |
+| maximum start length      |                   32 |
+| migration                 |                 0.05 |
+| minimum start length      |                    2 |
+| number of demes           |                    4 |
+| output registers          |            [4, 5, 6] |
+| population size           |                 2048 |
+| threads                   |                    4 |
+| tournament size           |                    4 |
+| use dynamic crash penalty |                 true |
+| use fragility             |                false |
+
+#+CAPTION: Parameters of the /Fizwej/ population, 2018/04/09.
+#+ATTR_LATEX: :float t
+| binary                    | tomato-RT-N18U-httpd |
+| brood size                |                    2 |
+| crash penalty             |                  0.5 |
+| crossover rate            |                  0.5 |
+| edi toggle rate           |                    0 |
+| fitness goal                  |                    0 |
+| fitness sharing           |                false |
+| headless chicken rate     |                 0.15 |
+| initial edi rate          |                    0 |
+| input registers           |               [2, 3] |
+| maximum length            |                  256 |
+| maximum start length      |                   32 |
+| migration                 |                 0.05 |
+| minimum start length      |                    2 |
+| number of demes           |                    4 |
+| output registers          |               [0, 1] |
+| population size           |                 2048 |
+| threads                   |                    4 |
+| tournament size           |                    4 |
+| use dynamic crash penalty |                false |
+| use fragility             |                 true |
+
+#+CAPTION: Parameters of the /Hepfap/ population, 2018/04/01.
+#+ATTR_LATEX: :float t
+| binary                    | tomato-RT-N18U-httpd |
+| brood size                |                    2 |
+| crossover rate            |                  0.2 |
+| edi toggle rate           |                    0 |
+| fitness goal                  |                  0.1 |
+| fitness sharing           |                 true |
+| headless chicken rate     |                 0.15 |
+| initial edi rate          |                    0 |
+| input registers           |         [0, 1, 2, 3] |
+| maximum length            |                  256 |
+| maximum start length      |                   32 |
+| migration                 |                 0.05 |
+| minimum start length      |                    2 |
+| number of demes           |                    4 |
+| output registers          |            [4, 5, 6] |
+| population size           |                 2048 |
+| threads                   |                    4 |
+| tournament size           |                    4 |
+| use dynamic crash penalty |                 true |
+| use fragility             |                false |
+
+#+CAPTION: Parameters of the /Kathot/ population, 2018/04/09.
+#+ATTR_LATEX: :float t
+| population size           |                 2048 |
+| crossover rate            |                  0.5 |
+| tournament size           |                    4 |
+| brood size                |                    2 |
+| minimum start length      |                    2 |
+| maximum start length      |                   32 |
+| maximum length            |                  256 |
+| fitness goal                  |                    0 |
+| headless chicken rate     |                 0.15 |
+| threads                   |                    4 |
+| number of demes           |                    1 |
+| migration                 |                 0.05 |
+| use fragility             |                 true |
+| output registers          |               [2, 3] |
+| input registers           |               [0, 1] |
+| binary                    | tomato-RT-N18U-httpd |
+| fitness sharing           |                 true |
+| edi toggle rate           |                    0 |
+| initial edi rate          |                    0 |
+| crash penalty             |                 0.75 |
+| use dynamic crash penalty |                false |
+
+#+CAPTION: Parameters of the /Kurlig/ population, 2018/04/10.
+#+ATTR_LATEX: :float t
+| binary                    |                                   tomato-RT-N18U-httpd |
+| brood size                |                                                      2 |
+| crash penalty             |                                                      0 |
+| crossover rate            |                                                    0.5 |
+| edi toggle rate           |                                                      0 |
+| fitness goal                  |                                                      0 |
+| fitness sharing           |                                                  false |
+| headless chicken rate     |                                                   0.15 |
+| initial edi rate          |                                                      0 |
+| maximum length            |                                                    256 |
+| maximum start length      |                                                     32 |
+| migration                 |                                                   0.05 |
+| minimum start length      |                                                      2 |
+| number of demes           |                                                      4 |
+| population size           |                                                   2048 |
+| threads                   |                                                      4 |
+| tournament size           |                                                      4 |
+| use dynamic crash penalty |                                                  false |
+| use fragility             |                                                   true |
+
+#+CAPTION: Parameters of the /Luxxyn/ population, 2018/04/16.
+#+ATTR_LATEX: :float t
+| binary                |             tomato-RT-N18U-httpd |
+| brood size            |                                2 |
+| class masks           | 98694840:0 2282b112:1 0514062d:2 |
+| crash penalty         |                              0.5 |
+| crossover rate        |                              0.5 |
+| edi toggle rate       |                              0.3 |
+| fitness goal              |                             0.15 |
+| fitness sharing       |                             true |
+| headless chicken rate |                             0.15 |
+| homologous crossover  |                             true |
+| initial edi rate      |                              0.1 |
+| input registers       |                     [3, 4, 5, 6] |
+| maximum length        |                              256 |
+| maximum start length  |                               32 |
+| migration             |                             0.05 |
+| minimum start length  |                                2 |
+| number of demes       |                                4 |
+| output registers      |                              [0] |
+| population size       |                             2048 |
+| threads               |                                6 |
+| tournament size       |                                4 |
+| ttl                   |                            64000 |
+
+
+#+CAPTION: Parameters of the /Misjax/ population, 2017/04/20.
+#+ATTR_LATEX: :float t
+| binary path          |  tomato-RT-N18U-httpd |
+| crossover rate       |                   0.3 |
+| population size      |                  4096 |
+| threads              |                     1 |
+| tournament size      |                     5 |
+| number of demes      |                     4 |
+| migration            |                  0.05 |
+| game seeds           | randomized and unique |
+| game board radius    |                     9 |
+| initial snake length |                     5 |
+| number of apples     |                     2 |
+| number of cacti      |                     2 |
+
+
+#+CAPTION: Parameters of the /Poclux/ population, 2017/03/22.
+#+ATTR_LATEX: :float t
+| binary path           |                               tomato-RT-N18U-httpd |
+| brood size            |                                                  2 |
+| fitness goal          |                                                  0 |
+| headless chicken rate |                                               0.15 |
+| maximum length        |                                                256 |
+| maximum start length  |                                                 32 |
+| migration             |                                                0.1 |
+| minimum start length  |                                                  2 |
+| mutation rate         |                                               0.45 |
+| number of demes       |                                                  4 |
+| population size       |                                               1024 |
+| threads               |                                                  8 |
+| tournament size       |                                                  4 |
+| use fragility         |                                               true |
+
+#+CAPTION: Parameters of the /Ragweb/ population, 2017/03/26.
+#+ATTR_LATEX: :float t
+| binary                | tomato-RT-N18U-httpd |
+| brood size            |                    2 |
+| fatal crash           |                false |
+| fitness goal          |                  0.1 |
+| fitness sharing       |                 true |
+| headless chicken rate |                 0.15 |
+| input registers       |         [0, 1, 2, 3] |
+| maximum length        |                  256 |
+| maximum start length  |                   32 |
+| migration             |                 0.05 |
+| minimum start length  |                    2 |
+| mutation rate         |                 0.45 |
+| number of demes       |                    1 |
+| output registers      |            [4, 5, 6] |
+| population size       |                 2048 |
+| threads               |                    4 |
+| tournament size       |                    4 |
+| use fragility         |                 true |
+| use return counter    |                false |
+
+
+
+#+CAPTION: Parameters of the /Rofted/ population, 2018/04/04.
+#+ATTR_LATEX: :float t
+| binary                |                               tomato-RT-N18U-httpd |
+| brood size            |                                                  2 |
+| crossover rate        |                                                0.2 |
+| edi toggle rate       |                                               0.05 |
+| fitness goal              |                                                  0 |
+| fitness sharing       |                                              false |
+| headless chicken rate |                                               0.15 |
+| initial edi rate      |                                                0.1 |
+| input registers       |                                       [1, 2, 3, 4] |
+| maximum length        |                                                256 |
+| maximum start length  |                                                 32 |
+| migration             |                                               0.05 |
+| minimum start length  |                                                  2 |
+| number of demes       |                                                  4 |
+| population size       |                                               2048 |
+| threads               |                                                  4 |
+| tournament size       |                                                  4 |
+| use fragility         |                                               true |
+
+#+CAPTION: Parameters of the /Simtyn/ population, 2018/04/04.
+#+ATTR_LATEX: :float t
+| binary                    |                               tomato-RT-N18U-httpd |
+| brood size                |                                                  2 |
+| crossover rate            |                                                0.2 |
+| edi toggle rate           |                                                  0 |
+| fitness goal                  |                                                  0 |
+| fitness sharing           |                                              false |
+| headless chicken rate     |                                               0.15 |
+| initial edi rate          |                                                  0 |
+| input registers           |                                       [1, 2, 3, 4] |
+| maximum length            |                                                256 |
+| maximum start length      |                                                 32 |
+| migration                 |                                               0.05 |
+| minimum start length      |                                                  2 |
+| number of demes           |                                                  4 |
+| population size           |                                               2048 |
+| threads                   |                                                  4 |
+| tournament size           |                                                  4 |
+| use dynamic crash penalty |                                               true |
+| use fragility             |                                               true |
+
+#+CAPTION: Parameters of the /Soghuf/ population, 2018/04/05.
+#+ATTR_LATEX: :float t
+| binary                    |                               tomato-RT-N18U-httpd |
+| brood size                |                                                  2 |
+| crash penalty             |                                                0.2 |
+| crossover rate            |                                                0.5 |
+| headless chicken rate     |                                               0.15 |
+| edi toggle rate           |                                                0.3 |
+| fitness goal                  |                                                  0 |
+| fitness sharing           |                                               true |
+| homologous crossover      |                                              false |
+| initial edi rate          |                                                0.1 |
+| input registers           |                                       [1, 2, 3, 4] |
+| maximum length            |                                                256 |
+| maximum start length      |                                                 32 |
+| migration                 |                                               0.05 |
+| minimum start length      |                                                  2 |
+| number of demes           |                                                  4 |
+| population size           |                                               2048 |
+| tournament size           |                                                  4 |
+| ttl                       |                                                 16 |
+| threads                   |                                                  4 |
+| use dynamic crash penalty |                                               true |
+| use fragility             |                                               true |
+
+#+CAPTION: Parameters of the /Wiwzuh/ population, 2018/04/07.
+#+ATTR_LATEX: :float t
+| binary                    |                               tomato-RT-N18U-httpd |
+| brood size                |                                                  2 |
+| crossover rate            |                                                0.2 |
+| edi toggle rate           |                                                  0 |
+| fitness goal                  |                                                  0 |
+| fitness sharing           |                                              false |
+| headless chicken rate     |                                               0.15 |
+| initial edi rate          |                                                  0 |
+| input registers           |                                       [1, 2, 3, 4] |
+| maximum length            |                                                256 |
+| maximum start length      |                                                 32 |
+| migration                 |                                               0.05 |
+| minimum start length      |                                                  2 |
+| number of demes           |                                                  4 |
+| population size           |                                               2048 |
+| threads                   |                                                  4 |
+| tournament size           |                                                  4 |
+| use fragility             |                                               true |
+| use dynamic crash penalty |                                               true |
+
+#+CAPTION: Parameters of the /Xeqcyv/ population, 2018/04/10.
+#+ATTR_LATEX: :float t
+| binary                    |                                   tomato-RT-N18U-httpd |
+| brood size                |                                                      2 |
+| crash penalty             |                                                    0.2 |
+| crossover rate            |                                                    0.5 |
+| edi toggle rate           |                                                      0 |
+| fitness goal                  |                                                      0 |
+| fitness sharing           |                                                   true |
+| headless chicken rate     |                                                   0.15 |
+| initial edi rate          |                                                      0 |
+| maximum length            |                                                    256 |
+| maximum start length      |                                                     32 |
+| migration                 |                                                   0.05 |
+| minimum start length      |                                                      2 |
+| number of demes           |                                                      4 |
+| population size           |                                                   2048 |
+| threads                   |                                                      1 |
+| tournament size           |                                                      4 |
+| use dynamic crash penalty |                                                  false |
+| use fragility             |                                                   true |
+
+#+CAPTION: Parameters of the /Xilvyb/ population, 2018/04/16.
+#+ATTR_LATEX: :float t
+| binary                    | tomato-RT-N18U-httpd |
+| brood size                |                    2 |
+| crash penalty             |                    1 |
+| crossover rate            |                  0.5 |
+| headless chicken rate     |                 0.15 |
+| edi toggle rate           |                  0.3 |
+| fitness goal                  |                    0 |
+| fitness sharing           |                 true |
+| homologous crossover      |                false |
+| initial edi rate          |                  0.1 |
+| input registers           |               [2, 3] |
+| maximum length            |                  256 |
+| maximum start length      |                   32 |
+| migration                 |                 0.05 |
+| minimum start length      |                    2 |
+| number of demes           |                    4 |
+| output registers          |               [0, 1] |
+| population size           |                 2048 |
+| tournament size           |                    4 |
+| ttl                       |                   16 |
+| threads                   |                    4 |
+| use dynamic crash penalty |                 true |
+| use fragility             |                 true |
+
+#+CAPTION: Parameters of the /Xufmoc/ population, 2018/04/03.
+#+ATTR_LATEX: :float t
+| binary                    |                               tomato-RT-N18U-httpd |
+| brood size                |                                                  2 |
+| crossover rate            |                                                0.2 |
+| edi toggle rate           |                                                  0 |
+| fitness goal                  |                                                  0 |
+| fitness sharing           |                                              false |
+| headless chicken rate     |                                               0.15 |
+| initial edi rate          |                                                  0 |
+| input registers           |                                       [1, 2, 3, 4] |
+| maximum length            |                                                256 |
+| maximum start length      |                                                 32 |
+| migration                 |                                               0.05 |
+| minimum start length      |                                                  2 |
+| number of demes           |                                                  4 |
+| population size           |                                               2048 |
+| threads                   |                                                  4 |
+| tournament size           |                                                  4 |
+| use dynamic crash penalty |                                               true |
+| use fragility             |                                               true |
+
+#+CAPTION: Parameters of the /Xysxim/ population, 2018/04/13.
+#+ATTR_LATEX: :float t
+| binary                    | tomato-RT-N18U-httpd |
+| brood size                |                    2 |
+| class masks               |  (random; data lost) |
+| crash penalty             |                    1 |
+| crossover rate            |                  0.5 |
+| edi toggle rate           |                    0 |
+| fitness goal              |                    0 |
+| fitness sharing           |                 true |
+| headless chicken rate     |                 0.15 |
+| initial edi rate          |                    0 |
+| input registers           |               [2, 3] |
+| maximum length            |                  256 |
+| maximum start length      |                   32 |
+| migration                 |                 0.05 |
+| minimum start length      |                    2 |
+| number of demes           |                    4 |
+| output registers          |                  [0] |
+| population size           |                 2048 |
+| threads                   |                    4 |
+| tournament size           |                    4 |
+| use dynamic crash penalty |                false |
+| use fragility             |                 true |
+
 
 
 #+LATEX: \input{footer}

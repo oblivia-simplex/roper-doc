@@ -36,6 +36,12 @@ A.~Bittau, A.~Belay, A.~Mashtizadah, D.~Mazieres, and D.~Boneh, ``Hacking
 A.~Follner, {\em On Generating Gadget Chains for Return-Oriented Programming}.
 \newblock PhD thesis, Technischen Universit\"at Darmstadt, 2017.
 
+\bibitem{gould79}
+S.~J. Gould and R.~C. Lewontin, ``The spandrels of {S}an {M}arco and the
+  {P}anglossian paradigm: A critique of the adaptionist programme,'' {\em
+  Proceedings of the Royal Society of London, Series B: Biological Sciences},
+  vol.~205, no.~1161.
+
 \bibitem{kayacik10}
 H.~Kayac\i{}k, N.~Zincir-Heywood, and M.~Heywood, ``Can a good offense be a
   good defense? vulnerability testing of anomaly detectors through an

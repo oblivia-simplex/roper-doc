@@ -1043,7 +1043,7 @@
     \fi}
 \newcommand{\ackname}{Acknowledgements}
 \newenvironment{acknowledgements}%
-   {\prefacesection{\ackname}}
+   {\prefacesection{\ackname}\linespread{1.1}\normalsize}
    {\vfil}
 \let\acknowledgments\acknowledgements
 \let\endacknowledgments\endacknowledgements
