@@ -3,7 +3,7 @@
 #+LINK: bib rtcite:~/org/bibliography.bib::%s
 
 #+LATEX_CLASS: dalthesis
-#+LATEX_CLASS_OPTIONS: [12pt,glossary,twosided,openright]
+#+LATEX_CLASS_OPTIONS: [12pt,glossary,twoside,openright]
 # add options: twosided,openright for twosided publication version 
 #+LATEX_HEADER: \input{header}
 #+LATEX: \input{frontmatter}

@@ -1,9 +1,9 @@
 \baselineskip =0.7\baselineskip 
-\contentsline {algorithm}{\numberline {1}{\ignorespaces Population Initialization}}{33}{algorithm.1}
-\contentsline {algorithm}{\numberline {2}{\ignorespaces Genotype Evaluation (Ontogenesis)}}{35}{algorithm.2}
-\contentsline {algorithm}{\numberline {3}{\ignorespaces Evolve Population (Tournament Selection)}}{36}{algorithm.3}
-\contentsline {algorithm}{\numberline {4}{\ignorespaces Linear sweep algorithm for gadget extraction.}}{42}{algorithm.4}
-\contentsline {algorithm}{\numberline {5}{\ignorespaces Spawning an Initial Individual}}{47}{algorithm.5}
-\contentsline {algorithm}{\numberline {6}{\ignorespaces Single-Point Crossover, with Fragility}}{51}{algorithm.6}
-\contentsline {algorithm}{\numberline {7}{\ignorespaces Headless Chicken Patch}}{63}{algorithm.7}
-\contentsline {algorithm}{\numberline {8}{\ignorespaces Quasi-homologous Crossver, using Return Address Alignment}}{129}{algorithm.8}
+\contentsline {algorithm}{\numberline {1}{\ignorespaces Population Initialization}}{34}{algorithm.1}
+\contentsline {algorithm}{\numberline {2}{\ignorespaces Genotype Evaluation (Ontogenesis)}}{36}{algorithm.2}
+\contentsline {algorithm}{\numberline {3}{\ignorespaces Evolve Population (Tournament Selection)}}{37}{algorithm.3}
+\contentsline {algorithm}{\numberline {4}{\ignorespaces Linear sweep algorithm for gadget extraction.}}{43}{algorithm.4}
+\contentsline {algorithm}{\numberline {5}{\ignorespaces Spawning an Initial Individual}}{48}{algorithm.5}
+\contentsline {algorithm}{\numberline {6}{\ignorespaces Single-Point Crossover, with Fragility}}{52}{algorithm.6}
+\contentsline {algorithm}{\numberline {7}{\ignorespaces Headless Chicken Patch}}{64}{algorithm.7}
+\contentsline {algorithm}{\numberline {8}{\ignorespaces Quasi-homologous Crossver, using Return Address Alignment}}{131}{algorithm.8}

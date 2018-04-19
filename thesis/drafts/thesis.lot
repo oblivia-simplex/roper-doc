@@ -3,30 +3,30 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {4.1}{\ignorespaces Program Headers of a Typical ELF Executable}}{44}{table.4.1}
+\contentsline {table}{\numberline {4.1}{\ignorespaces Program Headers of a Typical ELF Executable}}{45}{table.4.1}
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces A perfected \texttt {execv()} payload on \texttt {tomato-RT-N18U-httpd}, from the \emph {Wiwzuh} population, generation 17.}}{82}{table.5.1}
-\contentsline {table}{\numberline {5.2}{\ignorespaces Execution trace of a chain that generates the register pattern required for a call to \texttt {execv("/bin/sh", ["/bin/sh"], NULL)} in \texttt {tomato-RT-N18U-httpd}, by modifying its own call stack and executing numerous "stray" or "extended" gadgets, in the \emph {Poclux} population. Modifications to the gadget stack are in red, jumps are in violet, and completion of target \gls {cpu} pattern is in blue. Free branches are separated by blank lines. The final instruction jumps to the designated stop address, \texttt {0x00000000}.}}{105}{table.5.2}
+\contentsline {table}{\numberline {5.1}{\ignorespaces A perfected \texttt {execv()} payload on \texttt {tomato-RT-N18U-httpd}, from the \emph {Wiwzuh} population, generation 17.}}{83}{table.5.1}
+\contentsline {table}{\numberline {5.2}{\ignorespaces Execution trace of a chain that generates the register pattern required for a call to \texttt {execv("/bin/sh", ["/bin/sh"], NULL)} in \texttt {tomato-RT-N18U-httpd}, by modifying its own call stack and executing numerous "stray" or "extended" gadgets, in the \emph {Poclux} population. Modifications to the gadget stack are in red, jumps are in violet, and completion of target \gls {cpu} pattern is in blue. Free branches are separated by blank lines. The final instruction jumps to the designated stop address, \texttt {0x00000000}.}}{106}{table.5.2}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {A.1}{\ignorespaces Behaviour of the champion of the \emph {Xysxim} population, for a member of the red class. Input registers are \texttt {r2} and \texttt {r3}.}}{124}{table.A.1}
-\contentsline {table}{\numberline {A.2}{\ignorespaces Behaviour of the champion of the \emph {Xysxim} population, for a member of the blue class. Input registers are \texttt {r2} and \texttt {r3}.}}{125}{table.A.2}
+\contentsline {table}{\numberline {A.1}{\ignorespaces Behaviour of the champion of the \emph {Xysxim} population, for a member of the red class. Input registers are \texttt {r2} and \texttt {r3}.}}{126}{table.A.1}
+\contentsline {table}{\numberline {A.2}{\ignorespaces Behaviour of the champion of the \emph {Xysxim} population, for a member of the blue class. Input registers are \texttt {r2} and \texttt {r3}.}}{127}{table.A.2}
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {B.1}{\ignorespaces Parameters of the \emph {Cazmud} population, 2017/03/26.}}{139}{table.B.1}
-\contentsline {table}{\numberline {B.2}{\ignorespaces Parameters of the \emph {Fimjek} population, 2018/04/02.}}{140}{table.B.2}
-\contentsline {table}{\numberline {B.3}{\ignorespaces Parameters of the \emph {Fizwej} population, 2018/04/09.}}{141}{table.B.3}
-\contentsline {table}{\numberline {B.4}{\ignorespaces Parameters of the \emph {Hepfap} population, 2018/04/01.}}{142}{table.B.4}
-\contentsline {table}{\numberline {B.5}{\ignorespaces Parameters of the \emph {Kathot} population, 2018/04/09.}}{143}{table.B.5}
-\contentsline {table}{\numberline {B.6}{\ignorespaces Parameters of the \emph {Kurlig} population, 2018/04/10.}}{143}{table.B.6}
-\contentsline {table}{\numberline {B.7}{\ignorespaces Parameters of the \emph {Luxxyn} population, 2018/04/16.}}{144}{table.B.7}
-\contentsline {table}{\numberline {B.8}{\ignorespaces Parameters of the \emph {Misjax} population, 2017/04/20.}}{144}{table.B.8}
-\contentsline {table}{\numberline {B.9}{\ignorespaces Parameters of the \emph {Poclux} population, 2017/03/22.}}{145}{table.B.9}
-\contentsline {table}{\numberline {B.10}{\ignorespaces Parameters of the \emph {Ragweb} population, 2017/03/26.}}{145}{table.B.10}
-\contentsline {table}{\numberline {B.11}{\ignorespaces Parameters of the \emph {Rofted} population, 2018/04/04.}}{146}{table.B.11}
-\contentsline {table}{\numberline {B.12}{\ignorespaces Parameters of the \emph {Simtyn} population, 2018/04/04.}}{146}{table.B.12}
-\contentsline {table}{\numberline {B.13}{\ignorespaces Parameters of the \emph {Soghuf} population, 2018/04/05.}}{147}{table.B.13}
-\contentsline {table}{\numberline {B.14}{\ignorespaces Parameters of the \emph {Wiwzuh} population, 2018/04/07.}}{148}{table.B.14}
-\contentsline {table}{\numberline {B.15}{\ignorespaces Parameters of the \emph {Xeqcyv} population, 2018/04/10.}}{148}{table.B.15}
-\contentsline {table}{\numberline {B.16}{\ignorespaces Parameters of the \emph {Xilvyb} population, 2018/04/16.}}{149}{table.B.16}
-\contentsline {table}{\numberline {B.17}{\ignorespaces Parameters of the \emph {Xufmoc} population, 2018/04/03.}}{150}{table.B.17}
-\contentsline {table}{\numberline {B.18}{\ignorespaces Parameters of the \emph {Xysxim} population, 2018/04/13.}}{151}{table.B.18}
+\contentsline {table}{\numberline {B.1}{\ignorespaces Parameters of the \emph {Cazmud} population, 2017/03/26.}}{142}{table.B.1}
+\contentsline {table}{\numberline {B.2}{\ignorespaces Parameters of the \emph {Fimjek} population, 2018/04/02.}}{143}{table.B.2}
+\contentsline {table}{\numberline {B.3}{\ignorespaces Parameters of the \emph {Fizwej} population, 2018/04/09.}}{144}{table.B.3}
+\contentsline {table}{\numberline {B.4}{\ignorespaces Parameters of the \emph {Hepfap} population, 2018/04/01.}}{145}{table.B.4}
+\contentsline {table}{\numberline {B.5}{\ignorespaces Parameters of the \emph {Kathot} population, 2018/04/09.}}{146}{table.B.5}
+\contentsline {table}{\numberline {B.6}{\ignorespaces Parameters of the \emph {Kurlig} population, 2018/04/10.}}{146}{table.B.6}
+\contentsline {table}{\numberline {B.7}{\ignorespaces Parameters of the \emph {Luxxyn} population, 2018/04/16.}}{147}{table.B.7}
+\contentsline {table}{\numberline {B.8}{\ignorespaces Parameters of the \emph {Misjax} population, 2017/04/20.}}{147}{table.B.8}
+\contentsline {table}{\numberline {B.9}{\ignorespaces Parameters of the \emph {Poclux} population, 2017/03/22.}}{148}{table.B.9}
+\contentsline {table}{\numberline {B.10}{\ignorespaces Parameters of the \emph {Ragweb} population, 2017/03/26.}}{148}{table.B.10}
+\contentsline {table}{\numberline {B.11}{\ignorespaces Parameters of the \emph {Rofted} population, 2018/04/04.}}{149}{table.B.11}
+\contentsline {table}{\numberline {B.12}{\ignorespaces Parameters of the \emph {Simtyn} population, 2018/04/04.}}{149}{table.B.12}
+\contentsline {table}{\numberline {B.13}{\ignorespaces Parameters of the \emph {Soghuf} population, 2018/04/05.}}{150}{table.B.13}
+\contentsline {table}{\numberline {B.14}{\ignorespaces Parameters of the \emph {Wiwzuh} population, 2018/04/07.}}{151}{table.B.14}
+\contentsline {table}{\numberline {B.15}{\ignorespaces Parameters of the \emph {Xeqcyv} population, 2018/04/10.}}{151}{table.B.15}
+\contentsline {table}{\numberline {B.16}{\ignorespaces Parameters of the \emph {Xilvyb} population, 2018/04/16.}}{152}{table.B.16}
+\contentsline {table}{\numberline {B.17}{\ignorespaces Parameters of the \emph {Xufmoc} population, 2018/04/03.}}{153}{table.B.17}
+\contentsline {table}{\numberline {B.18}{\ignorespaces Parameters of the \emph {Xysxim} population, 2018/04/13.}}{154}{table.B.18}
