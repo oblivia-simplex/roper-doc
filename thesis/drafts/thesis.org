@@ -880,11 +880,11 @@ It is nevertheless evident how close we are to an actual evolutionary process.
 2000: W32.Evol
 :END:
 
-*** 2002: MetaPHOR (W32/Simile, {W32,Linux}/Simile.D, Etap.D)
+*** 2002: MetaPHOR 
 
 In 2002, Mental Driller developed and released a virus that bridged the gulf
 between metamorphic viruses and a new variety of viruses that could be called
-"genetic". MetaPHOR is a highly sophisticated metamorphic virus, capable of
+"genetic". MetaPHOR[fn:: CARO identification: W32/Simile, {W32,Linux}/Simile.D, Etap.D] is a highly sophisticated metamorphic virus, capable of
 infecting binaries on both Linux and Windows platforms. Written entirely in x86
 assembly, it includes its own disassembler, intermediate pseudo-assembly
 language, and assembler, as well as a complex metamorphic and encryption
@@ -2899,11 +2899,11 @@ by the crash penalty.
 **** Arbitrary selection with no crash penalty
 <<sec:null-no-crash-penalty>>
 
-#+CAPTION: Performance metrics over /Kurlig/ population of 2048, evolving under the absurd fitness function. Crash rate and stray address rate map to left vertical axis, while mean genome length and mean instructions executed map to the right.
+#+CAPTION: Performance metrics over \emph{Kurlig}\index{Kurlig} population of 2048, evolving under the absurd fitness function. Crash rate and stray address rate map to left vertical axis, while mean genome length and mean instructions executed map to the right.
 #+NAME: fig:kurlig-kakfa
 file:../images/plots/kurlig_kafka_performance.pdf
     
-#+CAPTION: Address visitation heatmap over the tomato-RT-N18U process memory, by the /Kurlig/ population, evolving under the absurd fitness function with no crash penalty. Season 4 heatmap displayed on the left, season 212 on the right. 
+#+CAPTION: Address visitation heatmap over the tomato-RT-N18U process memory, by the \emph{Kurlig}\index{Kurlig} population, evolving under the absurd fitness function with no crash penalty. Season 4 heatmap displayed on the left, season 212 on the right. 
 #+NAME: fig:kurlig-heatmap
 file:../images/plots/kurlig_heatmap_4_212_montage.pdf
 
@@ -2916,7 +2916,7 @@ course of the run, sampled seasonally. Though not a precise or statistically
 significant representation of behaviour, it does, at least, serve to convey a
 general impression, at let the eye pick out the more obvious skews in distribution. 
 
-In figure [[fig:xeqcyv-heatmap]], we see heatmaps of the the /Xeqcyv/ population's
+In figure [[fig:xeqcyv-heatmap]], we see heatmaps of the the \emph{Xeqcyv}\index{Xeqcyv} population's
 phenotypic distribution sampled at seasons 4 and 212. Qualitatively speaking, the
 two maps appear almost identical. There has been no collapse of phenotypic diversity,
 and the system even gives the impression of being ergodic.[fn::
@@ -2929,7 +2929,7 @@ counteracting the pull of genetic drift.
 **** Arbitrary selection with crash penalty
 <<sec:null-with-crash-penalty>>
 
-#+CAPTION: Performance metrics over /Xeqcyv/ population, evolving under absurd fitness function with crash penalty. Crash rate and stray address rate map to the left vertical axis, while mean genome length and mean instructions executed map to the right. 
+#+CAPTION: Performance metrics over \emph{Xeqcyv}\index{Xeqcyv} population, evolving under absurd fitness function with crash penalty. Crash rate and stray address rate map to the left vertical axis, while mean genome length and mean instructions executed map to the right. 
 #+NAME: fig:xeqcyv-kafka-crash
 file:../images/plots/xeqcyv_kafka_performance.pdf
 
@@ -2941,7 +2941,7 @@ and again at Season 212, showed such little difference that I had to check caref
 to make sure that I had not placed them in the wrong order, in figure
 [[fig:xeqcyv-heatmap]]. 
 
-#+CAPTION: Address-visitation heatmap over the tomato-RT-N18U-httpd process memory, by the /Xeqcyv/ population, under the "Kafkaesque" fitness function: Season 4 on the left, Season 212 on the right. Blue swaths indicate where the harvested gadgets lie, red and magenta swaths indicate addresses visited by creatures in the population in execution.  
+#+CAPTION: Address-visitation heatmap over the tomato-RT-N18U-httpd process memory, by the \emph{Xeqcyv}\index{Xeqcyv} population, under the "Kafkaesque" fitness function: Season 4 on the left, Season 212 on the right. Blue swaths indicate where the harvested gadgets lie, red and magenta swaths indicate addresses visited by creatures in the population in execution.  
 #+NAME: fig:xeqcyv-heatmap
 file:../images/plots/xeqcyv_kafka_heatmap_beginning_end.pdf
 
@@ -2956,7 +2956,7 @@ running code on the gls:cpu. There is no "task" to be completed in this setup,
 after all. Computation, for the creatures of /xeqcyv/ and /kurlig/, it essentially
 vestigal, and rapidly atrophies. And so execution times contracted to as little
 as 4 instructions on average, with much less variation than seen in the
-/Kurlig/ population.
+\emph{Kurlig}\index{Kurlig} population.
 
 *** Preparing an execv() system call in the Tomato web server
 <<sec:syscall-experiment>>
@@ -3009,7 +3009,7 @@ a surprising degree of ruggedness, as we can see in figure [[fig:wiwzuh-landscap
 # to the distribution of gadgets that interact with the registers and memory
 # regions of interest. 
 
-#+CAPTION: Gaussian approximation of the fitness landscape across the population and over evolutionary time, for the /Wiwzuh/ population, evolving ~execv("/tmp/flashXXXXXX", ["/tmp/flashXXXXXX"], NULL)~ syscall gls:rop chains in tomato-RT-N18U-httpd, yielding a specimen with perfect (0.0) fitness.
+#+CAPTION: Gaussian approximation of the fitness landscape across the population and over evolutionary time, for the \emph{Wiwzuh}\index{Wiwzuh} population, evolving ~execv("/tmp/flashXXXXXX", ["/tmp/flashXXXXXX"], NULL)~ syscall gls:rop chains in tomato-RT-N18U-httpd, yielding a specimen with perfect (0.0) fitness.
 #+NAME: fig:wiwzuh-landscape
 [[file:../images/plots/wiwzuh_syscall_gaussian_3.pdf]]
 
@@ -3194,18 +3194,18 @@ misclassified as red.
 #+NAME: fig:two-simple-blobs
 file:../images/plots/2_simple_blobs.png
 
-#+CAPTION: The classification on the data displayed in figure [[fig:two-simple-blobs]] performed by the best specimen in the /Kathot/ population, 35^{th} generation (execution trace inset).
+#+CAPTION: The classification on the data displayed in figure [[fig:two-simple-blobs]] performed by the best specimen in the \emph{Kathot}\index{Kathot} population, 35^{th} generation (execution trace inset).
 #+NAME: fig:kathot-two-blobs
 file:../images/plots/kathot_champion_18916_blobs_disas.pdf
 
-#+CAPTION: Performance profile of /Kathot/ population, with gadgets in tomato-RT-N18U-httpd, on the "two simple blobs" classification problem. 
+#+CAPTION: Performance profile of \emph{Kathot}\index{Kathot} population, with gadgets in tomato-RT-N18U-httpd, on the "two simple blobs" classification problem. 
 #+NAME: fig:kathot-fitness
 file:../images/plots/kathot_fitness.pdf
 
-***** A case study of malignancy in the /Fizwej/ population
+***** A case study of malignancy in the \emph{Fizwej}\index{Fizwej} population
 <<sec:malignant>>
 
-Meanwhile, in the /Fizwej/ population, a genetic strain emerged that had found
+Meanwhile, in the \emph{Fizwej}\index{Fizwej} population, a genetic strain emerged that had found
 a way to classify the simple dataset flawlessly -- or nearly so. Though it 
 had achieved an error rate of 0.0, it terminated its execution, every time, 
 with an instruction that caused the gls:cpu to crash with a write access violation.
@@ -3238,7 +3238,7 @@ from addresses \texttt{0x28000} to \texttt{0x28fff} and from \texttt{0x29000} to
   now, =100= is execute and =001= is read, while =010= is still write. 
 ]
 In the 7289 different specimens recorded
-from the /Fizwej/ population, by the time of its 64^{th} season, that had this
+from the \emph{Fizwej}\index{Fizwej} population, by the time of its 64^{th} season, that had this
 particular gene and that had activated it to achieve a perfect detection rate 
 on "two simple blobs", not a single one had managed to reliably dereference
 =R1= to a writeable address at the time it dispatched that fatal instruction. 
@@ -3263,15 +3263,15 @@ evolutionary dead end.
 |----------------------+----------------------+------------------|
 
 
-#+CAPTION: A genetic union of a harmful phenotypic trait with an advantageous one, in the /Fizwej/ population. As before, gadgets are separated by blank lines.
+#+CAPTION: A genetic union of a harmful phenotypic trait with an advantageous one, in the \emph{Fizwej}\index{Fizwej} population. As before, gadgets are separated by blank lines.
 #+NAME: fig:fizwej-perfect-crash
 file:../images/plots/fizwej_perfect_crash.pdf
 
-#+CAPTION: The evolutionary dead-end of the /Fizwej/ population, with the spread of the "=0000ad04 stmib r1, {r3, sl}=" gene.
+#+CAPTION: The evolutionary dead-end of the \emph{Fizwej}\index{Fizwej} population, with the spread of the "=0000ad04 stmib r1, {r3, sl}=" gene.
 #+NAME: fig:fizwej-badgenes
 file:../images/plots/fizwej-badgenes.pdf
 
-#+CAPTION: Address visitation heatmap of the /Fizwej/ population, at season 4 on the left, and season 124, on the right, showing a dramatic decline in phenotypic diversity. Compare with the /xeqcyv/ and /kurlig/ heatmaps in figures [[fig:xeqcyv-heatmap]] and [[fig:kurlig-heatmap]].
+#+CAPTION: Address visitation heatmap of the \emph{Fizwej}\index{Fizwej} population, at season 4 on the left, and season 124, on the right, showing a dramatic decline in phenotypic diversity. Compare with the /xeqcyv/ and /kurlig/ heatmaps in figures [[fig:xeqcyv-heatmap]] and [[fig:kurlig-heatmap]].
 #+NAME: fig:fizwej-heatmap
 file:../images/plots/fizwej_S124_heatmap.pdf
 
@@ -3489,7 +3489,7 @@ have been expunged by the gene pool in their carriers' fierce competition with
 the "bottom feeders" whose high absolute fitness scores represented only a
 facility for solving relatively /easy/ problems.
 
-#+CAPTION: A trial similar to the one documented in figure [[fig:sharing]], with per-class difficulty recorded, but with the fitness sharing mechanism suspended (/Cazmud/ population). The filled curve surrounding each mean difficulty class, here being of visible breadth only in the case of the /iris virginia/, represents the standard deviation of difficulty for each exemplar class. 
+#+CAPTION: A trial similar to the one documented in figure [[fig:sharing]], with per-class difficulty recorded, but with the fitness sharing mechanism suspended (\emph{Cazmud}\index{Cazmud} population). The filled curve surrounding each mean difficulty class, here being of visible breadth only in the case of the /iris virginia/, represents the standard deviation of difficulty for each exemplar class. 
 #+NAME: fig:nosharing
 [[file:../images/plots/nosharing.pdf]]
 
@@ -3503,7 +3503,7 @@ evolution took, with the right-hand panel showing the responding environmental
 pressures -- the =difficulty= scores associated with each class, showing both
 mean and standard deviation.
 
- #+CAPTION: A very good run on the Iris classification task, employing the fitness sharing algorithm documented in \S [[sec:sharing]] (/Ragweb/ population). The filled curve surrounding each mean difficulty line again represents the standard deviation of difficulty for that exemplar class.
+ #+CAPTION: A very good run on the Iris classification task, employing the fitness sharing algorithm documented in \S [[sec:sharing]] (\emph{Ragweb}\index{Ragweb} population). The filled curve surrounding each mean difficulty line again represents the standard deviation of difficulty for that exemplar class.
  #+NAME: fig:sharing
  [[file:../images/plots/sharing.pdf]]
 
@@ -3551,12 +3551,12 @@ for the duration of the evolutionary run.
 
 Results on this experiment remain largely preliminary and anecdotal in nature,
 but evidence of its basic feasibility can be found in the time-lapse recording
-of the final champion of the /Misjax/ population playing a semi-competent game
+of the final champion of the \emph{Misjax}\index{Misjax} population playing a semi-competent game
 of Snake in figure [[fig:snek]]. 
 
 # need some graphs and quantitative data for this
 
-#+CAPTION: Time-lapse rendering of one of the fitter specimens encountered in the Snake trials (/Misjax/ population). Snake segments: =[]=, apples: =()=, cacti: =##=.
+#+CAPTION: Time-lapse rendering of one of the fitter specimens encountered in the Snake trials (\emph{Misjax}\index{Misjax} population). Snake segments: =[]=, apples: =()=, cacti: =##=.
 #+NAME: fig:snek
 file:../images/snek_misjax_montage_on_white.png
 
@@ -3760,14 +3760,14 @@ that this bizarre behaviour is not at all uncommon in \gls{roper}'s populations
 Scatter plot of the average amount of execution time that an individual spends straying from its explicit gadget set, relative to its fitness
 :END:
 
-#+CAPTION: A run on the Iris classification task, with a high stray rate, by the /Hepfap/ population.
+#+CAPTION: A run on the Iris classification task, with a high stray rate, by the \emph{Hepfap}\index{Hepfap} population.
 #+NAME: fig:hepfap
 file:../images/plots/hepfap.pdf
 
 # we need some numbers, rough numbers at least, on how frequent
 # this sort of phenomenon is.
 
-#+CAPTION: Heatmap montage over the /Fimjek/ population, showing range of addresses executed, in red tint, superimposed on a map of the explicit gadgets that were harvested to form that population's initial gene pool, in blue tint. The intensity of red tint indicates the frequency with which the corresponding address was visited. Magenta and purple cells indicate orthodox gadget traffic, while red swaths with no tint of blue indicate stray activity. From top-left to bottom-right, each cell is a snapshot of the evolving heatmap at intervals of 20 seasons. The underlying gadget map is taken from the tomato-RT-N18U-httpd binary that we used in this experiment.
+#+CAPTION: Heatmap montage over the \emph{Fimjek}\index{Fimjek} population, showing range of addresses executed, in red tint, superimposed on a map of the explicit gadgets that were harvested to form that population's initial gene pool, in blue tint. The intensity of red tint indicates the frequency with which the corresponding address was visited. Magenta and purple cells indicate orthodox gadget traffic, while red swaths with no tint of blue indicate stray activity. From top-left to bottom-right, each cell is a snapshot of the evolving heatmap at intervals of 20 seasons. The underlying gadget map is taken from the tomato-RT-N18U-httpd binary that we used in this experiment.
 #+NAME: fig:fimjek-heatmap
 file:../images/plots/fimjek_heatmap_montage.pdf
 
@@ -3978,10 +3978,10 @@ though not as dramatically as anticipated. One of the four gls:edi populations
 still showed a visible history of stray address visitation, but only one, as
 compared to the four gls:edi free populations, all of which showed signs of
 straying. Though fine-grained genealogical data is not available for these
-populations, the relative continuity of the stray line in the /Rofted/ population, 
+populations, the relative continuity of the stray line in the \emph{Rofted}\index{Rofted} population, 
 appearing in figure [[fig:edi-stray-montage]], suggest that this /may/ be the
 result of a single bloodline, in contrast to the gls:edi free /surjes/ and 
-/Simtyn/ populations, where the incidence of strays appears in fits and starts, 
+\emph{Simtyn}\index{Simtyn} populations, where the incidence of strays appears in fits and starts, 
 suggesting multiple genealogical origins. It would be interesting to repeat this
 experiment with larger populations, and the collection of genealogical data, 
 as time (and memory space for exponentially accumulating data) allow. 
@@ -3993,7 +3993,7 @@ their absence with an accumulation of "spare" genes. But what's surprising is
 that those same populations appear to be executing the majority of their
 tremendously large genomes -- and doing so with relatively infrequent crashes. 
 The non-\gls{edi} populations have an anomalous member in this respect, too:
-the /Xufmoc/ population exhibits a sharp downwards trajectory in its genome
+the \emph{Xufmoc}\index{Xufmoc} population exhibits a sharp downwards trajectory in its genome
 length, following its 2000^{th} season.  
 
 A surprising result is the the non-\gls{edi} populations appear to have a higher
@@ -4003,11 +4003,11 @@ subtle, however, and may be the effect of noise, or overrepresented and idiosync
 bloodlines. 
 
 
-#+CAPTION: Plot of EDI frequency to stray rate, crash rate, and the ratio of gadgets run in the /hyzqyp/, /megkek/, /qatjaq/ and /Rofted/ populations, with non-EDI mutation disabled.
+#+CAPTION: Plot of EDI frequency to stray rate, crash rate, and the ratio of gadgets run in the /hyzqyp/, /megkek/, /qatjaq/ and \emph{Rofted}\index{Rofted} populations, with non-EDI mutation disabled.
 #+NAME: fig:edi-stray-montage
 file:../images/plots/edi_stray_montage.pdf
 
-#+CAPTION: Plot of stray rate, crash rate, and the ratio of gadgets run in the /mycwil/, /simtyn/, /surjes/ and /Xufmoc/ populations, with mutation and EDI toggling disabled, with a base EDI rate of zero.
+#+CAPTION: Plot of stray rate, crash rate, and the ratio of gadgets run in the /mycwil/, /simtyn/, /surjes/ and \emph{Xufmoc}\index{Xufmoc} populations, with mutation and EDI toggling disabled, with a base EDI rate of zero.
 #+NAME: fig:noedi-stray-montage
 file:../images/plots/noedi_stray_montage.pdf
 
@@ -4299,7 +4299,9 @@ See \url{http://www.unicorn-engine.org}.
 
 
 #+LATEX: \appendix
-* Appendix: Recent Tweaks and Experiments
+
+#+LATEX: \input{footer}
+* Experimental Postscript
 ** Adjusting the classification task function for better environmental compatibility
 *** Disadvantages of the bid-based algorithm in ROPER
  As we can see in figure [[fig:tomato-register-histogram]], the distribution of register use
@@ -4450,7 +4452,7 @@ See \url{http://www.unicorn-engine.org}.
  \label{tab:xysxim-champ-blue}
  \end{table}
 
-#+CAPTION: Performance of the /Xysxim/ population on the simple, linearly separable dataset first encountered in \S [[sec:simple-blob-experiment]].
+#+CAPTION: Performance of the \emph{Xysxim}\index{Xysxim} population on the simple, linearly separable dataset first encountered in \S [[sec:simple-blob-experiment]].
 #+NAME: fig:xysxim
 file:../images/plots/xysxim.pdf
 
@@ -4476,7 +4478,7 @@ genes without any regard to their form or function.
 #+NAME: fig:carboat
 file:../images/carboat-montage.png
 
-*** One way of implementing (quasi-)homologous crossover in ROPER
+*** An implementation of (quasi-)homologous crossover
 In natural organisms, crossover is a highly constrained and sophisticated mechanism. 
 Under ordinary circumstances, only those genes sharing the same loci in their respective
 chromosomes are candidates for sexual recombination. This particular notion of "loci", 
@@ -4606,7 +4608,7 @@ complement of $v$:
 $$ \text{fitness} \gets (\text{novelty} * v) + (\text{fitness} * (1.0 - v))$$
 
 
-** The clump TTL mechanism and the ecological role of extinction events
+** The clump TTL mechanism, and the role of extinction events
 
 Shortly after writing the conclusion to this thesis and submitting the examination
 draft, I began experimenting with the gls:ttl mechanism on which I had pinned my
@@ -4649,7 +4651,7 @@ the /astronomically poor/ turn taken by the crossover fitness delta metric in
 figure [[fig:xilvyb]] -- whose evolutionary run bore the same configuration as the population
 in which the malignant gene problem was first diagnosed (see \S [[sec:malignant]]).  
 
-#+CAPTION: Ecologically disruptive effects on the /Xilvyb/ population caused by the gls:ttl mechanism, causing a mass extinction of clump lines during a simple linear classification task, using register bid-bin classification. 
+#+CAPTION: Ecologically disruptive effects on the \emph{Xilvyb}\index{Xilvyb} population caused by the gls:ttl mechanism, causing a mass extinction of clump lines during a simple linear classification task, using register bid-bin classification. 
 #+NAME: fig:xilvyb
 file:../images/plots/xilvyb.pdf
 
@@ -4663,7 +4665,7 @@ quite good results, so far as maintaining diversity is concerned. One such outco
 shows a distribution of address visitations that has no precedent in the populations
 studied so far in this thesis: a run that terminated with /greater/ address visitation
 diversity than it began with, while nevertheless, eventually, converging on a perfect
-absolute fitness score. This occurred in the /Soghuf/ population, in the course of
+absolute fitness score. This occurred in the \emph{Soghuf}\index{Soghuf} population, in the course of
 completing the syscall preparation task, outlined in \S [[sec:syscall-spec]].
 
 The relatively low but nevertheless
@@ -4690,11 +4692,11 @@ convergence is a problem that needs to be kept actively in check.
 
  
 
-#+CAPTION: The effects of visitation novelty pressure on the /Soghuf/ population, with the additional influence of a gls:ttl field set to 4 and decremented on crash-prone clumps during crossover. The homologous crossover mechanism was not used for this run. 
+#+CAPTION: The effects of visitation novelty pressure on the \emph{Soghuf}\index{Soghuf} population, with the additional influence of a gls:ttl field set to 4 and decremented on crash-prone clumps during crossover. The homologous crossover mechanism was not used for this run. 
 #+NAME: fig:soghuf-heatmap
 file:../images/plots/soghuf_heatmap_4_608.png
 
-#+CAPTION: Performance metrics over the /Soghuf/ population. Note mass extinction events around seasons 190, 300, and 400-500. 
+#+CAPTION: Performance metrics over the \emph{Soghuf}\index{Soghuf} population. Note mass extinction events around seasons 190, 300, and 400-500. 
 #+NAME: fig:soghuf
 file:../images/plots/soghuf.pdf
 
@@ -4713,21 +4715,22 @@ their predecessors. The performance curves for this run are shown in figure [[fi
 
 
 
-#+CAPTION: Performance of the /Luxxyn/ population of 4096, over time. 
+#+CAPTION: Performance of the \emph{Luxxyn}\index{Luxxyn} population of 4096, over time. 
 #+NAME: fig:luxxyn
 file:../images/plots/luxxyn.pdf
 
-#+CAPTION: Comparison of the Iris dataset map with the classification performed by the /Luxxyn/ population's champion, after only 30 seasons. 
+#+CAPTION: Comparison of the Iris dataset map with the classification performed by the \emph{Luxxyn}\index{Luxxyn} population's champion, after only 30 seasons. 
 #+NAME: fig:iris_with_luxxyn
 file:../images/plots/iris_with_luxxyn.pdf
 
 As we can see in figure [[fig:iris_with_luxxyn]], /even the linearly inseparable/ 
 regions of the Iris set were handled intelligently by the champion of this population
-(the /Luxxyn/ population, the last we'll be considering in this thesis). 
+(the \emph{Luxxyn}\index{Luxxyn} population, the last we'll be considering in this thesis). 
 
 
 
-* Appendix: Population Parameters
+
+* Population Parameters 
 
 ** Note
 Here, the reader can find a series of tables documenting the critical parameters
@@ -4737,7 +4740,7 @@ information on how, exactly, these parameters were implemented is the project's
 \url{https://github.com/oblivia-simplex/roper}. The mutation rate, in each case,
 is just the complement of "crossover rate", since each reproduction event
 consisted in /either/ mating with crossover, or cloning with mutation. (This
-does not hold for the 2017 populations, /Poclux/, /Cazmud/ and /Ragweb/,
+does not hold for the 2017 populations, \emph{Poclux}\index{Poclux}, \emph{Cazmud}\index{Cazmud} and \emph{Ragweb}\index{Ragweb},
 however. In those runs, crossover was used in every reproduction event, and
 mutation was applied with the probability specified in "mutation rate". Numerous
 differences in implementation also separate those experiments from the ones
@@ -4747,7 +4750,7 @@ The MD5 hash of the =tomato-RT-N18U-httpd= binary used in this series of
 experiments is =16d38a233b45bab5b57476c11b066cfa=.
 
 ** Parameter Tables
-#+CAPTION: Parameters of the /Cazmud/ population, 2017/03/26.
+#+CAPTION: Parameters of the \emph{Cazmud}\index{Cazmud} population, 2017/03/26.
 #+ATTR_LATEX: :float t
 | binary                | tomato-RT-N18U-httpd |
 | brood size            |                    2 |
@@ -4768,7 +4771,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 | use fragility         |                false |
 | use return counter    |                false |
 
-#+CAPTION: Parameters of the /Fimjek/ population, 2018/04/02.
+#+CAPTION: Parameters of the \emph{Fimjek}\index{Fimjek} population, 2018/04/02.
 #+ATTR_LATEX: :float t
 | binary                    | tomato-RT-N18U-httpd |
 | brood size                |                    2 |
@@ -4791,7 +4794,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 | use dynamic crash penalty |                 true |
 | use fragility             |                false |
 
-#+CAPTION: Parameters of the /Fizwej/ population, 2018/04/09.
+#+CAPTION: Parameters of the \emph{Fizwej}\index{Fizwej} population, 2018/04/09.
 #+ATTR_LATEX: :float t
 | binary                    | tomato-RT-N18U-httpd |
 | brood size                |                    2 |
@@ -4815,7 +4818,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 | use dynamic crash penalty |                false |
 | use fragility             |                 true |
 
-#+CAPTION: Parameters of the /Hepfap/ population, 2018/04/01.
+#+CAPTION: Parameters of the \emph{Hepfap}\index{Hepfap} population, 2018/04/01.
 #+ATTR_LATEX: :float t
 | binary                    | tomato-RT-N18U-httpd |
 | brood size                |                    2 |
@@ -4838,7 +4841,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 | use dynamic crash penalty |                 true |
 | use fragility             |                false |
 
-#+CAPTION: Parameters of the /Kathot/ population, 2018/04/09.
+#+CAPTION: Parameters of the \emph{Kathot}\index{Kathot} population, 2018/04/09.
 #+ATTR_LATEX: :float t
 | population size           |                 2048 |
 | crossover rate            |                  0.5 |
@@ -4862,7 +4865,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 | crash penalty             |                 0.75 |
 | use dynamic crash penalty |                false |
 
-#+CAPTION: Parameters of the /Kurlig/ population, 2018/04/10.
+#+CAPTION: Parameters of the \emph{Kurlig}\index{Kurlig} population, 2018/04/10.
 #+ATTR_LATEX: :float t
 | binary                    |                                   tomato-RT-N18U-httpd |
 | brood size                |                                                      2 |
@@ -4884,7 +4887,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 | use dynamic crash penalty |                                                  false |
 | use fragility             |                                                   true |
 
-#+CAPTION: Parameters of the /Luxxyn/ population, 2018/04/16.
+#+CAPTION: Parameters of the \emph{Luxxyn}\index{Luxxyn} population, 2018/04/16.
 #+ATTR_LATEX: :float t
 | binary                |             tomato-RT-N18U-httpd |
 | brood size            |                                2 |
@@ -4910,7 +4913,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 | ttl                   |                            64000 |
 
 
-#+CAPTION: Parameters of the /Misjax/ population, 2017/04/20.
+#+CAPTION: Parameters of the \emph{Misjax}\index{Misjax} population, 2017/04/20.
 #+ATTR_LATEX: :float t
 | binary path          |  tomato-RT-N18U-httpd |
 | crossover rate       |                   0.3 |
@@ -4926,7 +4929,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 | number of cacti      |                     2 |
 
 
-#+CAPTION: Parameters of the /Poclux/ population, 2017/03/22.
+#+CAPTION: Parameters of the \emph{Poclux}\index{Poclux} population, 2017/03/22.
 #+ATTR_LATEX: :float t
 | binary path           |                               tomato-RT-N18U-httpd |
 | brood size            |                                                  2 |
@@ -4943,7 +4946,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 | tournament size       |                                                  4 |
 | use fragility         |                                               true |
 
-#+CAPTION: Parameters of the /Ragweb/ population, 2017/03/26.
+#+CAPTION: Parameters of the \emph{Ragweb}\index{Ragweb} population, 2017/03/26.
 #+ATTR_LATEX: :float t
 | binary                | tomato-RT-N18U-httpd |
 | brood size            |                    2 |
@@ -4967,7 +4970,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 
 
 
-#+CAPTION: Parameters of the /Rofted/ population, 2018/04/04.
+#+CAPTION: Parameters of the \emph{Rofted}\index{Rofted} population, 2018/04/04.
 #+ATTR_LATEX: :float t
 | binary                |                               tomato-RT-N18U-httpd |
 | brood size            |                                                  2 |
@@ -4988,7 +4991,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 | tournament size       |                                                  4 |
 | use fragility         |                                               true |
 
-#+CAPTION: Parameters of the /Simtyn/ population, 2018/04/04.
+#+CAPTION: Parameters of the \emph{Simtyn}\index{Simtyn} population, 2018/04/04.
 #+ATTR_LATEX: :float t
 | binary                    |                               tomato-RT-N18U-httpd |
 | brood size                |                                                  2 |
@@ -5010,7 +5013,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 | use dynamic crash penalty |                                               true |
 | use fragility             |                                               true |
 
-#+CAPTION: Parameters of the /Soghuf/ population, 2018/04/05.
+#+CAPTION: Parameters of the \emph{Soghuf}\index{Soghuf} population, 2018/04/05.
 #+ATTR_LATEX: :float t
 | binary                    |                               tomato-RT-N18U-httpd |
 | brood size                |                                                  2 |
@@ -5035,7 +5038,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 | use dynamic crash penalty |                                               true |
 | use fragility             |                                               true |
 
-#+CAPTION: Parameters of the /Wiwzuh/ population, 2018/04/07.
+#+CAPTION: Parameters of the \emph{Wiwzuh}\index{Wiwzuh} population, 2018/04/07.
 #+ATTR_LATEX: :float t
 | binary                    |                               tomato-RT-N18U-httpd |
 | brood size                |                                                  2 |
@@ -5057,7 +5060,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 | use fragility             |                                               true |
 | use dynamic crash penalty |                                               true |
 
-#+CAPTION: Parameters of the /Xeqcyv/ population, 2018/04/10.
+#+CAPTION: Parameters of the \emph{Xeqcyv}\index{Xeqcyv} population, 2018/04/10.
 #+ATTR_LATEX: :float t
 | binary                    |                                   tomato-RT-N18U-httpd |
 | brood size                |                                                      2 |
@@ -5079,7 +5082,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 | use dynamic crash penalty |                                                  false |
 | use fragility             |                                                   true |
 
-#+CAPTION: Parameters of the /Xilvyb/ population, 2018/04/16.
+#+CAPTION: Parameters of the \emph{Xilvyb}\index{Xilvyb} population, 2018/04/16.
 #+ATTR_LATEX: :float t
 | binary                    | tomato-RT-N18U-httpd |
 | brood size                |                    2 |
@@ -5105,7 +5108,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 | use dynamic crash penalty |                 true |
 | use fragility             |                 true |
 
-#+CAPTION: Parameters of the /Xufmoc/ population, 2018/04/03.
+#+CAPTION: Parameters of the \emph{Xufmoc}\index{Xufmoc} population, 2018/04/03.
 #+ATTR_LATEX: :float t
 | binary                    |                               tomato-RT-N18U-httpd |
 | brood size                |                                                  2 |
@@ -5127,7 +5130,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 | use dynamic crash penalty |                                               true |
 | use fragility             |                                               true |
 
-#+CAPTION: Parameters of the /Xysxim/ population, 2018/04/13.
+#+CAPTION: Parameters of the \emph{Xysxim}\index{Xysxim} population, 2018/04/13.
 #+ATTR_LATEX: :float t
 | binary                    | tomato-RT-N18U-httpd |
 | brood size                |                    2 |
@@ -5153,5 +5156,6 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 | use fragility             |                 true |
 
 
+\printindex
+\addcontentsline{toc}{chapter}{Index of Populations}
 
-#+LATEX: \input{footer}

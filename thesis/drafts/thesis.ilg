@@ -1,4 +1,6 @@
 This is makeindex, version 2.15 [TeX Live 2016] (kpathsea + Thai support).
-Scanning input file thesis.idx...done (0 entries accepted, 0 rejected).
-Nothing written in thesis.ind.
+Scanning input file thesis.idx....done (55 entries accepted, 0 rejected).
+Sorting entries....done (340 comparisons).
+Generating output file thesis.ind....done (52 lines written, 0 warnings).
+Output written in thesis.ind.
 Transcript written in thesis.ilg.

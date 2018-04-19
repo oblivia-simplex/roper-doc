@@ -287,7 +287,7 @@
 \ifdal@glossary
   \usepackage[style=long,header=none,border=none,number=none,toc=true]{glossaries}
  \renewcommand{\gloitem}[1]{\ifgloitemfirst\global\gloitemfirstfalse #1 \else \\#1 \fi & \baselineskip=0.7\baselineskip}
- \renewcommand{\glossaryname}{List of Abbreviations and Symbols Used}
+ \renewcommand{\glossaryname}{List of Abbreviations}
  \makenoidxglossaries
  \loadglsentries{glossary}
 \fi
@@ -1122,7 +1122,7 @@
 \def\mainmatter{\newpage
         \typeout{Dalthesis preface pages completed.}
         \pagenumbering{arabic}
-        \properpagestyle
+        %\properpagestyle
         \dal@set@textheight{\dal@textheight@default}
         \dal@in@prefacefalse
    }
@@ -1174,7 +1174,8 @@
    }
 \def\nobib{\dal@print@bibfalse}
 \msc
-\properpagestyle
+\pagestyle{plain}
+%\properpagestyle
 \InputIfFileExists{dalthesis.cfg}
    {\typeout{Local config file dalthesis.cfg used.}}{}
 \endinput

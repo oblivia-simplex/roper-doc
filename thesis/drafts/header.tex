@@ -1,7 +1,8 @@
 \usepackage[a-1b]{pdfx}
 %\usepackage[acronym]{glossaries}
 \usepackage{algorithmic}
-\usepackage{algorithm}
+\usepackage[chapter]{algorithm}
+\renewcommand{\listalgorithmname}{ }
 \usepackage{color}
 \usepackage{needspace}
 \usepackage{gnuplot-lua-tikz}
@@ -36,5 +37,16 @@
 \loadglsentries{glossary}
 
 \usepackage[all]{nowidow}
+\usepackage{imakeidx}
+\makeindex[title=Index of Populations]
+
 \widowpenalty10000
 \clubpenalty10000
+
+%\fancyhead[L]{}
+%\fancyhead[C]{}
+%\fancyhead[R]{}
+%\fancyfoot[L]{}
+%\fancyfoot[R]{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[lmargin=3.81cm,tmargin=2.54cm,bmargin=2.54cm,rmargin=2.54cm]{geometry}
