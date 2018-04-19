@@ -1,4 +1,4 @@
-% Created 2018-04-19 Thu 03:25
+% Created 2018-04-19 Thu 03:36
 % Intended LaTeX compiler: pdflatex
 \documentclass[12pt,glossary]{dalthesis}
 \usepackage{listings}
@@ -45,11 +45,11 @@
 \end{savequote}
 
 \chapter{Introduction}
-\label{sec:org2cbe10f}
-\label{org4650ec5}
+\label{sec:org12b6fcd}
+\label{org506f7bd}
 \section{What is the aim of this research?}
-\label{sec:orgbdf5b4d}
-\label{org8c14ded}
+\label{sec:org1d36958}
+\label{org0986993}
 
 This thesis explores the use of evolutionary techniques in \gls{rop}. It details
 the design and implementation of an engine called \gls{roper}, which employs the
@@ -62,7 +62,7 @@ concept}, rather than to advance the state of the art in terms of performance
 and precision.\footnote{Unless we cast a null ``state of the art'' to zero, which is bad practice.}
 
 \section{Why is this interesting?}
-\label{sec:orgd8fecde}
+\label{sec:org5e3b7d5}
 
 The ``crafted input'' by means of which a hacker controls the execution of
 an exploited system is typically best understood as a sequence of instructions
@@ -79,16 +79,16 @@ wilderness that supervenes on our machines, and gain a deeper sense of the
 possibilities harboured there.
 
 \section{Where can this work be applied?}
-\label{sec:org130e694}
+\label{sec:org1879d87}
 The techniques developed here can quite viably be put to work in the field of
 offensive cybersecurity, and be used to generate swarms of attack payloads whose
 diversity is, for all intents and purposes, unbounded. The technology developed
-here could, with minor adaptations,\footnote{Discussed in \S \ref{org0796296}.} used
+here could, with minor adaptations,\footnote{Discussed in \S \ref{org6bf21c6}.} used
 to test and train \glspl{ids}, or provide one more instrument in the penetration
 tester's toolbox.
 
 \section{Who is this for?}
-\label{sec:orge9d58a8}
+\label{sec:org82bdfbf}
 
 I hope that the work presented here may be of interest to newcomers to
 both low-level exploit development and genetic programming, and to those
@@ -154,24 +154,24 @@ at \url{https://github.com/oblivia-simplex/roper}, and freely experimented with.
 
 
 \section{Synopsis}
-\label{sec:org7ebf22e}
-\label{orgbeb7d77}
+\label{sec:org80ba4a8}
+\label{orge97ec62}
 
-In Chapter \ref{org34de4d2}, I set up some of the conceptual
+In Chapter \ref{org59f19f2}, I set up some of the conceptual
 background for this study, exploring the broader problems broached by \gls{rop}, 
 and why it presents itself as an intriguing problem domain for evolutionary
 computation, before surveying a handful of historical efforts to
 enlist evolutionary techniques in offensive security and malware
-design, in Chapter \ref{org41145c2}.
+design, in Chapter \ref{org0b2170b}.
 
-Chapter \ref{org4a3a967} introduces my contribution to research in the field of
+Chapter \ref{orgcfe79fc} introduces my contribution to research in the field of
 evolutionary offensive security, with an overview of the design and implementation of
 a \gls{rop} evolution engine called \gls{roper}.
 
-Chapter \ref{org465e5f4} goes over a handful of experimental studies with
+Chapter \ref{org15620f4} goes over a handful of experimental studies with
 \gls{roper}, and consequent modifications to the design. 
 
-Chapter \ref{org0796296} lays out some directions for future work and study on this
+Chapter \ref{org6bf21c6} lays out some directions for future work and study on this
 topic, and brings this thesis to a conclusion.
 
 
@@ -185,12 +185,12 @@ Falls the Shadow
 \qauthor{T.S. Eliot, "The Hollow Men"}
 \end{savequote}
 \chapter{Weird Machines and Return-Oriented Programming}
-\label{sec:org03f9b50}
-\label{org34de4d2}
-\label{org17867b6}
+\label{sec:org333fd42}
+\label{org59f19f2}
+\label{org17f7a31}
 \section{A Fundamental Problem of Cybersecurity}
-\label{sec:org4d8b716}
-\label{org519a09e}
+\label{sec:orgc14483a}
+\label{org5ec208f}
 
 At the most elementary strata of computation -- whether we are dealing with the austere
 formalism of the lambda calculus, the ideal Von Neumann machine model, or the
@@ -371,8 +371,8 @@ The concept of a \emph{weird machine} opens onto an extremely versatile and gene
 theory of exploitation, which will remain the backdrop for much of what follows.
 
 \section{Return and Jump Oriented Programming}
-\label{sec:orgebe853a}
-\label{org7bd0185}
+\label{sec:org7e6d198}
+\label{orgf38fffd}
 
 It is due to a leaky abstraction of this nature, and an unswerving view of
 the underlying \gls{cpu} \emph{from the perspective of application programmers and
@@ -381,8 +381,8 @@ competence'' \cite{patterson_2012}, that \gls{w+x} ultimately fails to prevent r
 It fails because it is built on an insufficiently general concept of \emph{code}.
 
 \subsection{The Structured Programming Machine Model}
-\label{sec:orgaea49da}
-\label{orgbc932f1}
+\label{sec:org8d90acf}
+\label{org482db30}
 
 
 
@@ -447,8 +447,8 @@ level of abstraction, but not an entirely foreign one. It is a level already
 implicit, and (leaks notwithstanding) encapsulated in the victim process.
 
 \subsection{The ROP Virtual Machine}
-\label{sec:org93de925}
-\label{org27df17b}
+\label{sec:org4a3fdef}
+\label{org2962183}
 
 A \gls{rop} chain can be seen as a program written to run on a weird machine, which just
 happens to supervene on the same process mobilized by the programmer's machine
@@ -530,7 +530,7 @@ To paraphrase Eliot: Between the programmer's abstract machine model, and the ac
 \gls{cpu}, between the specification and the implementation, falls the shadow.
 
 \section{Prior Art: Exploit Engines and Weird Compilers}
-\label{sec:orgcd5d715}
+\label{sec:orgc19c15d}
 A handful of technologies have already been developed for the automatic
 generation of ROP-chains. These range from tools that use one of several
 determinate recipes for assembling a chain -- such as the Corelan Team's very
@@ -583,7 +583,7 @@ the one developed by PSHAPE's author, ROPocop.\footnote{Though this goes beyond 
   as a sheer evolutionary spandrel effect \cite{gould79}, without any explicit adaptive advantage.}
 
 \section{Prospects for Genetic ROP-chain Crafting}
-\label{sec:orgf7e5499}
+\label{sec:orgf641c78}
 
 To the best of our knowledge, no attempt has yet been made to bring evolutionary
 methods to bear on the problem of ROP-chain generation. For the curious hacker,
@@ -613,7 +613,7 @@ carved and task-optimized \glspl{isa} used by most \gls{gp} systems; here, we ha
 chance to observe how evolution fares with irregular and hazardous found materials,
 instead. There is great \emph{ecological} interest to be found in observing how evolving
 populations of \gls{rop} chains behave, and in seeing how various obstacles are navigated.
-This will become clear as we work through Chapter \ref{org465e5f4}.
+This will become clear as we work through Chapter \ref{org15620f4}.
 
 
 
@@ -635,9 +635,9 @@ other programs, and started propagating.
 \qauthor{Gregory Benford, Afterword to "The Scarred Man"}
 \end{savequote}
 \chapter{Natural Selection Considered Harmful: A Brief History of Evolutionary Computation in Offensive Security}
-\label{sec:org8fe711f}
-\label{org01ffe32}
-\label{org41145c2}
+\label{sec:orga8e305f}
+\label{org320d71a}
+\label{org0b2170b}
 
 While evolutionary techniques have been more or less frequently employed in the
 field of \emph{defensive} security -- where they are put to work much in the same way
@@ -649,10 +649,10 @@ captured the imagination of hackers, malware engineers, and cyberpunk science
 fiction authors, ever since there have been such things.
 
 \section{Viruses and Evolutionary Computation}
-\label{sec:orgcf85b1f}
-\label{org54b0ad5}
+\label{sec:org01ead7b}
+\label{org69b759a}
 \subsection{1969: Benford}
-\label{sec:orgb492fe2}
+\label{sec:org3b5d63a}
 
 
 
@@ -686,7 +686,7 @@ the context of self-reproducing code. It was nevertheless an alluring idea, and
 one that would reappear with frequency in the young craft of virus programming.
 
 \subsection{1985: Cohen}
-\label{sec:orgf028161}
+\label{sec:org9d4452f}
 
 Though anticipated by over a decade of scattered experiments, the \textbf{concept} of
 ``computer virus'' made its canonical entrance into computer science in the 1985
@@ -769,7 +769,7 @@ reported in the security bulletins released by the major antivirus companies.
 \end{enumerate}
 
 \subsection{Nonheritable Mutations in Virus Ontogeny}
-\label{sec:org1f255cd}
+\label{sec:org64230a4}
 
 For reasons of stealth, virus writers have explored ways of incorporating
 variation into their mechanisms of infection and replication. The first trick to
@@ -816,7 +816,7 @@ subjected to selective pressure, and complex path-dependencies don't form, the
 It is nevertheless evident how close we are to an actual evolutionary process.
 
 \subsection{2002: MetaPHOR (W32/Simile, \{W32,Linux\}/Simile.D, Etap.D)}
-\label{sec:org4ffa63e}
+\label{sec:org0d3bc93}
 
 In 2002, Mental Driller developed and released a virus that bridged the gulf
 between metamorphic viruses and a new variety of viruses that could be called
@@ -855,7 +855,7 @@ ecosystem. Or they may evolve to be less aggressive in infecting files on the
 same host, or filter their targets more carefully according to filename.
 
 \subsection{2004-2005: W32/Zellome}
-\label{sec:org96b349c}
+\label{sec:orgd8857fa}
 The frequent invocation of ecological and evolutionary tropes in virus
 literature, combined with the lack of any genuine appearance of evolutionary
 malware, has led many to speculate as to its impossibility. The most frequently
@@ -925,7 +925,7 @@ W32/Zallome worm. The code of the worm appeared unweildly and bloated, but its
 unusual polymorphic engine captured the analysts' attention.
 
 \subsection{2009: Noreen's experiment on grammatic malware evolution}
-\label{sec:org6008724}
+\label{sec:orgc4c3359}
 
 At GECCO '09, Sadia Noreen presented a report on her recent experiments
 involving the evolution of computer viruses. The approach she adopted was to
@@ -965,7 +965,7 @@ as the virus writer known as ``Second Part to Hell'' points out in a 2008 post o
 his website \cite{spth08}.
 
 \subsection{2010-2011: Second Part to Hell: Evoris and Evolus}
-\label{sec:org907dfad}
+\label{sec:org7a2d539}
 
 Second Part to Hell's experiments in viral evolution appear to be the most
 sophisticated yet encountered. SPTH begins by identifying computational
@@ -1030,7 +1030,7 @@ freely -- they took the redpill'' (\cite{spth10a}, 18).
 
 
 \subsection{Concluding remarks on the history of evolutionary techniques in virus programming}
-\label{sec:orgd7e13a6}
+\label{sec:org694c59a}
 
 Interestingly, even in the virus scene, which is certainly where we find the
 most prolonged and serious interest in evolutionary computation among black and
@@ -1116,10 +1116,10 @@ in a way that virus crafting is not.
 
 
 \section{Genetic Payload Crafting}
-\label{sec:orgca68f9e}
+\label{sec:org48f239e}
 
 \subsection{Gunes Kayacik and the evolution of buffer overflow attacks}
-\label{sec:org3e74041}
+\label{sec:org88f8c2c}
 Gunes Kayacik's 2005-2011 research (see \cite{kayacik06}, \cite{kayacik10}, and \cite{kayacik11}, for instance)
 brought evolutionary methods -- specifically,
 linear genetic programming (LGP) and grammatical evolution (GE) -- to bear on
@@ -1154,7 +1154,7 @@ or, rather, fail to find -- any significant research by others, continuing in th
 vein, after 2011. 
 
 \section{The Road Ahead}
-\label{sec:org51c0011}
+\label{sec:org6e9c96a}
 
 Despite the relative dearth of work being done on the intersection of exploit
 research and evolutionary computation -- an intersection which is all but
@@ -1177,9 +1177,9 @@ place -- they're a wilderness supervening on artifice.
 \qauthor{\emph{The Strategic Review}, Vol. 1, No. 2 (Summer, 1975)}
 \end{savequote}
 \chapter{On the Design and Implementation of ROPER: Algorithmic Overview}
-\label{sec:orgda06a04}
-\label{org4a3a967}
-\label{orgfa583b7}
+\label{sec:org90030e0}
+\label{orgcfe79fc}
+\label{orgbd77224}
 
 What we will establish in the pages that follow is that it is
 indeed possible to generate functioning, \gls{rop} chain payloads
@@ -1221,7 +1221,7 @@ specified, spontaneously coalescing in the cracks of our abstractions.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/birdseye.png}
-\caption{\label{fig:orge27c4b3}
+\caption{\label{fig:orga32634e}
 A bird's eye view of \gls{roper}. Algorithm \ref{alg:rop-sweep} takes us from (1) to (2); algorithm \ref{alg:initpop} takes us from (2) to (4); algorithms \ref{alg:evolve} and \ref{alg:evalgen} cycles us between (4) and (5), and fairly standard loading and parsing algorithms join (3) up with (4) and (1) with (5).}
 \end{figure}
 
@@ -1314,7 +1314,7 @@ A bird's eye view of \gls{roper}. Algorithm \ref{alg:rop-sweep} takes us from (1
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/tournament_black.png}
-\caption{\label{fig:orgeb346ec}
+\caption{\label{fig:org4dba183}
 High-level overview of the tournament selection algorithm}
 \end{figure}
 
@@ -1361,7 +1361,7 @@ system's algorithmic structure is concerned). The length of the
 initial individuals is left parameterizable, but is upper-bounded by
 the amount of stack memory that will be available in the target
 process for our attacks to write to. We will complicate this structure
-somewhat, in \S \ref{orgb50f5c2}, but it remains a useful
+somewhat, in \S \ref{org625d252}, but it remains a useful
 simplification. The words making up each individual may be either
 gadget addresses or other integers, which the individual's gadgets may
 use to populate registers \emph{other} than \gls{pc}. To stack the deck a little,
@@ -1372,7 +1372,7 @@ may include both words intended to be used as immediate integer values, and
 words intended to be used as pointers to potentially useful information in
 the data segments. 
 
-The main loop, outlined in Algorithm \ref{alg:evolve} and figure \ref{fig:orgeb346ec},
+The main loop, outlined in Algorithm \ref{alg:evolve} and figure \ref{fig:org4dba183},
 is built around a well-known and widely used genetic programming algorithm
 called ``tournament selection''. On each iteration of the loop, \(n\) (typically 4)
 distinct candidate genotypes are chosen from the population, with equal
@@ -1391,7 +1391,7 @@ manner in which the system moves through the space of possible solutions''
 single-point crossover function, which maps a pair of parents into a pair of
 offspring, and a mutation operator, which maps a single genotype into a variant
 thereof. The internals of these operators are detailed in \S
-\ref{orgd85dbe9}.
+\ref{orgac4ec62}.
 
 This loop continues until the halting conditions are satisfied. These are most
 often set either to a maximum number of iterations, or the attainment of a set
@@ -1401,32 +1401,32 @@ In the following sections, we will explain the finer-grained design decisions
 involved in implementing the algorithms specified above. 
 
 In the following sections, I will unfold and justify the decisions that went into
-implementing the algorithms surveyed in \S \ref{orgfa583b7}.
+implementing the algorithms surveyed in \S \ref{orgbd77224}.
 We can begin with the representation of the genotypes constructed by
 the \textbf{spawn-individual()} algorithm, called on line
 \ref{alg:initpop:line:spawn-individual} of Algorithm \ref{alg:initpop}.
 
 \section{Gadget Extraction}
-\label{sec:orgb6297f1}
-\label{orgec8918e}
+\label{sec:orgea16d27}
+\label{orge59452a}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/gadget-harvest-dark.png}
-\caption{\label{fig:orga3c944f}
+\caption{\label{fig:org6944b17}
 Harvesting gadgets from a \gls{risc} executable segment.}
 \end{figure}
 
 Since the aim of \gls{roper} is to foster the evolution of ROP chains, we 
 must begin by supplying the engine with a sufficient pool of gadgets, 
 harvested from the target executable. 
-  \footnote{See \S \ref{org7bd0185} for a sustained explanation of how return-oriented
+  \footnote{See \S \ref{orgf38fffd} for a sustained explanation of how return-oriented
   programming works, and an explanation of the concept of 'gadget'.}
 
 There are several ways that this can be done, but the simplest is just to
 scan the executable for a subset of easily recognizable 'gadgets' using a
 linear sweep algorithm, shown in Algorithm \ref{alg:rop-sweep} and diagrammed 
-in figure \ref{fig:orga3c944f}. Since we are
+in figure \ref{fig:org6944b17}. Since we are
 dealing only with a RISC instruction set architecture here, we can avoid 
 several complexities in our gadget search that we would need to grapple with
 were we adapting \gls{roper} to handle CISC instruction sets (such as the x86 and
@@ -1511,8 +1511,8 @@ also return \textbf{true} for $\Lambda$ (signalling unparseable bytes).}
 \end{algorithm}
 
 \section{Genotype Representation: Gadgets, Clumps, and Chains}
-\label{sec:orgfffc9ac}
-\label{orgb50f5c2}
+\label{sec:org16fcd7b}
+\label{org625d252}
 \label{sec:clumps}
 
 From a certain perspective -- that of the evaluation engine -- the individual
@@ -1649,7 +1649,7 @@ next clump in the sequence that makes up the genotype.\footnote{\gls{roper} also
   distinct. But this is a complication that we don't need to dwell on
   here.}
 
-As explained in \S \ref{org27df17b}, it is often helpful to think of
+As explained in \S \ref{org2962183}, it is often helpful to think of
 each gadget as an instruction in a virtual machine -- an emergent machine,
 supervening on the host's native instruction set architecture. What we're
 calling a clump here maps onto this concept of ``instruction'', but with a
@@ -1660,7 +1660,7 @@ the instruction whose opcode is represented by their own clump's gadget
 pointer.
 
 When the initial population is generated, we take a pool of gadget pointers, 
-harvested from the target binary (see \S \ref{orgec8918e}), and a
+harvested from the target binary (see \S \ref{orge59452a}), and a
 pool of integers and data pointers, supplied by the user as part of the problem
 specification. We then form clumps, as described above, using randomly chosen
 elements of these two pools, as needed. The clumps are then assembled into 
@@ -1696,8 +1696,8 @@ internals of this algorithm are detailed in Algorithm~\ref{alg:spawn}.
 \end{algorithm}
 
 \section{Genetic Operators}
-\label{sec:orgfafd063}
-\label{orgd85dbe9} 
+\label{sec:org0c929a0}
+\label{orgac4ec62} 
 
 In order for our population of loosely structured but otherwise random
 ROP chains to explore the vast and uncharted space of possible combinations
@@ -1712,8 +1712,8 @@ on genotypes as lists of clumps, and a mutation operator, which operates on
 clumps internally. 
 
 \subsection{Mutation}
-\label{sec:org68ecd25}
-     \label{org0d4edfb}
+\label{sec:orgc756c76}
+     \label{orgb531d6b}
 The mutation operator selects, randomly, from a set of transformations,
 which it then applies to one or more words contained in one or more randomly
 selected clumps. The choice of operation is constrained by the word slot being
@@ -1794,12 +1794,12 @@ Andrea Shepard for this insight.} one whose behaviour is evenly distributed
 over the probability landscape it inhabits. In practice, even with fitness
 anulled, evolutionary systems rarely exibit such regularity, which has some very
 interesting effects on the paths that evolution pursues. We will study some of
-these consequences in Chapter \ref{org465e5f4}.
+these consequences in Chapter \ref{org15620f4}.
 
 
 \subsection{Crossover}
-\label{sec:org0ef24cf}
-\label{org3c23bc4} 
+\label{sec:org1db4b0d}
+\label{org0151edb} 
 
 At a slightly higher structural level, the reproduction
 algorithm may apply a crossover operation to the list of clumps, taking the
@@ -1830,7 +1830,7 @@ the end of \(\varphi_{\mu_i\dots}\), and another child using the complementary
 choice of genes. The only modification I make to this well-known algorithm, in
 \gls{roper}, is to weight the choices of \(\mu_i\) and \(\varphi_i\), using a
 parameter we call ``fragility'', whose calculation I explain in \S
-\ref{org3864a75}. The details of the algorithm itself can be found in
+\ref{orgb169313}. The details of the algorithm itself can be found in
 \ref{alg:crossover}.
 
 \begin{algorithm}
@@ -1874,7 +1874,7 @@ $\varphi^b, \varphi^a = \textit{split} \varphi \textit{at}
 
 Crossover, so defined, has certain algebraic properties that allow it
 to interact harmoniously with the forms of mutation specified in 
-Section \ref{org0d4edfb}. If we abstract away from the information loss
+Section \ref{orgb531d6b}. If we abstract away from the information loss
 enabled by the possibility of dropping of genes with low link fitness, a
 probabilistic parameter that can be tuned, in \gls{roper}, then, under the
 assumption of a maximum genome length -- an assumption that holds in \gls{roper},
@@ -1893,7 +1893,7 @@ Crossover is therefore associative, and since the crossover operation is symmetr
 defined -- one of the two offspring that are \emph{actually} produced by a mating of \(a\) 
 and \(b\) will begin with clumps from \(a\), the other with clumps from \(b\), with the other
 parent providing the tail -- we can show that the mutation operators defined in
-Section \ref{org0d4edfb} commute with and distribute over crossover, if we consider
+Section \ref{orgb531d6b} commute with and distribute over crossover, if we consider
 them as functions that take probability distributions of offspring as their codomain. 
 
 This is still some distance from rigorously establishing that \gls{roper}'s populations
@@ -1907,8 +1907,8 @@ eternal, in principle.\footnote{For a rigorous discussion of ergodicity in genet
 
 
 \subsubsection{Fragility and Gene Linkage}
-\label{sec:org1381ab5}
-\label{org3864a75}
+\label{sec:org73af573}
+\label{orgb169313}
 
 As a way to encourage the formation of complex 'building blocks' -- sequences of
 clumps that tend to improve fitness when occurring together in a chain -- we
@@ -1953,14 +1953,14 @@ This has the effect of weeding particularly hazardous genes out of the genepool
 fairly quickly, as we will see.
 
 \section{Ontogenesis and Evaluation}
-\label{sec:orgc2e493b}
-\label{orge56b2b6}
+\label{sec:org5c0c09b}
+\label{org10e98d5}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/evaluation_model.png}
-\caption{\label{fig:orgaef27ca}
-High-level overview of the ontogenesis and evaluation process. The ``path diversity'' component will not be introduced until we reach \S \ref{org4a9c21b}.}
+\caption{\label{fig:org6aff74a}
+High-level overview of the ontogenesis and evaluation process. The ``path diversity'' component will not be introduced until we reach \S \ref{orge43e72e}.}
 \end{figure}
 
 The algorithms explained above all depend, either directly or in the way they
@@ -1970,8 +1970,8 @@ The genetic programming literature often enlists the biological distinction
 between \emph{genotype} and \emph{phenotype}.
 
 \subsection{From Genotype to Phenotype}
-\label{sec:org168851c}
-\label{orgceab4fe}
+\label{sec:org83f661e}
+\label{org11f995a}
 
 ``Genotype'' is used to refer to the immediate representations of the individuals
 in the population, as sequences of semantically uninterpreted instructions. It
@@ -2010,7 +2010,7 @@ As for the function from genotypes to phenotypes -- the semantic evaluation func
 refer to it as \emph{ontogenesis}.
 
 \subsection{Ontogenesis of a ROP-chain}
-\label{sec:org810bafc}
+\label{sec:orgdee2ce0}
 
 Our definition of ontogenesis in \gls{roper} should be no suprise: it is simply the
 execution of the ROP-chain payload encoded in the genotype in the ``womb'' 
@@ -2060,7 +2060,7 @@ mov ip, r3
 for example. 
 
 The second and, to a lesser extent, the third outcome both result in a variable
-penalty to fitness, the details of which will be discussed in \S \ref{org1e192f7}.
+penalty to fitness, the details of which will be discussed in \S \ref{org00609a4}.
 
 The execution of the ROP chain payload is, in the context of \gls{roper}, our
 ontogenesis function: it gives us the phenotype, the behavioural, semantic
@@ -2068,8 +2068,8 @@ profile of the genotype. It is to this structure that the fitness functions
 are applied. 
 
 \subsection{Fitness Functions}
-\label{sec:org1a35b4c}
-\label{org1e192f7}
+\label{sec:orga3fdd47}
+\label{org00609a4}
 
 Each of the fitness functions with which we've experimented begin with a partial
 sampling of the individual's behavioural profile, generally restricted to just
@@ -2092,11 +2092,11 @@ experimented with three types of task :
 The task-specific function maps the behavioural synopsis onto a double-width float,
 between 1.0 and 0.0, with better performance corresponding to lower values. 
 The exact nature of the tasks and performance of the system will be discussed in
-detail in Chapter \ref{org465e5f4}. For the time being, the matter of \gls{cpu}
+detail in Chapter \ref{org15620f4}. For the time being, the matter of \gls{cpu}
 exceptions deserves closer comment.
 
 \subsubsection{Failure modes and crash rates}
-\label{sec:orgbee1a82}
+\label{sec:org2fa82ca}
 
 Our population of random ROP-chains begins its life as an extraordinarily noisy
 and error-prone species. The old problem of \emph{computational brittleness}  resurfaces here in full force: the odds of a
@@ -2142,8 +2142,8 @@ hardens, and crash-prone behaviour becomes a more severe liability. In this way,
 he fitness landscape, as a whole, becomes elastic.
 
 \subsection{Fitness Sharing}
-\label{sec:org81a8daa}
-\label{orga916dfa}
+\label{sec:org5df63c9}
+\label{org7e69859}
 
 The most serious problem that \gls{roper}'s populations appear to encounter, particularly
 when dealing with relatively complex problem spaces -- classification problems or
@@ -2180,7 +2180,7 @@ eternally, at least for much longer than we, as experimenters and engineers, wou
 to wait.
 
 When the problem set we are dealing with is plural -- as it is in the second and third types
-of fitness function, listed in \S \ref{org1e192f7} -- one way that diversity depletion often
+of fitness function, listed in \S \ref{org00609a4} -- one way that diversity depletion often
 occurs is through \emph{hypertelia}, or an adaptive fixation on low-hanging fruit.\footnote{The notion of hypertelia used here has been borrowed from Gilbert Simondon. See,
   for example, the discussion in Chapter II, Section I, of 
   \emph{On the Mode of Existence of Technical Objects}, which begins, ``The evolution of technical objects manifests certain hypertelic phenomena which
@@ -2255,7 +2255,7 @@ rarity of its talents.
 \end{enumerate}
 
 \subsubsection{Mechanisms of Selection}
-\label{sec:orgf90c5e3}
+\label{sec:orgb0b40c7}
 This brings us back to where our algorithmic overview began: to the tournament
 algorithm used to select mating pairs. In the interest of bolstering the diversity
 of the population, and staving off premature convergence, we incorporated two
@@ -2265,7 +2265,7 @@ into ``islands'' or ``demes'', with rarefied points of contact, and the occasion
 ``headless chicken crossover'' as ongoing supply of novelty to the gene pool.
 
 \paragraph{Islands}
-\label{sec:orga061825}
+\label{sec:org9334086}
 The mechanism used to isolate \gls{roper}'s subpopulation or ``demes'' is extremely simple:
 when we go to select our candidates for each tournament, we do so by choosing 
 \(n\) random indices \(\vec{i}\) into the general population array, but each time we
@@ -2281,7 +2281,7 @@ easily adjusted to experiment with more and less genealogically interconnected
 populations.
 
 \paragraph{Headless Chicken Crossover}
-\label{sec:org7585d78}
+\label{sec:orgd3a896c}
 As a means of supplying the gene pool with an additional spring of novelty,
 we also make use of a simple technique called ``headless chicken crossover'',
 which amounts to a small patch to Algorithm \ref{alg:evolve}: we replace
@@ -2310,7 +2310,7 @@ length of new individuals}
 
 
 \section{Remarks on Implementation}
-\label{sec:orgfb29853}
+\label{sec:org47133cf}
 
 The system described above has been implemented using the Rust programming
 language, and the Unicorn emulation engine \cite{unicorn} \cite{nguyen15}. 
@@ -2353,7 +2353,7 @@ payloads that are as idiosyncratically adapted to the peculiarities of its
 chosen target as a moth to its orchid.
 
 \subsection{Initialization of the environment}
-\label{sec:org9843fcb}
+\label{sec:org00004de}
 In the discussion of the algorithmic specification of \gls{roper}, above,
 we have, for the most part, abstracted away from the environment in which
 the evolutionary process occurs. Setting up this environment is the first
@@ -2379,7 +2379,7 @@ memory of a cluster of Unicorn emulator instances, at the appropriate addresses,
 and with the appropriate permissions, just as the Linux kernel would do when
 launching the executable on the metal. While doing this, \gls{roper} (optionally)
 can ensure that \gls{w+x} is enforced, even if not strictly required by the
-binary. (In all of the experiments documented in Chapter \ref{org465e5f4},
+binary. (In all of the experiments documented in Chapter \ref{org15620f4},
 \gls{w+x} \emph{has} been enforced.)
 
 Since \gls{roper}, like any genetic programming system, relies heavily on
@@ -2410,19 +2410,19 @@ not be vulnerable to being exploited by the populations.
 \end{savequote}
 
 \chapter{Experimental Studies}
-\label{sec:org008c195}
-\label{org465e5f4}
+\label{sec:org7782606}
+\label{org15620f4}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/tomato-RT-N18U-httpd_heatmap.png}
-\caption{\label{fig:org8092418}
+\caption{\label{fig:orgecf36de}
 Bitmap representation of the gadget distribution in the tomato-RT-N18U-httpd \gls{elf} binary}
 \end{figure}
 
 \section{Overview}
-\label{sec:orgef887ef}
-\label{org302eff3}
+\label{sec:orgf201d56}
+\label{org972fe48}
 
 As of the time of writing, I have experimented with four distinct classes of
 fitness functions in \gls{roper}, with a handful of variations within each class.
@@ -2431,24 +2431,24 @@ compiled for the 32-bit \gls{arm} architecture, for the sake of consistency,
 unless otherwise noted, all of the experiments discussed here make use of
 a web server binary blob, pulled from the \texttt{tomato-RT-N18U} router firmware
 image \cite{tomato-RT-N18U}. The distribution of gadgets harvested from this
-binary's \texttt{.text} section are plotted in figure \ref{fig:org8092418}, to which
+binary's \texttt{.text} section are plotted in figure \ref{fig:orgecf36de}, to which
 I will make frequent reference in the subsequent heatmap overlay images.
 
-In the following subsections (\ref{org826c2cf}, \ref{orgfe5f60b},
-\ref{orgbe45120}, and \ref{orgd09a8b3}), I will outline each task set that
+In the following subsections (\ref{org312466a}, \ref{org831e046},
+\ref{org2de6e6c}, and \ref{org5abd386}), I will outline each task set that
 \gls{roper} was given to perform, and specify the way in which each was
 incorporated into \gls{roper}'s fitness function.
 
-In \S \ref{org89c9cc9}, I will walk through some of the more interesting results
-gleaned from each experiment, and in \S \ref{orge2344d6}, I will lay out certain
+In \S \ref{orgb90790a}, I will walk through some of the more interesting results
+gleaned from each experiment, and in \S \ref{orgad5a52a}, I will lay out certain
 conjectures that address an enigma in the observed results, and set out another
 series of experiments to test it. 
 
 \subsection{The null task}
-\label{sec:org02f748b}
-\label{org826c2cf}
+\label{sec:org99b85c9}
+\label{org312466a}
 
-As discussed in \S\S \ref{org0d4edfb} and \ref{org3c23bc4}, when designing a genetic
+As discussed in \S\S \ref{orgb531d6b} and \ref{org0151edb}, when designing a genetic
 system, a question that naturally arises as to what constraints are brought into
 play by the shape of the system itself, in its genotypic and phenotypic topography,
 independent of any particular fitness function that could be applied to it. In the
@@ -2468,15 +2468,15 @@ this is how \gls{roper} implements its null task.\footnote{In the current implem
   problem type to \texttt{kafka}, in the configuration.} 
 
 And since, in each of the other experiments, I enforce some form of crash penalty
-as a component of the fitness function (see \S \ref{org1e192f7} for details),
+as a component of the fitness function (see \S \ref{org00609a4} for details),
 it would make sense to study what effects this pressure alone, abstracted from
 the others, has on the population dynamics. For this reason, I will introduce
 a second series of null task runs, in which the only non-random variable used
 in reproductive selection will be the crash penalty. 
 
 \subsection{Preparing the parameters for a system call}
-\label{sec:orga16e3df}
-\label{orgfe5f60b}
+\label{sec:org48fcf08}
+\label{org831e046}
 
 This task is the most immediately practical of the set, and comes the closest to
 a practical, ``real world'' application of \gls{roper} in the domain of application
@@ -2578,8 +2578,8 @@ function is simply the distance from \(p\) to \(S\), given a suitable metric, an
 scaled to a float between 0.0 and 1.0.
 
 \subsection{Classification problems}
-\label{sec:orge995733}
-\label{orgbe45120}
+\label{sec:orgee50841}
+\label{org2de6e6c}
 
 \Gls{roper}'s pattern-matching capabilities allow it to automate tasks commonly
 undertaken by human hackers. The end result may not \emph{resemble} a ROP-chain
@@ -2640,7 +2640,7 @@ its corresponding species.
 
 As we will see in a moment, experimentation has shown that an accurate and, if not
 altogether efficient, at least timely\footnote{Meaning: you will receive the results before you die.} classification of the set can be achieved by
-\gls{roper}, so long as the fitness sharing mechanism discussed in \ref{orga916dfa}
+\gls{roper}, so long as the fitness sharing mechanism discussed in \ref{org7e69859}
 is made available to it. 
 
 The base fitness function used in the classification experiments is based on
@@ -2669,8 +2669,8 @@ then it receives an additive boost of 0.15.)
 
 
 \subsection{``Would you like to play a game?''}
-\label{sec:org4fcc11c}
-\label{orgd09a8b3}
+\label{sec:org119cf78}
+\label{org5abd386}
 
 Naturally, the first question that comes up when you find a way of eliciting
 rudimentary, intelligent behaviour from an exploited process is whether it
@@ -2691,12 +2691,12 @@ visited, and the number of apples consumed, before dying.
 
 
 \section{A few notes on terminology}
-\label{sec:orgdbbefd4}
-\label{org092d686}
+\label{sec:org98aa46f}
+\label{orga5970e6}
 
 \subsection{Problems, patterns, and exemplars}
-\label{sec:org7f4158a}
-\label{orgaf6067a}
+\label{sec:orge8f7d4a}
+\label{orgda2e86c}
 
 \Gls{roper} is designed to handle a variety of tasks, and having a generic term
 to refer to the basic units of each task is helpful, in discussing the experiments
@@ -2708,8 +2708,8 @@ term ``pattern'' to refer \emph{specifically} to what I \emph{generically} call 
 In interactive tasks, the role of ``problem'' may be filled by a game-space configuration. 
 
 \subsection{Iteration, generation, and season}
-\label{sec:org604416a}
-\label{org8dd352f}
+\label{sec:org943fc8b}
+\label{org9457938}
 
 \Gls{roper} employs a steady-state selection model in all of the experiments
 discussed in this thesis, and so it's important to distinguish what we mean
@@ -2730,8 +2730,8 @@ a shot at reproduction). In concrete terms, the length of a ``season'' is a
 function of tournement size and population size. 
 
 \subsection{Naming scheme for populations}
-\label{sec:org330ffe8}
-\label{org55b2216}
+\label{sec:orge4fd87c}
+\label{org43e104d}
 
 Mentally keeping track of numerous, varying artificial populations is a challenge at the
 best of times, and I've found that assigning short,
@@ -2746,12 +2746,12 @@ analyses in this chapter and my system of log files.
 
 
 \section{Initial Findings}
-\label{sec:org7b0a2c7}
-\label{org89c9cc9}
+\label{sec:org38495d7}
+\label{orgb90790a}
 
 \subsection{Surveying the landscape with the null task}
-\label{sec:org529b15d}
-\label{orgae69309}
+\label{sec:org705d4f7}
+\label{orga4020ec}
 
 Before looking at the behaviour of \gls{roper} under the influence of and constraints
 of the semantically nontrivial fitness functions described above, let us first try
@@ -2761,20 +2761,20 @@ fitness function considers, and acts as their common factor: the one imposed
 by the crash penalty.
 
 \subsubsection{Arbitrary selection with no crash penalty}
-\label{sec:org460457b}
-\label{org2949896}
+\label{sec:orgbce73a3}
+\label{orgae91b2a}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/plots/kurlig_kafka_performance.pdf}
-\caption{\label{fig:org0520a1a}
+\caption{\label{fig:orgba90e49}
 Performance metrics over \emph{Kurlig} population of 2048, evolving under the absurd fitness function. Crash rate and stray address rate map to left vertical axis, while mean genome length and mean instructions executed map to the right.}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/plots/kurlig_heatmap_4_212_montage.pdf}
-\caption{\label{fig:orgc34c7ed}
+\caption{\label{fig:org651f1d4}
 Address visitation heatmap over the tomato-RT-N18U process memory, by the \emph{Kurlig} population, evolving under the absurd fitness function with no crash penalty. Season 4 heatmap displayed on the left, season 212 on the right.}
 \end{figure}
 
@@ -2787,7 +2787,7 @@ course of the run, sampled seasonally. Though not a precise or statistically
 significant representation of behaviour, it does, at least, serve to convey a
 general impression, at let the eye pick out the more obvious skews in distribution. 
 
-In figure \ref{fig:org8452c60}, we see heatmaps of the the \emph{Xeqcyv} population's
+In figure \ref{fig:org8bdd1f7}, we see heatmaps of the the \emph{Xeqcyv} population's
 phenotypic distribution sampled at seasons 4 and 212. Qualitatively speaking, the
 two maps appear almost identical. There has been no collapse of phenotypic diversity,
 and the system even gives the impression of being ergodic.\footnote{See \cite{schmitt01} for a detailed discussion of the conditions under which genetic algorithms exhibit ergodicity.} Acting freely, with
@@ -2796,13 +2796,13 @@ counteracting the pull of genetic drift.
 
 
 \subsubsection{Arbitrary selection with crash penalty}
-\label{sec:org4a16230}
-\label{orgfe472e7}
+\label{sec:orgab2fa78}
+\label{org06d43df}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/plots/xeqcyv_kafka_performance.pdf}
-\caption{\label{fig:org6bbf137}
+\caption{\label{fig:orged7c1f4}
 Performance metrics over \emph{Xeqcyv} population, evolving under absurd fitness function with crash penalty. Crash rate and stray address rate map to the left vertical axis, while mean genome length and mean instructions executed map to the right.}
 \end{figure}
 
@@ -2812,18 +2812,18 @@ path frequency remained strikingly consistent, at least to a distant and qualita
 inspection. The heatmap snapshots of the population's execution habits at Season 4,
 and again at Season 212, showed such little difference that I had to check carefully
 to make sure that I had not placed them in the wrong order, in figure
-\ref{fig:org8452c60}. 
+\ref{fig:org8bdd1f7}. 
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/plots/xeqcyv_kafka_heatmap_beginning_end.pdf}
-\caption{\label{fig:org8452c60}
+\caption{\label{fig:org8bdd1f7}
 Address-visitation heatmap over the tomato-RT-N18U-httpd process memory, by the \emph{Xeqcyv} population, under the ``Kafkaesque'' fitness function: Season 4 on the left, Season 212 on the right. Blue swaths indicate where the harvested gadgets lie, red and magenta swaths indicate addresses visited by creatures in the population in execution.}
 \end{figure}
 
 
 The tendency of these populations to shrink from execution, as shown in figure
-\ref{fig:org6bbf137}, is not at all surprising. The longer they spend in
+\ref{fig:orged7c1f4}, is not at all surprising. The longer they spend in
 execution, the greater their risk of crashing. Since crashing is the one \emph{sure}
 way to draw selection's wrath, the population is highly disincentivized to spend
 any longer than they have to in execution. There is simply nothing for an
@@ -2835,8 +2835,8 @@ as 4 instructions on average, with much less variation than seen in the
 \emph{Kurlig} population.
 
 \subsection{Preparing an execv() system call in the Tomato web server}
-\label{sec:org5f250f3}
-\label{orgdc5d98b}
+\label{sec:orgeeb12ea}
+\label{org45ecbb9}
 
 In the experiments discussed here, we targetted the \gls{http} daemon extracted from
 the firmware binary of a popular, open-sourced \gls{arm} router, with the filename
@@ -2878,12 +2878,12 @@ at the end of the packed chain shown in table \label{fig:wiwzuh}. The Tomato bin
 has 859 to choose from, and the choice is more or less arbitrary. 
 
 Even with so simple a task, the fitness landscape traversed by \gls{roper} displays
-a surprising degree of ruggedness, as we can see in figure \ref{fig:org7162017}. 
+a surprising degree of ruggedness, as we can see in figure \ref{fig:org4230aa2}. 
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/plots/wiwzuh_syscall_gaussian_3.pdf}
-\caption{\label{fig:org7162017}
+\caption{\label{fig:org4230aa2}
 Gaussian approximation of the fitness landscape across the population and over evolutionary time, for the \emph{Wiwzuh} population, evolving \texttt{execv("/tmp/flashXXXXXX", ["/tmp/flashXXXXXX"], NULL)} syscall \gls{rop} chains in tomato-RT-N18U-httpd, yielding a specimen with perfect (0.0) fitness.}
 \end{figure}
 
@@ -2933,7 +2933,7 @@ R7:  b->746e692e      PC:  0->68732e00
 \end{table}
 
 
-\label{orgfd85933}
+\label{org5fd182b}
 I must make a correction to a report stemming from this series of 
 experiments that I had previously published and presented (\cite{fraser17_gecco}, 
 \cite{fraser17_atlseccon}). I had initially set the target pattern for these attacks
@@ -2962,8 +2962,8 @@ The specimen that caught my interest is reproduced here, in table
 
 
 \subsection{Results of the classification problem}
-\label{sec:org29ecfbc}
-\label{orgee45b3a}
+\label{sec:org7e8593f}
+\label{orga7b39c3}
 
 In what follows I describe some of the findings arrived at by experimenting
 with assigning classification tasks to \gls{roper}. Two different datasets are
@@ -2973,8 +2973,8 @@ remarks on the character of the problems we're looking at seem worth making.
 
 
 \subsubsection{Particular challenges imposed by ROPER's phenotypic landscape}
-\label{sec:orgb5a1373}
-\label{org5c3461e}
+\label{sec:org725aa8f}
+\label{orge8c4631}
 
 Studying \gls{roper}'s handling of simple classification problems, where the
 odds of success by any standard classification algorithm can be more or less
@@ -3005,7 +3005,7 @@ Furthermore, even without considering the probability skews caused by genetic dr
 there is an unevenness in the space of possible outcomes -- represented, for example,
 by register states -- that is imposed by the materials that the host binary makes
 available. Consider, for instance, the distribution in the frequency of register
-usage shown in figure \ref{fig:org9b51390}. If the output registers
+usage shown in figure \ref{fig:orgf428307}. If the output registers
 used for the bid-based classification function are, say, \texttt{R0}, \texttt{R1}, and \texttt{R2}, then,
 all else being equal, we can expect to see the class designated by \texttt{R0} receive 
 more attention, until the population calibrates itself.\footnote{At some point, this needs to ascertained through experimentation. For that, we'll
@@ -3017,13 +3017,13 @@ more attention, until the population calibrates itself.\footnote{At some point, 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/plots/tomato-register-histogram.png}
-\caption{\label{fig:org9b51390}
+\caption{\label{fig:orgf428307}
 Register use histogram for the tomato-RT-N18U-httpd \gls{arm} \gls{elf} binary, used in many of the experiments documented here. The general shape of this distribution is representative of all of the \gls{gcc} compiled \gls{arm} \glspl{elf} I have looked at. The height of each bar represents the frequency with which the register, indexed on the X-axis, appears in pop-type instructions, in returns, and in the source and destination of data manipulation instructions.}
 \end{figure}
 
 At the present time, no explicit adjustment is made to the fitness functions
 to account for this uneveness, though the \emph{difficulty} mechanism and its use in
-fitness sharing (see \S \ref{orga916dfa}) provides a means for the evolutionary
+fitness sharing (see \S \ref{org7e69859}) provides a means for the evolutionary
 process to, eventually, gain some traction on it.
 
 These qualities should be borne in mind when assessing \gls{roper}'s performance
@@ -3035,17 +3035,17 @@ strange and improbable as \emph{training a population of \gls{rop} chains to rec
 patterns in data} is possible.
 
 \subsubsection{Classification of a simple, linearly separable dataset}
-\label{sec:orgb5553b6}
-\label{org0cb46bf}
+\label{sec:orgc9f8bd5}
+\label{orgdaf22af}
 
 As a way of establishing the minimal feasibility of performing classification
 tasks with \gls{roper}, I tested the system with an extremely simple, linearly
 separable dataset that I had generated artificially, with just two attributes
-and two classes (see figure \ref{fig:org3051ee9}).
+and two classes (see figure \ref{fig:orgb1cb8ad}).
 
 \gls{roper} had very little difficulty with this problem set, and was able to
 generate fairly good classifications of the data in the initial trials (figure 
-\ref{fig:orgf144c1b}). Its best specimen clearly relied on a single
+\ref{fig:org62b8774}). Its best specimen clearly relied on a single
 attribute in forming their classifications -- basing them, it appears, on the
 sign of the \(x\) parameter -- but it seems likely that some fine-tuning of the
 (currently very naive) fitness function should be able to encourage a subtler
@@ -3056,27 +3056,27 @@ misclassified as red.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/plots/2_simple_blobs.png}
-\caption{\label{fig:org3051ee9}
+\caption{\label{fig:orgb1cb8ad}
 An extremely simple, artificial data set, with two linearly separable classes determined by two points.}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/plots/kathot_champion_18916_blobs_disas.pdf}
-\caption{\label{fig:orgf144c1b}
-The classification on the data displayed in figure \ref{fig:org3051ee9} performed by the best specimen in the \emph{Kathot} population, 35\(^{\text{th}}\) generation (execution trace inset).}
+\caption{\label{fig:org62b8774}
+The classification on the data displayed in figure \ref{fig:orgb1cb8ad} performed by the best specimen in the \emph{Kathot} population, 35\(^{\text{th}}\) generation (execution trace inset).}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/plots/kathot_fitness.pdf}
-\caption{\label{fig:org4644734}
+\caption{\label{fig:org9714e38}
 Performance profile of \emph{Kathot} population, with gadgets in tomato-RT-N18U-httpd, on the ``two simple blobs'' classification problem.}
 \end{figure}
 
 \paragraph{A case study of malignancy in the \emph{Fizwej} population}
-\label{sec:orgcc6833f}
-\label{orgf6d19fa}
+\label{sec:org131c804}
+\label{org499ec70}
 
 Meanwhile, in the \emph{Fizwej} population, a genetic strain emerged that had found
 a way to classify the simple dataset flawlessly -- or nearly so. Though it 
@@ -3140,22 +3140,22 @@ Start Address & End Address & Protections\\
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/plots/fizwej_perfect_crash.pdf}
-\caption{\label{fig:orgbff3bca}
+\caption{\label{fig:orgcaa2faf}
 A genetic union of a harmful phenotypic trait with an advantageous one, in the \emph{Fizwej} population. As before, gadgets are separated by blank lines.}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/plots/fizwej-badgenes.pdf}
-\caption{\label{fig:org6d7a31c}
+\caption{\label{fig:org91b6ec5}
 The evolutionary dead-end of the \emph{Fizwej} population, with the spread of the ``\texttt{0000ad04 stmib r1, \{r3, sl\}}'' gene.}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/plots/fizwej_S124_heatmap.pdf}
-\caption{\label{fig:orgf1b6bd2}
-Address visitation heatmap of the \emph{Fizwej} population, at season 4 on the left, and season 124, on the right, showing a dramatic decline in phenotypic diversity. Compare with the \emph{xeqcyv} and \emph{kurlig} heatmaps in figures \ref{fig:org8452c60} and \ref{fig:orgc34c7ed}.}
+\caption{\label{fig:orgf687ba9}
+Address visitation heatmap of the \emph{Fizwej} population, at season 4 on the left, and season 124, on the right, showing a dramatic decline in phenotypic diversity. Compare with the \emph{xeqcyv} and \emph{kurlig} heatmaps in figures \ref{fig:org8bdd1f7} and \ref{fig:org651f1d4}.}
 \end{figure}
 
 The obstacle that we're encountering here is that, owing to the complex structure
@@ -3176,32 +3176,32 @@ to answer it before a selective epidemic occurs. It may be interesting to
 attempt to incorporate a more sophisticated semantic analysis routine to inspect
 gadgets that trigger a crash, and to determine whether or not they should be
 removed from the gene pool -- an idea we will take up further in the discussion
-of future directions for this project, in \S \ref{org0796296}. Incorporating
+of future directions for this project, in \S \ref{org6bf21c6}. Incorporating
 a gauge of genetic, or low-level phenotypic, diversity into the fitness function
 -- scaling fitness by the relative frequency of either the individual's
 machine-word composition, or its execution path through process memory -- may
 also help mitigate the threat of malignant genetic convergence.
 
 \paragraph{An early encounter with a segfault plague, due to an vulnerability in the crash handling mechanism}
-\label{sec:orgec11785}
-\label{org15d9d50}
+\label{sec:orga8af529}
+\label{org8d9726c}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/plague.png}
-\caption{\label{fig:org4fa0b66}
+\caption{\label{fig:org71cd9e1}
 A plague of segfaults: the cyan line indicates the crash rate, and the lower left index shows the average genealogical generation, and not the number of iterations, as used in later graphs. The raw data for this experiment has unfortunately been lost, leaving only this artifact as a historical curiosity.}
 \end{figure}
 
 This wasn't the first time that I had seen a segfaulting strain rise to
 dominance in one of \gls{roper}'s populations. In one, particularly fascinating
 and unusually pathological trial with the Iris classification problem (which we
-will look at more closely in \S \ref{org92b4ebb}) , which I stumbled
+will look at more closely in \S \ref{org4e290d8}) , which I stumbled
 across early in the experimentation, the crash rate skyrocketed, and the \emph{entire
 population} fell victim to a congenital plague of segfaults before its
-20,000\(^{\text{th}}\) tournament iteration (figure \ref{fig:org4fa0b66}). Due to the data that
+20,000\(^{\text{th}}\) tournament iteration (figure \ref{fig:org71cd9e1}). Due to the data that
 was collected at the time being insufficiently coarse-grained, I cannot say
-whether dynamics similar to those described in \S \ref{orgf6d19fa} played
+whether dynamics similar to those described in \S \ref{org499ec70} played
 a role in this occurrence. At least one of the factors leading up to it was
 uncovered, however, by reviewing the mean ``ratio run'' metric of the population:
 the population had discovered a means of exploiting the sloppy implementation of
@@ -3248,11 +3248,11 @@ for crash rates to oscillate than against it, and allow exploration of more
 dangerous waters so long as it doesn't threaten to risk the long-term well-being
 of the population as a whole. 
 
-In view of the phenomena described in \S \ref{orgf6d19fa}, however, this approach to regulating the crash rate may warrant revision. 
+In view of the phenomena described in \S \ref{org499ec70}, however, this approach to regulating the crash rate may warrant revision. 
 
 \paragraph{A proposed method for regulating malignant genes with a TTL field}
-\label{sec:orgd70d9cf}
-\label{orgfbc7400}
+\label{sec:org14e0b51}
+\label{org3665edb}
 
 Another mechanism that we could use to mitigate this dynamic may be to add
 a \gls{ttl} field to our \texttt{clump} datatype. With each crossover or cloning event, 
@@ -3270,24 +3270,24 @@ odds.
 
 
 \subsubsection{\emph{Fleurs du malware}: Classification of the Iris data set}
-\label{sec:org909e2c1}
-\label{org92b4ebb}
+\label{sec:orgf8a7ce5}
+\label{org4e290d8}
 
 The Iris dataset, though relatively simple by contemporary classifier standards, 
 is considerably more complex than the ``two simple blobs'' dataset explored in
-Section \ref{org0cb46bf}. Its attribute-class mapping is plotted
-in figure \ref{fig:org53d750b}
+Section \ref{orgdaf22af}. Its attribute-class mapping is plotted
+in figure \ref{fig:orgb33a892}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/plots/iris_plot.pdf}
-\caption{\label{fig:org53d750b}
+\caption{\label{fig:orgb33a892}
 Map of the Iris dataset. Triangle points represent petal measurements, and square points represent sepal measurements, with length on the X-axis and width on the Y-axis. Colour maps to species: green for \emph{setosa}, maroon for \emph{versicolor}, and pink for \emph{virginia}.}
 \end{figure}
 
 
 \paragraph{Without fitness sharing}
-\label{sec:orga2f3914}
+\label{sec:org7706399}
 
 The fitness curve of our best specimens \emph{without fitness-sharing} typically took
 the form of long, shallow plateaus, against the backdrop of a population swaying,
@@ -3297,13 +3297,13 @@ An interesting phenomenon seemed to recur in several populations, however, follo
 a prolonged fitness plateau: long after it had been effectively quelled by selective
 pressure, the rate at which individuals crash during execution would begin to rise
 again, climbing, in fits and starts, from near zero to up to 40\% of the population.
-This is what we see happening in figure \ref{fig:org5e838dd}, for example,
+This is what we see happening in figure \ref{fig:org6af17cd}, for example,
 which documents one of the early experiments performed with \gls{roper}.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/plots/good-nosharing.png}
-\caption{\label{fig:org5e838dd}
+\caption{\label{fig:org6af17cd}
 Resurgence of the crash rate during a fitness plateau, in an early run of the Iris classification task, before implementing fitness sharing. The X-axis in the left-hand pane tracks the average generation of individuals, while the X-axis on the right tracks iterations of the main loop. The relation between the two measures is linear, and so these panes can be more or less superimposed.}
 \end{figure}
 
@@ -3313,13 +3313,13 @@ if the method for forming introns, favoured by this population, involved individ
 altering their own call stacks so as to escape dependency on certain segments of their
 genomes -- a strategy that might be viable for one or two generations, but may result
 in more fragile chains in in subsequent ones. I explore this possibility in more
-depth in section \ref{org915aca8}.
+depth in section \ref{org16e689a}.
 
 Curiously, the peak in crash rate coincides with a dip in the average length of the
 population, which appears contrary to the supposition that the population was undergoing
 a strong pressure for intron formation at this point -- code bloat is almost certainly
 the \emph{simplest} means of forming introns. This may be an artefact of the fragility
-mechanic detailed in \S \ref{org3864a75}, however: a sufficiently fragile gene
+mechanic detailed in \S \ref{orgb169313}, however: a sufficiently fragile gene
 has a strong likelihood of simply being dropped during crossover, and passed to neither
 offspring, and when a crash occurs, the fragility of the last gadget to have been
 executed is automatically maximised. We could, therefore, be seeing a \emph{consequence}
@@ -3328,7 +3328,7 @@ least, appear to me to be a likely hypothesis.
 
 Another, non-exclusive possibility is that the fitness plateau we can see,
 stretching across the second half of the history documented in figure
-\ref{fig:org5e838dd} is a symptom of (premature) genetic convergence. 
+\ref{fig:org6af17cd} is a symptom of (premature) genetic convergence. 
 Perhaps it converged on a fitness peak that was robust enough to survive
 a certain number of reproductive cycles -- long enough for it to establish
 dominance in the population, and drive out competing phylogenic strains, but 
@@ -3341,8 +3341,8 @@ its ill-fated domination of the gene pool.\footnote{The raw data from this run h
   to speculating on the basis of its surviving artefacts.}
 
 \paragraph{With fitness sharing}
-\label{sec:orgd0d8f2f}
-\label{org1da07bf}
+\label{sec:orgfb85c50}
+\label{org7504f43}
 
  What would consistently seem to occur in the classification runs performed
  using a static fitness function, keyed to detection rate, was that the
@@ -3363,16 +3363,16 @@ facility for solving relatively \emph{easy} problems.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/plots/nosharing.pdf}
-\caption{\label{fig:orga28fefe}
-A trial similar to the one documented in figure \ref{fig:org79895f2}, with per-class difficulty recorded, but with the fitness sharing mechanism suspended (\emph{Cazmud} population). The filled curve surrounding each mean difficulty class, here being of visible breadth only in the case of the \emph{iris virginia}, represents the standard deviation of difficulty for each exemplar class.}
+\caption{\label{fig:org548793f}
+A trial similar to the one documented in figure \ref{fig:orgf63c365}, with per-class difficulty recorded, but with the fitness sharing mechanism suspended (\emph{Cazmud} population). The filled curve surrounding each mean difficulty class, here being of visible breadth only in the case of the \emph{iris virginia}, represents the standard deviation of difficulty for each exemplar class.}
 \end{figure}
 
 For this reason, I introduced into \gls{roper} the \emph{fitness sharing} mechanism 
-that I have outlined in \S \ref{orga916dfa}. 
+that I have outlined in \S \ref{org7e69859}. 
  The result (after some persistence and plenty fine-tuning) was a superb run --
 achieving 96.6\% detection rate (0.034 absolute fitness) on the Iris set in
 27,724 tournaments, 216 seasons of difficulty rotation, and an average
-phylogenic generation of 91.3. Figure \ref{fig:org79895f2} shows the course the
+phylogenic generation of 91.3. Figure \ref{fig:orgf63c365} shows the course the
 evolution took, with the right-hand panel showing the responding environmental
 pressures -- the \texttt{difficulty} scores associated with each class, showing both
 mean and standard deviation.
@@ -3380,29 +3380,29 @@ mean and standard deviation.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/plots/sharing.pdf}
-\caption{\label{fig:org79895f2}
-A very good run on the Iris classification task, employing the fitness sharing algorithm documented in \S \ref{orga916dfa} (\emph{Ragweb} population). The filled curve surrounding each mean difficulty line again represents the standard deviation of difficulty for that exemplar class.}
+\caption{\label{fig:orgf63c365}
+A very good run on the Iris classification task, employing the fitness sharing algorithm documented in \S \ref{org7e69859} (\emph{Ragweb} population). The filled curve surrounding each mean difficulty line again represents the standard deviation of difficulty for that exemplar class.}
 \end{figure}
 
 
 
 This run can be informatively compared with the one illustrated in figure
-\ref{fig:orga28fefe}. Note the tight interbraiding of problem difficulties in
-figure \ref{fig:org79895f2}, as compared to their gaping -- but still, slowly,
-fluctuating -- disparity in figure \ref{fig:orga28fefe}. The ballooning standard
-deviation of difficulty by class in figure \ref{fig:org79895f2} also suggests
+\ref{fig:org548793f}. Note the tight interbraiding of problem difficulties in
+figure \ref{fig:orgf63c365}, as compared to their gaping -- but still, slowly,
+fluctuating -- disparity in figure \ref{fig:org548793f}. The ballooning standard
+deviation of difficulty by class in figure \ref{fig:orgf63c365} also suggests
 a dramatic increase in behavioural diversity in the population, which is
 precisely what we aim for with the fitness sharing algorithm.
 
 
 \subsection{Preliminary results of the \emph{Snake} experiments}
-\label{sec:org0848885}
-\label{orgee28f48}
+\label{sec:org099c5b4}
+\label{org9732b22}
 
 In the final problem class put to \gls{roper}, I wrote a simple \emph{Snake} game
 \cite{snakefight} for its populations to play, to see how they may respond to a
 dynamically changing environment, with moderate to high degrees of randomness.
-The specifications of the game are described above, in \S \ref{orgd09a8b3}.
+The specifications of the game are described above, in \S \ref{org5abd386}.
 To control the degree of randomness, I set up the game control protocol so that
 the \gls{roper} engine could pass a random seed to the game in order to initialize
 the placement of ``apples'' and ``cacti'' on the game board. Surprisingly, the 
@@ -3413,27 +3413,27 @@ for the duration of the evolutionary run.
 Results on this experiment remain largely preliminary and anecdotal in nature,
 but evidence of its basic feasibility can be found in the time-lapse recording
 of the final champion of the \emph{Misjax} population playing a semi-competent game
-of Snake in figure \ref{fig:orgbc0ef54}. 
+of Snake in figure \ref{fig:org28d832b}. 
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/snek_misjax_montage_on_white.png}
-\caption{\label{fig:orgbc0ef54}
+\caption{\label{fig:org28d832b}
 Time-lapse rendering of one of the fitter specimens encountered in the Snake trials (\emph{Misjax} population). Snake segments: \texttt{[]}, apples: \texttt{()}, cacti: \texttt{\#\#}.}
 \end{figure}
 
 
 
 \section{Intron Pressure, Self-Modifying Payloads, and Extended Gadgetry}
-\label{sec:org9a24fd8}
-\label{orge2344d6}
+\label{sec:org73b4dea}
+\label{orgad5a52a}
 
 In all of the experimental trials performed, a certain number of peculiar,
 interrelated phenomena appeared in the dynamic behaviour of the population
 as a whole. 
 
 \subsection{Crash Rate Oscillations}
-\label{sec:orgf93c026}
+\label{sec:org23ee83b}
 The first has to do with the observed crash rates. In the beginning -- as is to
 be expected, since our initial gadget harvest is deliberately roughly hewn
 and approximate, with no attempt to formally verify the individual reliability
@@ -3452,7 +3452,7 @@ and appears to be much easier for our populations to accomplish than the specifi
 task-oriented components of the fitness function. And whereas the prospect of
 crashing ``in the wild'', before having a chance to reproduce, is completely and
 utterly fatal to evolving malware strains (see the discussion of this problem
-in \S \ref{org54b0ad5}), our ``in vitro'' populations have the advantage of a gently
+in \S \ref{org69b759a}), our ``in vitro'' populations have the advantage of a gently
 gradated crash penalty: the fitness penalty incurred by a crash is inversely
 proportionate to the number of gadgets viably executed before the crash.
 
@@ -3466,12 +3466,12 @@ oscillate, until the plateau is broken and the fitness equilibrium is
 punctured. 
 
 \subsection{The stray rate and extended phenotypes}
-\label{sec:orgaf857c5}
-\label{org915aca8}
+\label{sec:orgeec0d98}
+\label{org16e689a}
 
 Once a secure conduit had been implemented for passing detailed execution
 information from the emulator back to the evolutionary engine (see \S
-\ref{org15d9d50},
+\ref{org8d9726c},
 another rich vein of information had opened up, which helped to provide evidence for a
 tendency that, until then, I had only been able to observe by manually
 dissecting the disassembly dumps of individual specimens post-mortem\footnote{As discussed in my \gls{gecco} 2017 report on this project \cite{fraser17_gecco},
@@ -3491,7 +3491,7 @@ execv("/bin/sh", ["/bin/sh"], 0)
 \end{verbatim}
 system call -- the sort of task that manually crafted \gls{rop} chains are often
 designed for, so that the attacker can spawn a shell with the privileges of the
-exploited process.\footnote{See the semantic correction noted in \S \ref{orgdc5d98b}, which 
+exploited process.\footnote{See the semantic correction noted in \S \ref{org45ecbb9}, which 
   spoils the real-world usability of this \emph{particular} chain, but which
   does not logically impact the analysis and conjectures formed here,
   in relation to it.}
@@ -3618,19 +3618,19 @@ that this bizarre behaviour is not at all uncommon in \gls{roper}'s populations
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/plots/hepfap.pdf}
-\caption{\label{fig:org6e51bbc}
+\caption{\label{fig:org58e19ba}
 A run on the Iris classification task, with a high stray rate, by the \emph{Hepfap} population.}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/plots/fimjek_heatmap_montage.pdf}
-\caption{\label{fig:org21f0696}
+\caption{\label{fig:org1fac57c}
 Heatmap montage over the \emph{Fimjek} population, showing range of addresses executed, in red tint, superimposed on a map of the explicit gadgets that were harvested to form that population's initial gene pool, in blue tint. The intensity of red tint indicates the frequency with which the corresponding address was visited. Magenta and purple cells indicate orthodox gadget traffic, while red swaths with no tint of blue indicate stray activity. From top-left to bottom-right, each cell is a snapshot of the evolving heatmap at intervals of 20 seasons. The underlying gadget map is taken from the tomato-RT-N18U-httpd binary that we used in this experiment.}
 \end{figure}
 
 \subsection{A conjectural explanation of stray-rate fluctuations as a result of intron pressure}
-\label{sec:org779e129}
+\label{sec:org0dda529}
 What pressures could possibly be driving the evolution of such strange
 specimens? The canonical set of gadgets that the population inherits as its
 primordial gene pool is noisy and brittle enough, but at least those gadgets are
@@ -3745,7 +3745,7 @@ tendency for the crash rate of the population to rise -- and to rise, typically,
 a few generations before the population produces a new champion.
 
 \subsection{Testing the Extended Gadgetry Conjecture with Explicitly Defined Introns}
-\label{sec:org56a872c}
+\label{sec:orgc0376e7}
 
 The explanation given above for the strange behaviour observed seems to me to
 be compelling enough on strictly theoretical grounds, but it still remains
@@ -3800,7 +3800,7 @@ event.
 
 The task component of the fitness function for these trials was to match a
 precisely specified \gls{cpu} context, similar to the register-matching task
-discussed in \S\S \ref{orgfe5f60b} and \ref{orgdc5d98b}, but
+discussed in \S\S \ref{org831e046} and \ref{org45ecbb9}, but
 with one key difference, incorporating a recent update to the engine: the
 population would be responsible for matching not just a series of immediate
 register values, but correctly dereferencing pointers as well (but only up to
@@ -3820,14 +3820,14 @@ values. They were designed to either fail indefinitely, or evolve for an extreme
 long period of time before converging, the better to study their long-term
 dynamics. 
 
-The results, presented in figures \ref{fig:orgb85c5eb} and
-\ref{fig:org49f69a5}, were found to corroborate the intron hypothesis,
+The results, presented in figures \ref{fig:org3be123b} and
+\ref{fig:orgcbde444}, were found to corroborate the intron hypothesis,
 though not as dramatically as anticipated. One of the four \gls{edi} populations
 still showed a visible history of stray address visitation, but only one, as
 compared to the four \gls{edi} free populations, all of which showed signs of
 straying. Though fine-grained genealogical data is not available for these
 populations, the relative continuity of the stray line in the \emph{Rofted} population, 
-appearing in figure \ref{fig:orgb85c5eb}, suggest that this \emph{may} be the
+appearing in figure \ref{fig:org3be123b}, suggest that this \emph{may} be the
 result of a single bloodline, in contrast to the \gls{edi} free \emph{surjes} and 
 \emph{Simtyn} populations, where the incidence of strays appears in fits and starts, 
 suggesting multiple genealogical origins. It would be interesting to repeat this
@@ -3854,23 +3854,23 @@ bloodlines.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/plots/edi_stray_montage.pdf}
-\caption{\label{fig:orgb85c5eb}
+\caption{\label{fig:org3be123b}
 Plot of EDI frequency to stray rate, crash rate, and the ratio of gadgets run in the \emph{hyzqyp}, \emph{megkek}, \emph{qatjaq} and \emph{Rofted} populations, with non-EDI mutation disabled.}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/plots/noedi_stray_montage.pdf}
-\caption{\label{fig:org49f69a5}
+\caption{\label{fig:orgcbde444}
 Plot of stray rate, crash rate, and the ratio of gadgets run in the \emph{mycwil}, \emph{simtyn}, \emph{surjes} and \emph{Xufmoc} populations, with mutation and EDI toggling disabled, with a base EDI rate of zero.}
 \end{figure}
 
 \chapter{Conclusions and Future Work}
-\label{sec:orgbcfdec2}
-\label{org0796296}
+\label{sec:orgb38fc47}
+\label{org6bf21c6}
 
 \section{The devil in the details}
-\label{sec:org66811c3}
+\label{sec:org5643fbb}
 
 \Gls{roper} has been explicitly designed as a ``proof of concept'', and not
 as a refinement on existing prior art. The experiments documented here,
@@ -3881,7 +3881,7 @@ application domain, admittedly, seems to be something somewhat narrower than
 a \emph{conceptual} innovation. 
 
 But, on the one hand, the devil's in the details, and this is why I chose to
-spend the majority of Chapter \ref{org465e5f4} labouring over peculiarities
+spend the majority of Chapter \ref{org15620f4} labouring over peculiarities
 in individual cases and idiosyncracies in population trends, rather than focus
 on accumulating quantitative performance metrics. What we find there, I think,
 are challenges \emph{specific} to the domain of evolving populations of programs on
@@ -3929,16 +3929,16 @@ pressing.
 
 
 \section{Futher experiments and modifications suggested by above results}
-\label{sec:org72a89c2}
+\label{sec:org912127f}
 
-The reader will have noticed that Chapter \ref{org465e5f4} raised at least
+The reader will have noticed that Chapter \ref{org15620f4} raised at least
 as many questions as it answered, and that only a fraction of them were dealt
 with directly in that chapter. 
 
 \subsection{Adding a \gls{ttl} field to clumps to contain malignancy and promote novelty}
-\label{sec:org345128d}
+\label{sec:orgdf36dd5}
 
-This was touched on in \S \ref{orgfbc7400}, in response to an interesting case
+This was touched on in \S \ref{org3665edb}, in response to an interesting case
 of a malignant gene being aggressively promoted by selection, in virtue of the
 beneficial trait with which its malignancy was indissociably bound. It's the
 sort of problem to which evolution systems whose components are semantically
@@ -3951,10 +3951,10 @@ exploring. It's implementation seems fairly straightforward, and it will be one
 of the first experiments I perform with the system when time allows. 
 
 \subsection{Collecting comprehensive genealogical data on the population during runtime}
-\label{sec:orgc230f57}
+\label{sec:org17fa034}
 
 Frequently, in my analysis of various peculiar behaviours in \gls{roper}'s
-populations, in Chapter \ref{org465e5f4}, my enquiry was cut short by a simple
+populations, in Chapter \ref{org15620f4}, my enquiry was cut short by a simple
 lack of data. It would be interesting to know, for example, \emph{just how often} a
 fit chain descends from a crashing ancestor -- information that could be used in
 calibrating an optimal crashing penalty or \gls{ttl}, for instance, and which would
@@ -3963,7 +3963,7 @@ collecting such data, but doing so efficiently will be an interesting optimizati
 challenge. 
 
 \subsection{Refactoring and optimization}
-\label{sec:org1dc1bb6}
+\label{sec:org995f205}
 
 I have a tendency to take new and ambitious projects as an opportunity to learn
 a new language, and in the case of \gls{roper}, this was Rust. Unfortunately, this
@@ -3978,13 +3978,13 @@ form, and very much deserves an overhaul -- one that includes unit tests and
 documentation, to boot. 
 
 \subsection{The Snake game, and other interactive problem spaces}
-\label{sec:org451b724}
+\label{sec:org7743051}
 
-The experiment touched on in \ref{orgee28f48} remained largely tangential,
+The experiment touched on in \ref{org9732b22} remained largely tangential,
 and it cries out for completion and more careful study. This, too, is on the agenda. 
 
 \subsection{Testing ROPER's payloads on fully realized systems}
-\label{sec:org2e9a31e}
+\label{sec:orgeb967ec}
 
 In the experiments discussed above, we never went beyond studying the behaviour
 of \gls{roper}'s populations \emph{in vitro}, trapped in their reasonably complete, but
@@ -3999,7 +3999,7 @@ where their \emph{in vivo} viability is put to the test.
 
 
 \section{Broader strokes}
-\label{sec:orge2aef91}
+\label{sec:orgf2b4c17}
 
 On the back burner, at present, sits a side project where I had begun to rewrite
 \gls{roper} from scratch, before realizing that this was perhaps a bit too
@@ -4030,7 +4030,7 @@ themselves to evolutionary pressure.
 \end{enumerate}
 
 \subsection{``ROPUSH'' or ``ROPER II''}
-\label{sec:orgc3b8e32}
+\label{sec:org623bf11}
 
 A design idea for the second iteration of \gls{roper} was spurred by an
 interesting suggestion made by Lee Spector, in a discussion of some of my
@@ -4071,7 +4071,7 @@ the back burner of the current \gls{roper} git repository. It would be interesti
 to see this through to completion, when time allows. 
 
 \subsection{A return to Q, through the Binary Analysis Platform}
-\label{sec:org4c9db08}
+\label{sec:org928bb74}
 
 I've also become increasingly interested, lately, with the domain of semantic
 binary analysis, and have been giving some though to switching from Unicorn
@@ -4095,12 +4095,12 @@ Until then, I will tend to my \glspl{rop}.
 
 \appendix
 \chapter{Appendix: Recent Tweaks and Experiments}
-\label{sec:org22a4bf7}
+\label{sec:orgbda21ae}
 \section{Adjusting the classification task function for better environmental compatibility}
-\label{sec:org59b781b}
+\label{sec:org3e3edef}
 \subsection{Disadvantages of the bid-based algorithm in ROPER}
-\label{sec:orgbe28fd4}
-As we can see in figure \ref{fig:org9b51390}, the distribution of register use
+\label{sec:org0a3b46e}
+As we can see in figure \ref{fig:orgf428307}, the distribution of register use
 in a fairly typical \gls{arm} \gls{elf} program is hardly even. This places a tremendous skew
 on the relative likelihood of register use by an arbitrary individual in \gls{roper}'s
 populations. And since the entire set of registers is initialized to the same, constant
@@ -4109,8 +4109,8 @@ in each register as a discriminant for a task is hamstrung from the outset. We a
 cutting the execution environment against the grain when we try to configure our
 fitness functions in this way.
 \subsection{Using R0 to decide}
-\label{sec:orgcf60937}
-\label{org54984e8}
+\label{sec:orgb053ce4}
+\label{orgd3722df}
 The \gls{arm} \gls{abi} \cite{arm_abi} already gives us some useful hints here, which we can try to adhere to, to
 make our fitness functions more harmonious with their environment. Like the x86, the \gls{arm}
 \gls{abi} designates a particular register for the purposes of carrying a return value:
@@ -4121,7 +4121,7 @@ to a word and returned in r0.
 \end{quote}
 Though larger values can enlist other registers as vehicles -- ``a 128-bit containerized vector
 is returned in r0-r3'', for example -- the sole use of r0 is by far the most common case, which
-explains why we see it being given so great a preference in figure \ref{fig:org9b51390}. 
+explains why we see it being given so great a preference in figure \ref{fig:orgf428307}. 
 
 ``Cutting with the grain,'' here, would mean adjusting our fitness function so that it hews a bit
 closer to the expected behaviour of procedures in its host. We can try, in particular, to base
@@ -4248,8 +4248,8 @@ R0 (bin): 00000000000000000000000011101010
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/plots/xysxim.pdf}
-\caption{\label{fig:org30a238e}
-Performance of the \emph{Xysxim} population on the simple, linearly separable dataset first encountered in \S \ref{org0cb46bf}.}
+\caption{\label{fig:orgab54523}
+Performance of the \emph{Xysxim} population on the simple, linearly separable dataset first encountered in \S \ref{orgdaf22af}.}
 \end{figure}
 
 This still leaves the matter of input registers, however. One mitigation of the uneven use of
@@ -4260,27 +4260,27 @@ certain, specified stack indexes in the \gls{rop} payload with the available inp
 offers much more flexibility, and adaptability, to the way the population handles input. 
 
 \section{Homologous crossover}
-\label{sec:orgfbc585c}
-\label{org783601d}
+\label{sec:orgcf738dc}
+\label{orge37e23e}
 \subsection{The trouble with crossover}
-\label{sec:org6f3d2c1}
+\label{sec:org556b06f}
 The trouble with crossover as it is currently implemented in \gls{roper}, and with
 the way it is canonically specified in most standard forms of \gls{gp},
 is that it is, as Nordin and others put it \cite{nordin99}, ``too \emph{brutal}'', and
 insensitive to genomic context. The genome can be sliced more or less at random --
 in \gls{roper}, tempered only slightly by the gentle weighting of splice-point probabilities
-through the \emph{fragility} mechanism discussed in \ref{org3864a75} -- combining and substituting
+through the \emph{fragility} mechanism discussed in \ref{orgb169313} -- combining and substituting
 genes without any regard to their form or function.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/carboat-montage.png}
-\caption{\label{fig:orgd0ba308}
+\caption{\label{fig:org90ce717}
 Unconstrained crossover in action}
 \end{figure}
 
 \subsection{One way of implementing (quasi-)homologous crossover in ROPER}
-\label{sec:orgff82615}
+\label{sec:orgca2bc49}
 In natural organisms, crossover is a highly constrained and sophisticated mechanism. 
 Under ordinary circumstances, only those genes sharing the same loci in their respective
 chromosomes are candidates for sexual recombination. This particular notion of ``loci'', 
@@ -4352,7 +4352,7 @@ this could be done.
 The fecundity of this approach is the subject of ongoing experimental trials. 
 
 \subsection{Alternative approaches to the problem}
-\label{sec:org671d7a5}
+\label{sec:org9b79374}
 
 A more nuanced implementation of homologous crossover may be possible, using
 runtime information gleaned from the execution of the parents -- we could
@@ -4363,18 +4363,18 @@ where the maternal segment left off}, semantically speaking.
 
 
 \section{Selecting for behavioural diversity}
-\label{sec:orgd1ce159}
-\label{org4a9c21b}
+\label{sec:orga5209da}
+\label{orge43e72e}
 
 Fitness sharing, as currently implemented in \gls{roper}, skews the selective process
 so as to favour diversity, on a problem-by-problem basis. I explain the algorithm
-used in \S \ref{orga916dfa}, and demonstrate its impact on classification tasks in 
-Section \ref{org1da07bf}. Its applicability, as we have seen, relies
+used in \S \ref{org7e69859}, and demonstrate its impact on classification tasks in 
+Section \ref{org7504f43}. Its applicability, as we have seen, relies
 on a discretely decomposable and repeating problem space, which is a serious limitation
 when it comes to problem spaces where the variation is fine-grained or nonexistent:
-neither the syscall preparation task (cf. \S \ref{orgdc5d98b}), which uses a
+neither the syscall preparation task (cf. \S \ref{org45ecbb9}), which uses a
 singleton problem set, nor the
-Snake experiment (cf. \S \ref{orgee28f48}), which uses a continuously
+Snake experiment (cf. \S \ref{org9732b22}), which uses a continuously
 varying problem set, currently benefit from this approach. We might also wonder if
 a more fine-grained favouring of diversity might be useful, even in problem spaces
 where fitness sharing can be made to apply -- a metric that would reward diversity
@@ -4390,7 +4390,7 @@ put this to the test.
 pressed into service, in this capacity: we are already tracking the execution
 paths that each individual traces through the host process, for instance, but,
 until now, we have only used this data for analytical purposes -- as seen,
-throughout Chapter \ref{org465e5f4}, in the analysis of heatmap data. 
+throughout Chapter \ref{org15620f4}, in the analysis of heatmap data. 
 
 I recently modified \gls{roper} so that the heatmap data collected can be threaded
 through to the function responsible for fitness evaluation. This function now
@@ -4413,7 +4413,7 @@ $$ \text{fitness} \gets (\text{novelty} * v) + (\text{fitness} * (1.0 - v))$$
 
 
 \section{The clump TTL mechanism and the ecological role of extinction events}
-\label{sec:org07f6671}
+\label{sec:org1ee7682}
 
 Shortly after writing the conclusion to this thesis and submitting the examination
 draft, I began experimenting with the \gls{ttl} mechanism on which I had pinned my
@@ -4453,13 +4453,13 @@ could be visited upon descendants quite distant from the highly crash-prone
 ancestors responsible for diminishing the \gls{ttl}. 
 This would lead, in turn, to mass extinction events in the population, as indexed in
 the \emph{astronomically poor} turn taken by the crossover fitness delta metric in 
-figure \ref{fig:orga505c6a} -- whose evolutionary run bore the same configuration as the population
-in which the malignant gene problem was first diagnosed (see \S \ref{orgf6d19fa}).  
+figure \ref{fig:org76375f4} -- whose evolutionary run bore the same configuration as the population
+in which the malignant gene problem was first diagnosed (see \S \ref{org499ec70}).  
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/plots/xilvyb.pdf}
-\caption{\label{fig:orga505c6a}
+\caption{\label{fig:org76375f4}
 Ecologically disruptive effects on the \emph{Xilvyb} population caused by the \gls{ttl} mechanism, causing a mass extinction of clump lines during a simple linear classification task, using register bid-bin classification.}
 \end{figure}
 
@@ -4468,13 +4468,13 @@ The next experiment was conducted using the syscall preparation task.
 At the cost of an unusually slow convergence -- which may, perhaps, be
 ameliorated by tuning some of our newly-introduced parameters -- the combination
 of placing an expiration date on the last clump to execute in a crashing chain,
-and introducing a selective incentive for behavioural diversity (see \S \ref{org4a9c21b}) appears to yield
+and introducing a selective incentive for behavioural diversity (see \S \ref{orge43e72e}) appears to yield
 quite good results, so far as maintaining diversity is concerned. One such outcome
 shows a distribution of address visitations that has no precedent in the populations
 studied so far in this thesis: a run that terminated with \emph{greater} address visitation
 diversity than it began with, while nevertheless, eventually, converging on a perfect
 absolute fitness score. This occurred in the \emph{Soghuf} population, in the course of
-completing the syscall preparation task, outlined in \S \ref{orgfe5f60b}.
+completing the syscall preparation task, outlined in \S \ref{org831e046}.
 
 The relatively low but nevertheless
 steady rate of crashes in the population, which had settled into an equilibrium between
@@ -4503,58 +4503,58 @@ convergence is a problem that needs to be kept actively in check.
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/plots/soghuf_heatmap_4_608.png}
-\caption{\label{fig:org2270dfc}
+\caption{\label{fig:orgd8246e7}
 The effects of visitation novelty pressure on the \emph{Soghuf} population, with the additional influence of a \gls{ttl} field set to 4 and decremented on crash-prone clumps during crossover. The homologous crossover mechanism was not used for this run.}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/plots/soghuf.pdf}
-\caption{\label{fig:orgd50b6f0}
+\caption{\label{fig:org8d209a7}
 Performance metrics over the \emph{Soghuf} population. Note mass extinction events around seasons 190, 300, and 400-500.}
 \end{figure}
 
 
 
 \section{Iris, Revisited}
-\label{sec:org13f8e18}
+\label{sec:org4bb600e}
 Simple though it may be for systems engineered with no other task but classification in mind, the Iris dataset has 
 proved to be a continual source of challenges for \gls{roper}. The superb run plotted in
-\ref{fig:org79895f2} was never equaled in subsequent trials. 
+\ref{fig:orgf63c365} was never equaled in subsequent trials. 
 
 I recently revisited the dataset after implementing the modifications above, and, with
 the exception of the \gls{ttl} mechanism, enabled them for a run on the Iris set. There
 has not yet been time to complete a trial as lengthy as the one that gave us figure
-\ref{fig:org79895f2}, but the results so far have shown an extraordinary improvement over
-their predecessors. The performance curves for this run are shown in figure \ref{fig:orgc77c513}. 
+\ref{fig:orgf63c365}, but the results so far have shown an extraordinary improvement over
+their predecessors. The performance curves for this run are shown in figure \ref{fig:org8b85f3f}. 
 
 
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/plots/luxxyn.pdf}
-\caption{\label{fig:orgc77c513}
+\caption{\label{fig:org8b85f3f}
 Performance of the \emph{Luxxyn} population of 4096, over time.}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=.9\linewidth]{../images/plots/iris_with_luxxyn.pdf}
-\caption{\label{fig:org0df3f7f}
+\caption{\label{fig:orgc70e252}
 Comparison of the Iris dataset map with the classification performed by the \emph{Luxxyn} population's champion, after only 30 seasons.}
 \end{figure}
 
-As we can see in figure \ref{fig:org0df3f7f}, \emph{even the linearly inseparable} 
+As we can see in figure \ref{fig:orgc70e252}, \emph{even the linearly inseparable} 
 regions of the Iris set were handled intelligently by the champion of this population
 (the \emph{Luxxyn} population, the last we'll be considering in this thesis). 
 
 
 
 \chapter{Appendix: Population Parameters}
-\label{sec:org9ff8312}
+\label{sec:org1f503d8}
 
 \section{Note}
-\label{sec:org8ab7829}
+\label{sec:orgddd3877}
 Here, the reader can find a series of tables documenting the critical parameters
 used for each of the populations referred to by name in this thesis. The best source of
 information on how, exactly, these parameters were implemented is the project's
@@ -4572,7 +4572,7 @@ The MD5 hash of the \texttt{tomato-RT-N18U-httpd} binary used in this series of
 experiments is \texttt{16d38a233b45bab5b57476c11b066cfa}.
 
 \section{Parameter Tables}
-\label{sec:org9bc1ba2}
+\label{sec:orgef6bf1a}
 \begin{table}[htbp]
 \caption{Parameters of the \emph{Cazmud} population, 2017/03/26.}
 \centering
