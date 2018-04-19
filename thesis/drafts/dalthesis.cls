@@ -287,7 +287,7 @@
 \ifdal@glossary
   \usepackage[style=long,header=none,border=none,number=none,toc=true]{glossaries}
  \renewcommand{\gloitem}[1]{\ifgloitemfirst\global\gloitemfirstfalse #1 \else \\#1 \fi & \baselineskip=0.7\baselineskip}
- \renewcommand{\glossaryname}{List of Abbreviations}
+ \renewcommand{\glossaryname}{List of Abbreviations Used}
  \makenoidxglossaries
  \loadglsentries{glossary}
 \fi
@@ -1114,10 +1114,10 @@
       \addtocontents{lof}{\protect\baselineskip=0.7\protect\baselineskip}
    \fi
    % a bit of custom hacking here (olf)
-   \listofalgorithms
-   \addcontentsline{toc}{chapter}{\listalgorithmname}
-   \clearpage
-   \addtocontents{loa}{\protect\baselineskip=0.7\protect\baselineskip}
+   %\listofalgorithms
+   %\addcontentsline{toc}{chapter}{\listalgorithmname}
+   %\clearpage
+   %\addtocontents{loa}{\protect\baselineskip=0.7\protect\baselineskip}
    }
 \def\mainmatter{\newpage
         \typeout{Dalthesis preface pages completed.}

@@ -1,4 +1,3 @@
-\baselineskip =0.7\baselineskip 
 \contentsline {algorithm}{\numberline {4.1}{\ignorespaces Population Initialization}}{33}{algorithm.4.1}
 \contentsline {algorithm}{\numberline {4.2}{\ignorespaces Genotype Evaluation (Ontogenesis)}}{35}{algorithm.4.2}
 \contentsline {algorithm}{\numberline {4.3}{\ignorespaces Evolve Population (Tournament Selection)}}{36}{algorithm.4.3}

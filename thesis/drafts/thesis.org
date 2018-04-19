@@ -86,7 +86,7 @@ crucible in which our ideas and their implementations are tested, and a tireless
 generator of new ideas in its own right. The economic and political fates of
 attackers and defenders may rise and fall in the arena of applied cybersecurity,
 but the science ratchets on, day and night.
-#+LATEX: \footnote{In the immortal words of Pastor Manul Laphroaig:
+#+LATEX: \footnote{In the immortal words of Pastor Manul Laphroaig \cite{laphroaig13}:
 #+LATEX:  \begin{quote}
 #+LATEX:  I must warn you to ignore this Black Hat/White Hat nonsense. As a Straw Hat,
 #+LATEX:  I tell you that it is not the color of the hat that counts; rather, it is the
@@ -1873,7 +1873,7 @@ related to, the problem of genetic drift, which it exacerbates. Involutive pairs
 of operators, selected with equal probability, provide some safeguard against
 this. The /ideal/, in some sense, would be to select genetic operators that
 would engender an /ergodic/ system under a null fitness function:[fn:: Thanks to
-Andrea Shepard for this insight. ] one whose behaviour is evenly distributed
+\aimention{Andrea Shepard} Andrea Shepard for this insight. ] one whose behaviour is evenly distributed
 over the probability landscape it inhabits. In practice, even with fitness
 anulled, evolutionary systems rarely exibit such regularity, which has some very
 interesting effects on the paths that evolution pursues. We will study some of
@@ -1916,7 +1916,7 @@ complicate things further, we restricted the number of parents involved in each
 mating event to two. [fn::One of the limitations of gls:roper is that the mating
 algorithm, and the genetic variation operators in general, are assumed fixed. In
 gls:roper II, we will experiment with a technique for opening this, too, to
-genetic exploration and selective pressure, which Lee Spector calls
+genetic exploration and selective pressure, which \aimention{Lee Spector} Lee Spector calls
 "autoconstructive evolution".]
 
 
@@ -2872,15 +2872,17 @@ In interactive tasks, the role of "problem" may be filled by a game-space config
 Mentally keeping track of numerous, varying artificial populations is a challenge at the
 best of times, and I've found that assigning short,
 pronounceable names to each batch is a useful mnemonic device. For this purpose,
-I've borrowed a trick from the designers of /Urbit/, and used strings of six
-random letters, following the pattern "=consonant vowel consonant consonant vowel consonant="[fn::
-  This superficially resembles the namespace that Yarvin and Wolff-Pauly allocate
-  to "stars" in /Urbit/, but is a bit less constrained: their namespace has room
-  for $2^{16}-1$ names, ours accommodates $(20 * 6 * 20)^2 \approx 2^{11.2}$. 
-]. Using these labels over the course of this chapter lets me avoid circumlocutions
-like "as seen in the second population discussed in \S $N", and has the
-further advantage of setting up a self-documenting correspondence between the
-analyses in this chapter and my system of log files. 
+I've borrowed a trick used by Curtis Yarvin \aimention{Curtis Yarvin} and 
+Galen Wolff-Pauly \aimention{Galen Wolff-Pauly} in designing the /Urbit/ namespace,
+ and used strings of six random
+letters, following the pattern "=consonant vowel consonant consonant vowel
+consonant="[fn:: This superficially resembles the namespace allocated to
+"stars" in /Urbit/, but is a bit less constrained: Urbit's namespace has room for
+$2^{16}-1$ names, ours accommodates $(20 * 6 * 20)^2 \approx 2^{11.2}$. ]. Using
+these labels over the course of this chapter lets me avoid circumlocutions like
+"as seen in the second population discussed in \S $N", and has the further
+advantage of setting up a self-documenting correspondence between the analyses
+in this chapter and my system of log files.
 
 
 ** Initial Findings
@@ -4185,7 +4187,7 @@ design (some of which are, at the same time, items of interest peculiar to gls:r
 *** "ROPUSH" or "ROPER II"
 
 A design idea for the second iteration of gls:roper was spurred by an
-interesting suggestion made by Lee Spector, in a discussion of some of my
+interesting suggestion made by \aimention{Lee Spector} Lee Spector, in a discussion of some of my
 preliminary results and challenges at GECCO 2017 (where I presented [[bib:fraser17_gecco]]). Spector suggested that the
 opacity and brittleness that I was grappling with in "gls:roper I" might become
 more tractable if, instead of having the individuals of my population be more or
@@ -4729,6 +4731,8 @@ regions of the Iris set were handled intelligently by the champion of this popul
 
 
 
+* List of Algorithms
+\listofalgorithms
 
 * Population Parameters 
 
@@ -4751,7 +4755,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 
 ** Parameter Tables
 #+CAPTION: Parameters of the \emph{Cazmud}\index{Cazmud} population, 2017/03/26.
-#+ATTR_LATEX: :float t
+#+ATTR_LATEX: :float t :placement [!htpb]
 | binary                | tomato-RT-N18U-httpd |
 | brood size            |                    2 |
 | fitness goal          |                  0.1 |
@@ -4772,7 +4776,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 | use return counter    |                false |
 
 #+CAPTION: Parameters of the \emph{Fimjek}\index{Fimjek} population, 2018/04/02.
-#+ATTR_LATEX: :float t
+#+ATTR_LATEX: :float t :placement [!htpb]
 | binary                    | tomato-RT-N18U-httpd |
 | brood size                |                    2 |
 | crossover rate            |                  0.2 |
@@ -4795,7 +4799,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 | use fragility             |                false |
 
 #+CAPTION: Parameters of the \emph{Fizwej}\index{Fizwej} population, 2018/04/09.
-#+ATTR_LATEX: :float t
+#+ATTR_LATEX: :float t :placement [!htpb]
 | binary                    | tomato-RT-N18U-httpd |
 | brood size                |                    2 |
 | crash penalty             |                  0.5 |
@@ -4819,7 +4823,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 | use fragility             |                 true |
 
 #+CAPTION: Parameters of the \emph{Hepfap}\index{Hepfap} population, 2018/04/01.
-#+ATTR_LATEX: :float t
+#+ATTR_LATEX: :float t :placement [!htpb]
 | binary                    | tomato-RT-N18U-httpd |
 | brood size                |                    2 |
 | crossover rate            |                  0.2 |
@@ -4842,7 +4846,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 | use fragility             |                false |
 
 #+CAPTION: Parameters of the \emph{Kathot}\index{Kathot} population, 2018/04/09.
-#+ATTR_LATEX: :float t
+#+ATTR_LATEX: :float t :placement [!htpb]
 | population size           |                 2048 |
 | crossover rate            |                  0.5 |
 | tournament size           |                    4 |
@@ -4866,7 +4870,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 | use dynamic crash penalty |                false |
 
 #+CAPTION: Parameters of the \emph{Kurlig}\index{Kurlig} population, 2018/04/10.
-#+ATTR_LATEX: :float t
+#+ATTR_LATEX: :float t :placement [!htpb]
 | binary                    |                                   tomato-RT-N18U-httpd |
 | brood size                |                                                      2 |
 | crash penalty             |                                                      0 |
@@ -4888,7 +4892,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 | use fragility             |                                                   true |
 
 #+CAPTION: Parameters of the \emph{Luxxyn}\index{Luxxyn} population, 2018/04/16.
-#+ATTR_LATEX: :float t
+#+ATTR_LATEX: :float t :placement [!htpb]
 | binary                |             tomato-RT-N18U-httpd |
 | brood size            |                                2 |
 | class masks           | 98694840:0 2282b112:1 0514062d:2 |
@@ -4914,7 +4918,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 
 
 #+CAPTION: Parameters of the \emph{Misjax}\index{Misjax} population, 2017/04/20.
-#+ATTR_LATEX: :float t
+#+ATTR_LATEX: :float t :placement [!htpb]
 | binary path          |  tomato-RT-N18U-httpd |
 | crossover rate       |                   0.3 |
 | population size      |                  4096 |
@@ -4930,7 +4934,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 
 
 #+CAPTION: Parameters of the \emph{Poclux}\index{Poclux} population, 2017/03/22.
-#+ATTR_LATEX: :float t
+#+ATTR_LATEX: :float t :placement [!htpb]
 | binary path           |                               tomato-RT-N18U-httpd |
 | brood size            |                                                  2 |
 | fitness goal          |                                                  0 |
@@ -4947,7 +4951,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 | use fragility         |                                               true |
 
 #+CAPTION: Parameters of the \emph{Ragweb}\index{Ragweb} population, 2017/03/26.
-#+ATTR_LATEX: :float t
+#+ATTR_LATEX: :float t :placement [!htpb]
 | binary                | tomato-RT-N18U-httpd |
 | brood size            |                    2 |
 | fatal crash           |                false |
@@ -4971,7 +4975,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 
 
 #+CAPTION: Parameters of the \emph{Rofted}\index{Rofted} population, 2018/04/04.
-#+ATTR_LATEX: :float t
+#+ATTR_LATEX: :float t :placement [!htpb]
 | binary                |                               tomato-RT-N18U-httpd |
 | brood size            |                                                  2 |
 | crossover rate        |                                                0.2 |
@@ -4992,7 +4996,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 | use fragility         |                                               true |
 
 #+CAPTION: Parameters of the \emph{Simtyn}\index{Simtyn} population, 2018/04/04.
-#+ATTR_LATEX: :float t
+#+ATTR_LATEX: :float t :placement [!htpb]
 | binary                    |                               tomato-RT-N18U-httpd |
 | brood size                |                                                  2 |
 | crossover rate            |                                                0.2 |
@@ -5014,7 +5018,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 | use fragility             |                                               true |
 
 #+CAPTION: Parameters of the \emph{Soghuf}\index{Soghuf} population, 2018/04/05.
-#+ATTR_LATEX: :float t
+#+ATTR_LATEX: :float t :placement [!htpb]
 | binary                    |                               tomato-RT-N18U-httpd |
 | brood size                |                                                  2 |
 | crash penalty             |                                                0.2 |
@@ -5039,7 +5043,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 | use fragility             |                                               true |
 
 #+CAPTION: Parameters of the \emph{Wiwzuh}\index{Wiwzuh} population, 2018/04/07.
-#+ATTR_LATEX: :float t
+#+ATTR_LATEX: :float t :placement [!htpb]
 | binary                    |                               tomato-RT-N18U-httpd |
 | brood size                |                                                  2 |
 | crossover rate            |                                                0.2 |
@@ -5061,7 +5065,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 | use dynamic crash penalty |                                               true |
 
 #+CAPTION: Parameters of the \emph{Xeqcyv}\index{Xeqcyv} population, 2018/04/10.
-#+ATTR_LATEX: :float t
+#+ATTR_LATEX: :float t :placement [!htpb]
 | binary                    |                                   tomato-RT-N18U-httpd |
 | brood size                |                                                      2 |
 | crash penalty             |                                                    0.2 |
@@ -5083,7 +5087,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 | use fragility             |                                                   true |
 
 #+CAPTION: Parameters of the \emph{Xilvyb}\index{Xilvyb} population, 2018/04/16.
-#+ATTR_LATEX: :float t
+#+ATTR_LATEX: :float t :placement [!htpb]
 | binary                    | tomato-RT-N18U-httpd |
 | brood size                |                    2 |
 | crash penalty             |                    1 |
@@ -5109,7 +5113,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 | use fragility             |                 true |
 
 #+CAPTION: Parameters of the \emph{Xufmoc}\index{Xufmoc} population, 2018/04/03.
-#+ATTR_LATEX: :float t
+#+ATTR_LATEX: :float t :placement [!htpb]
 | binary                    |                               tomato-RT-N18U-httpd |
 | brood size                |                                                  2 |
 | crossover rate            |                                                0.2 |
@@ -5131,7 +5135,7 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 | use fragility             |                                               true |
 
 #+CAPTION: Parameters of the \emph{Xysxim}\index{Xysxim} population, 2018/04/13.
-#+ATTR_LATEX: :float t
+#+ATTR_LATEX: :float t :placement [!htpb]
 | binary                    | tomato-RT-N18U-httpd |
 | brood size                |                    2 |
 | class masks               |  (random; data lost) |
@@ -5155,7 +5159,18 @@ experiments is =16d38a233b45bab5b57476c11b066cfa=.
 | use dynamic crash penalty |                false |
 | use fragility             |                 true |
 
+* Index of Populations
+The following index tracks the mention and discussion of each gls:roper population
+studied in the course of this thesis. Please see \S [[sec:terminology]] for an explanation
+of the naming convention.
 
 \printindex
-\addcontentsline{toc}{chapter}{Index of Populations}
+# \addcontentsline{toc}{chapter}{Index of Populations}
 
+* Index of Authors
+
+
+
+\begin{multicols}{2}
+\noindent\printauthorindex
+\end{multicols}

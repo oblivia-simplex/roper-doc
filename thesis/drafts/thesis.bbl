@@ -1,5 +1,11 @@
 \begin{thebibliography}{10}
 
+\bibitem{laphroaig13}
+M.~Laphroaig, ``Pastor {M}anul {L}aphroaig's first epistle to hacker preachers
+  of all hats, in the sincerest hope that we might shut up about hats, and get
+  back to hacking,'' {\em International Journal of Proof-of-Concept or Get The
+  Fuck Out (PoC||GTFO)}, vol.~0x00, 2013.
+
 \bibitem{aleph96}
 A.~One, ``Smashing the stack for fun and profit,'' {\em Phrack}, vol.~7,
   November 1996.
@@ -17,7 +23,7 @@ H.~Flake, ``Understanding the fundamentals of attacks: What is happening when
 S.~Bratus, ``What are weird machines?.''
 
 \bibitem{patterson_2012}
-S.~B. Meredith~Patterson and L.~Sassaman, ``A patch for postel's robustness
+M.~Patterson, S.~Bratus, and L.~Sassaman, ``A patch for postel's robustness
   principle,'' {\em Secure Systems}, no.~March/April, 2012.
 
 \bibitem{kornau09}
@@ -74,14 +80,14 @@ S.~P. to~Hell, ``Chomsky hierarchy and the word problem in code mutation.''
   Retrieved from the author's website., 2008.
 
 \bibitem{spth10a}
-S.~T. (aka Second Part~to Hell), ``Artificial evolution in native x86
-  systems.'' Retrieved from the author's website., 2010.
+S.~P. to~Hell, ``Artificial evolution in native x86 systems.'' Retrieved from
+  the author's website., 2010.
 
 \bibitem{xfiles-killswitch}
 W.~Gibson and T.~Maddox, ``Kill switch,'' Feb 1998.
 
 \bibitem{iliopoulos11}
-D.~Iliopoulos, C.~Adami, and P.~Szor, ``Darwin inside the machines: Malware
+D.~Iliopoulos, C.~Adami, and P.~Sz\"or, ``Darwin inside the machines: Malware
   evolution and the consequences for computer security,'' 2011.
 
 \bibitem{kayacik06}
@@ -180,16 +186,17 @@ R.~Dawkins, {\em The Extended Phenotype: The Long Reach of the Gene}.
 \newblock Oxford University Press, 1999.
 
 \bibitem{nordin95}
-F.~F. Peter~Nordin and W.~Banzhaf, ``Explicitly defined introns and destructive
-  crossover in genetic programming,'' 1995.
+P.~Nordin, F.~D. Francone, and W.~Banzhaf, ``Explicitly defined introns and
+  destructive crossover in genetic programming,'' 1995.
 
 \bibitem{brameier07}
 M.~Brameier and W.~Banzhaf, {\em Linear Genetic Programming}.
 \newblock Springer, 2007.
 
 \bibitem{pocorgtfo}
-``International journal of proof-of-concept or get the fuck out (poc||gtfo),''
-  2013 -- 2017.
+{\em International Journal of Proof-of-Concept or Get The Fuck Out
+  (PoC||GTFO)}, vol.~0x00 -- 0x17.
+\newblock 2013 -- 2017.
 
 \bibitem{arm_abi}
 ARM\textregistered, ``Procedure call standard for the
@@ -197,8 +204,8 @@ ARM\textregistered, ``Procedure call standard for the
 \newblock Document number: ARM IHI 0042F, current through ABI release 2.0.
 
 \bibitem{nordin99}
-W.~B. Peter~Nordin and F.~D. Francone, ``Efficient evolution of machine code
-  for \textsc{cisc} architectures using instruction blocks and homologous
-  crossover,'' 1999.
+P.~Nordin, W.~Banzhaf, and F.~D. Francone, ``Efficient evolution of machine
+  code for \textsc{cisc} architectures using instruction blocks and homologous
+  crossover,'' MIT Press, 1999.
 
 \end{thebibliography}
